@@ -8,6 +8,8 @@ export class User {
 
     password: string;
 
+    //id: string;
+
     constructor(name: string, email: string, password: string) {
         this.name = name;
         this.email = this.#validationEmail(email);
@@ -28,5 +30,13 @@ export class User {
         } else {
             throw new Error(ERROR_INPUT_PASSWORD);
         }
+    }
+
+    public get id(): string {
+        return this.id;
+    }
+
+    public set id(value: string) {
+        this.id = value;
     }
 }
