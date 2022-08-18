@@ -1,4 +1,4 @@
 export type AuthType = {
-    userId: string;
-    token: string;
+  userId: string;
+  token: string;
 };
