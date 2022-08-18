@@ -1,0 +1,37 @@
+@import "../assets/styles/variables.scss";
+
+.textbook {
+  &__heading-container {
+    position: relative;
+  }
+
+  &__img-bg {
+    width: 100%;
+  }
+
+  &__text-container {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    bottom: 10px;
+    left: 20px;
+  }
+
+  &__heading {
+    font-family: "Fira Code";
+    letter-spacing: 15px;
+    font-weight: 500;
+    font-size: 128px;
+    line-height: 128px;
+    color: $white10;
+  }
+
+  &__chapter {
+    font-family: "Fira Code";
+    font-weight: 400;
+    font-size: 64px;
+    line-height: 64px;
+    letter-spacing: 15px;
+    color: #ffffff;
+  }
+}
