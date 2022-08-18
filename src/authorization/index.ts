@@ -1,32 +1,11 @@
 import { closeWindowAuth, createUser, identityUser, replacePassword } from './logic';
+import createElement from '../helpers/createElement';
+import appendChildArray from '../helpers/appendChildArray';
+import createInputElement from '../helpers/createInputElement';
 import './style.scss';
 import constants from '../constants/index';
 
 const { SIGN_IN, SIGN_UP, FORGOT_PASS } = constants;
-
-function createElement(type: string, classes: string[], text?: string, id?: string) {
-  const element = document.createElement(type);
-  element.classList.add(...classes);
-  if (text) element.innerText = text;
-  if (id) element.id = id;
-
-  return element;
-}
-
-function createInputElement(type: string, classes: string[], typeInput: string, placeholder: string, id?: string) {
-  const element = createElement(type, classes) as HTMLInputElement;
-  element.type = typeInput;
-  element.placeholder = placeholder;
-  if (id) element.id = id;
-
-  return element;
-}
-
-function appendChildArray(target: HTMLElement, arr: HTMLElement[]) {
-  for (let i = 0; i < arr.length; i++) {
-    target.appendChild(arr[i]);
-  }
-}
 
 function createAuthorizationForm(classes: string[], id: string, text: string, upOrIn: boolean) {
   const container = createElement('div', classes);
