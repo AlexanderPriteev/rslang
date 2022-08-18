@@ -8,12 +8,19 @@ export class User {
 
   password: string;
 
-  //id: string;
+  id: string;
 
-  constructor(name: string, email: string, password: string) {
+  token: string;
+
+  refreshToken: string;
+
+  constructor(name: string, email: string, password: string, id = '', token = '', refreshToken = '') {
     this.name = name;
     this.email = this.#validationEmail(email);
     this.password = this.#validationPassword(password);
+    this.id = id;
+    this.token = token;
+    this.refreshToken = refreshToken;
   }
 
   #validationEmail(email: string) {
@@ -30,13 +37,5 @@ export class User {
     } else {
       throw new Error(ERROR_INPUT_PASSWORD);
     }
-  }
-
-  public get id(): string {
-    return this.id;
-  }
-
-  public set id(value: string) {
-    this.id = value;
   }
 }
