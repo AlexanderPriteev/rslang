@@ -1,3 +1,3 @@
-import { renderAuthorization } from '../src/authorization/index';
+import app from './app/app';
 
-void renderAuthorization(); // вызов окна авторизации
+app();

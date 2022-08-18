@@ -35,6 +35,18 @@ const baseConfig = {
                         }
                     }
                 ]
+            },
+            {
+                test: /\.(png|jpe?g|gif)$/i,
+                use: [
+                    {
+                        loader: 'file-loader',
+                    },
+                ],
+            },
+            {
+                test: /\.svg$/,
+                loader: 'svg-inline-loader'
             }
         ],
     },
@@ -53,7 +65,7 @@ const baseConfig = {
             template: path.resolve(__dirname, './src/index.html'),
             filename: 'index.html',
         }),
-        new CleanWebpackPlugin(), 
+        new CleanWebpackPlugin(),
         new CopyPlugin({
             patterns: [
                 {
@@ -62,7 +74,7 @@ const baseConfig = {
                     noErrorOnMissing: true
                 },
             ],
-        }),     
+        }),
     ],
 };
 
