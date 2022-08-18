@@ -20,21 +20,18 @@ const addListeners = () => {
 
   void getNewContent(); // инициализация слов при открытии страницы
 
-  // eslint-disable-next-line @typescript-eslint/no-misused-promises
   toFirstBtn?.addEventListener('click', () => {
     page = 0;
     pageNumber.innerHTML = `${page + 1}`;
     void getNewContent();
   });
 
-  // eslint-disable-next-line @typescript-eslint/no-misused-promises
   toPrevBtn?.addEventListener('click', () => {
     page = page > 0 ? page - 1 : 0;
     pageNumber.innerHTML = `${page + 1}`;
     void getNewContent();
   });
 
-  // eslint-disable-next-line @typescript-eslint/no-misused-promises
   toNextBtn?.addEventListener('click', () => {
     page = page !== 29 ? page + 1 : 29;
     pageNumber.innerHTML = `${page + 1}`;
