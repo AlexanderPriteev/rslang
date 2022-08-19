@@ -14,6 +14,10 @@ const request = async (
     throw new Error(`Could not fetch ${url}, status: ${response.status}`);
   }
 
+  if (method === 'DELETE') {
+    return; // без этого блока присутствует баг при удаление слова
+  }
+
   const data = (await response.json()) as unknown;
   return data;
 };
