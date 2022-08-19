@@ -14,3 +14,9 @@ export interface WordInterface {
   word: string;
   wordTranslate: string;
 }
+
+export interface UserWordInterface {
+  id: string;
+  difficulty: string;
+  wordId: string;
+}

@@ -1,6 +1,7 @@
 import requestMethods from '../services/requestMethods';
+import { getStore } from '../storage/index';
 import { TextbookSessionInterface } from '../types/sessionStorage';
-import { WordInterface } from '../types/wordInterface';
+import { UserWordInterface, WordInterface } from '../types/wordInterface';
 import renderWordCard from './createWordElement';
 import renderWordList from './renderWordList';
 
@@ -12,8 +13,22 @@ let chapter = ~~savedPageStorage.chapter;
 let page = ~~savedPageStorage.page;
 
 const getNewContent = async () => {
+  const user = getStore()!; // ???
   const newContent = (await request.getWords(chapter, page)) as WordInterface[];
-  renderWordList(newContent);
+  const userWords = (await request.getAllUserWords(user.id, user.token)) as UserWordInterface[];
+
+  if (chapter === 6) {
+    const complicatedWords = userWords
+      .filter((item) => item.difficulty === 'complicated')
+      .map((item) => {
+        const complicatedWord = request.getWordById(item.wordId);
+        return complicatedWord;
+      });
+    const complicatedWordsDataAwait = Promise.all(complicatedWords);
+    void complicatedWordsDataAwait.then((data) => renderWordList(data as WordInterface[], userWords));
+    return;
+  }
+  renderWordList(newContent, userWords);
 };
 
 const updatePageContent = () => {
