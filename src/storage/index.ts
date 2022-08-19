@@ -11,6 +11,7 @@ export function setStore(user: User) {
   storage.setItem('user', JSON.stringify(user));
 }
 
+//TODO: сделать удаление обьекта из локал сторадж при локауте
 export function removeStore(user: User) {
   storage.removeItem('user');
 }
