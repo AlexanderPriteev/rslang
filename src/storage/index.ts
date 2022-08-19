@@ -1,26 +1,16 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
-import { AuthType } from '../types/index';
+import { User } from '../types/User';
 
-class Singleton {
-  private static instance: Singleton;
+const storage = window.localStorage;
 
-  private constructor() {}
-
-  public static getInstance(): Singleton {
-    if (!Singleton.instance) {
-      Singleton.instance = new Singleton();
-    }
-
-    return Singleton.instance;
-  }
-
-  public get authUser(): AuthType {
-    return this.authUser;
-  }
-
-  public set authUser(value: AuthType) {
-    this.authUser = value;
-  }
+export function getStore(): User | undefined {
+  const userStr = storage.getItem('user');
+  if (userStr) return JSON.parse(userStr) as User;
 }
 
-export const store = Singleton.getInstance();
+export function setStore(user: User) {
+  storage.setItem('user', JSON.stringify(user));
+}
+
+export function removeStore(user: User) {
+  storage.removeItem('user');
+}

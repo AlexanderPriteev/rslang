@@ -1,3 +1,4 @@
+import { User } from '../types/User';
 import request from './request';
 
 const requestMethods = () => {
@@ -13,13 +14,8 @@ const requestMethods = () => {
     return res;
   };
 
-  const createUser = async (name: string, email: string, password: string) => {
-    const newUser = {
-      name,
-      email,
-      password,
-    };
-    await request(`${base}users`, 'POST', JSON.stringify(newUser));
+  const createUser = async (user: User) => {
+    return request(`${base}users`, 'POST', JSON.stringify(user));
   };
 
   const getUserById = async (id: string) => {
@@ -95,7 +91,7 @@ const requestMethods = () => {
   };
 
   const userSignIn = async (email: string, password: string) => {
-    await request(`${base}signin`, 'POST', JSON.stringify({ email, password }));
+    return request(`${base}signin`, 'POST', JSON.stringify({ email, password }));
   };
 
   return {

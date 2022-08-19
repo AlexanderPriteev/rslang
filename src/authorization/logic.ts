@@ -1,39 +1,67 @@
+import requestMethods from '../services/requestMethods';
+import { getStore, setStore } from '../storage/index';
+import { SignIn, UserCreateRes } from '../types/index';
 import { User } from '../types/User';
 
-//создать нового пользователя
-export function createUser() {
-  try {
-    const inputName = document.querySelector('input[type="text"]') as HTMLInputElement;
-    const inputUpEmail = document.querySelector('#emailUp') as HTMLInputElement;
-    const inputUpPass = document.querySelector('#passUp') as HTMLInputElement;
+function getEmailAndPassFromForm(InOrUp: boolean) {
+  const str = InOrUp ? 'In' : 'Up';
 
+  const inputInEmail = document.querySelector('#email' + str) as HTMLInputElement;
+  const inputInPass = document.querySelector('#pass' + str) as HTMLInputElement;
+  const email = inputInEmail.value;
+  const password = inputInPass.value;
+
+  return { email, password, inputInEmail, inputInPass };
+}
+
+//создать нового пользователя
+export async function createUser() {
+  try {
+    const { email, password } = getEmailAndPassFromForm(false);
+    const inputName = document.querySelector('input[type="text"]') as HTMLInputElement;
     const name = inputName.value;
-    const email = inputUpEmail.value;
-    const password = inputUpPass.value;
+
     const user = new User(name, email, password);
-    //TODO: запись в БД юзера
+    const { id } = (await requestMethods().createUser(user)) as UserCreateRes;
+    user.id = id;
+    const { token, refreshToken } = (await requestMethods().userSignIn(user.email, user.password)) as SignIn;
+    user.token = token;
+    user.refreshToken = refreshToken;
+    setStore(user);
+    console.log(getStore());
+
+    //TODO: при окончании регистрации надо поменять вид кнопки авторизации на "выйти"
   } catch (error) {
     console.log(error); //TODO: сделать вывод сообщения в форме об неверном пароле/email
   }
 }
 
 //вход для ранее зарегистрированного пользователя
-export function identityUser() {
+export async function identityUser() {
   try {
-    const inputInEmail = document.querySelector('#emailIn') as HTMLInputElement;
-    const inputInPass = document.querySelector('#passIn') as HTMLInputElement;
-    const email = inputInEmail.value;
-    const password = inputInPass.value;
-    //TODO: проверка в БД наличия пользователя. Выбросить ошибку, если нет. Если есть - получить токен и тд...
+    const { email, password } = getEmailAndPassFromForm(true);
+    const { token, refreshToken, userId, name } = (await requestMethods().userSignIn(email, password)) as SignIn;
+    const user = new User(name, email, password, userId, token, refreshToken);
+    setStore(user);
+    console.log(getStore());
   } catch (error) {
-    console.log(error);
+    console.log(error); //TODO: сделать вывод сообщения в форме об неверном пароле/email
   }
 }
 
+//принудительное закрытие окна авторизации
 export function closeWindowAuth() {
-  alert('сделать закрытие окна');
+  const section = document.querySelector('section.section-authorization');
+
+  if (section) section.parentNode?.removeChild(section);
 }
 
+//сбросить пароль
 export function replacePassword() {
-  alert('сделать замену пароля');
+  const { email, password } = getEmailAndPassFromForm(true);
+  document.querySelector('div.container')?.classList.add('right-panel-active');
+
+  const { inputInEmail, inputInPass } = getEmailAndPassFromForm(false);
+  inputInEmail.value = email;
+  inputInPass.value = password;
 }
