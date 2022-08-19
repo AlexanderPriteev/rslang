@@ -5,7 +5,7 @@ import '../global.scss';
 
 const app = () => {
   void renderAuthorization('body'); // вызов окна авторизации
-  //textbook();
+  textbook();
 };
 
 export default app;

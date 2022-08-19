@@ -2,7 +2,11 @@ const request = async (
   url: string,
   method = 'GET',
   body: string | null = null,
-  headers = { 'Content-type': 'application/json' }
+  headers: {
+    'Content-type'?: string;
+    Authorization?: string;
+    Accept?: string;
+  } = { 'Content-type': 'application/json' }
 ) => {
   const response = await fetch(url, { method, body, headers });
 
