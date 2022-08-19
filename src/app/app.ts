@@ -7,7 +7,7 @@ import '../assets/styles/atom.scss';
 
 const app = () => {
   // void renderAuthorization(); // вызов окна авторизации
-  textbook();
+  // textbook();
 };
 
 export default app;

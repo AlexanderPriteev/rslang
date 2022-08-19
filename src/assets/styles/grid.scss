@@ -20,17 +20,6 @@ body{
   min-width: 120rem;
 }
 
-.content-wrapper{
-  display: flex;
-  flex-grow: 1;
-  box-sizing: border-box;
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  overflow: hidden;
-  padding-top: 9.2rem;
-}
-
 .main-section{
   display: flex;
   flex-direction: column;
@@ -39,3 +28,20 @@ body{
   box-sizing: border-box;
   padding-left: $aside-close;
 }
+
+
+.content-wrapper{
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  box-sizing: border-box;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+  padding-top: 9.2rem;
+  background-position: top center;
+  background-size: cover;
+  background-image: $background-main;
+}
+

@@ -9,18 +9,128 @@
 <body>
 <div class="page-wrapper">
     <header class="header">
-        <i class="header__collapse"></i>
-
+        <i class="header__collapse icon-navigation"></i>
+        <span class="header__logo">
+            <img src="./assets/images/lang-logo.svg" alt="RS Lang" class="img--contain">
+        </span>
+        <div class="header__user">
+            <div class="user">
+                <i class="user__icon"></i>
+                <div class="user__data">ВОЙТИ</div>
+            </div>
+        </div>
     </header>
     <main class="main-section">
         <aside class="sidebar">
+            <nav class="sidebar__nav">
+                <div class="nav-link active">
+                    <i class="nav-link__icon icon-building-home"></i>
+                    <span class="nav-link__title">Домой</span>
+                </div>
+                <div class="nav-link ">
+                    <i class="nav-link__icon icon-book-close"></i>
+                    <span class="nav-link__title">Учебник</span>
+                </div>
+                <div class="nav-link">
+                    <i class="nav-link__icon icon-dictionary"></i>
+                    <span class="nav-link__title">Словарь</span>
+                </div>
+                <div class="nav-link">
+                    <i class="nav-link__icon icon-game-handle"></i>
+                    <span class="nav-link__title">Игры</span>
+                </div>
+                <div class="nav-link">
+                    <i class="nav-link__icon icon-chart-column"></i>
+                    <span class="nav-link__title">Статистика</span>
+                </div>
+            </nav>
+            <div class="sidebar__link">
+                <a href="" class="nav-link">
+                    <i class="nav-link__icon icon-info-square"></i>
+                    <span class="nav-link__title">О Нас</span>
+                </a>
+            </div>
 
         </aside>
         <div class="content-wrapper">
+            <section class="main-resources">
+                <div class="card-link">
+                    <i class="card-link__icon  icon-book-close"></i>
+                    <h3 class="card-link__title">Учебник</h3>
+                </div>
 
+                <div class="card-link">
+                    <i class="card-link__icon icon-dictionary"></i>
+                    <h3 class="card-link__title">Словарь</h3>
+                </div>
+
+                <div class="card-link">
+                    <i class="card-link__icon icon-game-handle"></i>
+                    <h3 class="card-link__title">Игры</h3>
+                </div>
+
+                <div class="card-link">
+                    <i class="card-link__icon icon-chart-column"></i>
+                    <h3 class="card-link__title">Статистика</h3>
+                </div>
+            </section>
+            <section class="main-video">
+                <h2 class="headline">о проекте</h2>
+                <div class="main-iframe">
+                    <iframe class="img img--contain" src="https://www.youtube.com/embed/3bPL6YNZGOQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </section>
+            <section class="main-about">
+                <h2 class="headline">о нас</h2>
+                <div class="main-card-wrapper">
+                    <div class="main-card">
+                        <div class="main-card__image">
+                            <img src="assets/images/devs/alexander.jpg" alt="" class="img img--cover">
+                        </div>
+                        <div class="main-card__data">
+                            <h3 class="main-card__title">Александр</h3>
+                            <p class="main-card__about">Что-то сделал...</p>
+                        </div>
+                    </div>
+                    <div class="main-card">
+                        <div class="main-card__image">
+                            <img src="assets/images/devs/alexander.jpg" alt="" class="img img--cover">
+                        </div>
+                        <div class="main-card__data">
+                            <h3 class="main-card__title">Александр</h3>
+                            <p class="main-card__about">Что-то сделал...</p>
+                        </div>
+                    </div>
+                    <div class="main-card">
+                        <div class="main-card__image">
+                            <img src="assets/images/devs/alexander.jpg" alt="" class="img img--cover">
+                        </div>
+                        <div class="main-card__data">
+                            <h3 class="main-card__title">Александр</h3>
+                            <p class="main-card__about">Что-то сделал...</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
     </main>
-    <footer class="footer"></footer>
+    <footer class="footer">
+        <a href="" class="footer__logo">
+            <img src="./assets/images/rs_school.svg" alt="RSS" class="img--contain">
+        </a>
+        <div class="footer__about about">
+            <div class="about__headline">
+                <i class="about__icon icon-team"></i>
+                <h3 class="about__title">Разработчики</h3>
+            </div>
+            <div class="about__body">
+                <a href="" class="about__link">Yury Lapitski</a>
+                <a href="" class="about__link">Kirill Kolupaev</a>
+                <a href="" class="about__link">Alexander Priteev</a>
+            </div>
+        </div>
+        <p class="footer__creat">CREATED AT 2022</p>
+    </footer>
 </div>
 
 </body>

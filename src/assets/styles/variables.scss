@@ -10,7 +10,7 @@ $lightblue: #008997;
 $primary: #A588E2;
 $primary-dark: #563C8A;
 $primary-light: #E7DBFF;
-$primary-light-2: #D5C0FF;
+$primary-light-2: #DFD0FF;
 
 $white: #FFFFFF;
 $black: #1d1d1d;
@@ -22,7 +22,7 @@ $bg-light: #FCFAFF;
 
 
 //shadow
-$shadow-sidebar: .4rem 0 .8rem rgba($black, .07);
+$shadow-sidebar: .4rem 0 .8rem rgba($black, .15);
 $shadow-1: .4rem .4rem 2rem rgba($black, .1);
 $shadow-2: .4rem .4rem 1.2rem rgba($primary-dark, .25);
 
@@ -35,8 +35,11 @@ $f-bold: 500;
 //sizes
 $aside-close: 7.2rem;
 $aside-open: 26.4rem;
+$header: 8.2rem;
+$footer: 9.2rem;
 
 //сделать бэкграунд как и других на страницах
+$background-main: url("data:image/svg+xml,%3Csvg viewBox='0 0 1920 11329' xmlns='http://www.w3.org/2000/svg'%3E%3Cellipse cx='746' cy='178' rx='1219' ry='964' fill='%23E7DBFF'/%3E%3Cellipse cx='1316' cy='3049' rx='1418' ry='993' fill='%23E7DBFF'/%3E%3Cellipse cx='-103' cy='6046' rx='1418' ry='993' fill='%23E7DBFF'/%3E%3Cellipse cx='1303' cy='9317' rx='1418' ry='993' fill='%23E7DBFF'/%3E%3C/svg%3E");
 $background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1921 980' xmlns='http://www.w3.org/2000/svg%27%3E%3Cellipse cx='304' cy='-534' rx='1220' ry='964' fill='%23E7DBFF'/%3E%3Cellipse cx='1239' cy='1454' rx='1220' ry='964' fill='%23E7DBFF'/%3E%3C/svg%3E");
 /* RADII */
 $button-radius: 0.7rem;
