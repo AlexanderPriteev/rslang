@@ -81,6 +81,13 @@
     justify-content: center;
     gap: 12px;
   }
+
+  &__word-list {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    margin-top: 40px;
+  }
 }
 
 .icon-run-fast,

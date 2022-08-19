@@ -30,6 +30,7 @@ const renderTextBookNavPanel = () => {
        <option class="textbook-select-option">Раздел 4</option>
        <option class="textbook-select-option">Раздел 5</option>
        <option class="textbook-select-option">Раздел 6</option>
+       <option class="textbook-select-option">Раздел 7</option>
      </select>
     <div class="textbook__page-changer">
      <button class="textbook__to-first-page"><span class="icon-to-first"></span></button>

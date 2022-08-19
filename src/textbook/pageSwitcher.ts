@@ -1,24 +1,27 @@
 import requestMethods from '../services/requestMethods';
 import { WordInterface } from '../types/wordInterface';
+import renderWordCard from './createWordElement';
+import renderWordList from './renderWordList';
+
+const request = requestMethods();
+
+let chapter = 0;
+let page = 0;
+
+const getNewContent = async () => {
+  const newContent = (await request.getWords(chapter, page)) as WordInterface[];
+  renderWordList(newContent);
+};
+
+void getNewContent(); // инициализация слов при открытии страницы
 
 const addListeners = () => {
-  const request = requestMethods();
   const pageNumber = document.querySelector('.textbook__current-page') as NonNullable<HTMLElement>;
   const toFirstBtn = document.querySelector('.textbook__to-first-page');
   const toPrevBtn = document.querySelector('.textbook__to-prev-page');
   const toLastBtn = document.querySelector('.textbook__to-last-page');
   const toNextBtn = document.querySelector('.textbook__to-next-page');
   const chapterSelection = document.querySelector('.textbook-select');
-
-  let chapter = 0;
-  let page = 0;
-
-  const getNewContent = async () => {
-    const newContent = (await request.getWords(chapter, page)) as WordInterface[];
-    console.log(newContent);
-  };
-
-  void getNewContent(); // инициализация слов при открытии страницы
 
   toFirstBtn?.addEventListener('click', () => {
     page = 0;
