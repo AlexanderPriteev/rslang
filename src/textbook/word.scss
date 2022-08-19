@@ -1,6 +1,13 @@
 .word {
   display: flex;
-  max-width: 1297px;
+  position: relative;
+  max-width: 1217px;
+  height: 294px;
+  padding: 40px;
+  gap: 60px;
+  background: #ffffff;
+  box-shadow: 4px 4px 12px rgba(86, 60, 138, 0.25);
+  border-radius: 12px;
 
   &__translate-container {
     display: flex;
@@ -11,5 +18,87 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+  }
+
+  &__image {
+    border-radius: 50px;
+    width: 250px;
+    height: 250px;
+  }
+
+  &__heading {
+    font-family: "Fira Code";
+    font-weight: 500;
+    font-size: 34px;
+    line-height: 32px;
+    color: #000000;
+  }
+
+  &__translate {
+    font-family: "Fira Code";
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 32px;
+    color: #000000;
+  }
+
+  .icon-volume {
+    font-size: 28px;
+  }
+
+  &__definition-en,
+  &__definition-ru {
+    font-family: "Fira Code";
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 36px;
+    color: #000000;
+  }
+
+  &__example-en,
+  &__example-ru {
+    font-family: "Fira Code";
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  &__example-en span,
+  &__example-ru span {
+    padding: 8px 10px;
+    background: #f9f6ff !important;
+    border-radius: 6px;
+    display: inline-block;
+  }
+
+  &__buttons-container {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 40px;
+    position: absolute;
+    top: 50px;
+    right: 50px;
+  }
+
+  &__add-complicated,
+  &__add-learned {
+    display: flex;
+    gap: 6px;
+  }
+
+  &__add-complicated {
+    font-family: "Fira Code";
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #422d6d;
+  }
+
+  &__add-learned {
+    font-family: "Fira Code";
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #4eed5e;
   }
 }
