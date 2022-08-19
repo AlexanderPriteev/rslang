@@ -1,0 +1,153 @@
+@import "../assets/styles/variables.scss";
+
+.sprint-container {
+  background-position: center;
+	background-repeat: no-repeat;
+  max-width: $sprint-max-width;
+  height: $sprint-height;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sprint-start-window {
+  background-image: url("../assets/images/sprint-1.jpg");
+}
+
+.btn-close {
+  position: absolute;
+  width: 72px;
+  height: 72px;
+  right: 21px;
+  top: 21px;
+  background: rgba(255, 255, 255, 0.4);
+  border: 2px solid #FFFFFF;
+  backdrop-filter: blur(4px);
+  border-radius: 36px;
+  cursor: pointer;
+  opacity: 0.7;
+}
+.btn-close:hover {
+	opacity: 1;
+}
+.btn-close:before,
+.btn-close:after {
+	position: absolute;
+	left: 47%;
+  top: 13px;
+	content: "";
+	height: 50px;
+	width: 7px;
+	background-color: $white10;
+}
+.btn-close:before {
+  border-radius: 5px;
+	transform: rotate(45deg);
+}
+.btn-close:after {
+  border-radius: 5px;
+	transform: rotate(-45deg);
+}
+
+.game-category {
+  box-sizing: border-box;
+  max-width: 638px;
+  height: 525px; 
+  background: rgba(255, 255, 255, 0.3);
+  border: 5px solid $white10;
+  backdrop-filter: blur(24px);
+  border-radius: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  flex-wrap: wrap;
+  gap: 34px;
+  padding: 105px 0 76px 0;
+
+  .game-category__text {
+    position: absolute;
+    top: 41px;
+    height: 32px;    
+    font-family: 'Fira Code';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 32px;
+    letter-spacing: -0.03em;
+    color: $white10;    
+  }
+
+  .game-category__section {
+    width: 150px;
+    height: 150px;
+    //border: 3px solid $white10;
+    border-radius: 75px;
+    cursor: pointer; 
+  }
+}
+
+.section1 {
+  background-image: url("../assets/images/sprint-section1.png");
+}
+.section2 {
+  background-image: url("../assets/images/sprint-section2.png");
+}
+.section3 {
+  background-image: url("../assets/images/sprint-section3.png");
+}
+.section4 {
+  background-image: url("../assets/images/sprint-section4.png");
+}
+.section5 {
+  background-image: url("../assets/images/sprint-section5.png");
+}
+.section6 {
+  background-image: url("../assets/images/sprint-section6.png");
+}
+
+.sprint-game-container {
+  background-image: url("../assets/images/sprint-2.jpg");
+}
+
+.sprint-sound {
+  position: absolute;
+  width: 72px;
+  height: 72px;
+  left: 75px;
+  top: 39px;
+  background: rgba(255, 255, 255, 0.4);
+  border: 2px solid #FFFFFF;
+  backdrop-filter: blur(4px);
+  border-radius: 36px;
+}
+
+.sprint-quest-container {
+  width: 725px;
+  height: 490px;    
+}
+
+.sprint-time-counter {
+  width: 129px;
+  height: 75px;  
+  background: rgba(255, 255, 255, 0.3);
+  border: 5px solid #FFFFFF;
+  backdrop-filter: blur(4px);  
+  border-radius: 12px;
+}
+
+.sprint-quest {
+  width: 638px;
+  height: 490px;  
+  background: rgba(255, 255, 255, 0.3);
+  border: 5px solid #FFFFFF;
+  backdrop-filter: blur(24px);  
+  border-radius: 24px;
+}
+
+
+
+
+.hidden {
+  display: none;
+}
+

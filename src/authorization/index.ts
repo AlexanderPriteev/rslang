@@ -1,9 +1,10 @@
-import { closeWindowAuth, createUser, identityUser, replacePassword } from './logic';
+import { createUser, identityUser, replacePassword } from './logic';
 import createElement from '../helpers/createElement';
 import appendChildArray from '../helpers/appendChildArray';
 import createInputElement from '../helpers/createInputElement';
 import './style.scss';
 import constants from '../constants/index';
+import { closeWindow } from '../helpers/closeWindow';
 
 const { SIGN_IN, SIGN_UP, FORGOT_PASS } = constants;
 
@@ -38,7 +39,7 @@ function addCloseForm() {
   const container = document.querySelector('div.container');
   const close = createElement('a', ['close']) as HTMLAnchorElement;
   close.href = '#';
-  close.addEventListener('click', () => closeWindowAuth());
+  close.addEventListener('click', () => closeWindow('section.section-authorization'));
 
   container?.appendChild(close);
 }
