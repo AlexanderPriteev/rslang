@@ -1,0 +1,15 @@
+.word {
+  display: flex;
+  max-width: 1297px;
+
+  &__translate-container {
+    display: flex;
+  }
+
+  &__usage-container-en,
+  &__usage-container-ru {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+}
