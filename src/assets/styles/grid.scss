@@ -1,0 +1,41 @@
+html{
+  font-family: $font-primary;
+  font-weight: $f-normal;
+  color: $text;
+  font-size: 10px;
+  scroll-behavior: smooth;
+
+}
+
+body{
+  background-color: $bg-light;
+}
+
+.page-wrapper{
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  //заглушка до адаптива
+  min-width: 120rem;
+}
+
+.content-wrapper{
+  display: flex;
+  flex-grow: 1;
+  box-sizing: border-box;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+  padding-top: 9.2rem;
+}
+
+.main-section{
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  position: relative;
+  box-sizing: border-box;
+  padding-left: $aside-close;
+}

@@ -1,7 +1,9 @@
+import '../styles.scss';
 import { renderAuthorization } from '../../src/authorization/index';
 import textbook from '../textbook/textbook';
-import '../assets/styles/font-icons.scss';
-import '../global.scss';
+
+//должны быть последними
+import '../assets/styles/atom.scss';
 
 const app = () => {
   // void renderAuthorization(); // вызов окна авторизации
