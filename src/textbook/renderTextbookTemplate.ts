@@ -43,11 +43,11 @@ const renderTextBookNavPanel = () => {
   <div class="textbook__nav-wrapper">
     <div class="textbook__game-list">
       <button class="textbook__game-btn">
-        <span class="icon-music-box"></span>
+        <span class="icon-music-box textbook__game-icon"></span>
         <span class="textbook__game-name">Аудиовызов</span>
       </button>
       <button class="textbook__game-btn">
-        <span class="icon-run-fast"></span>
+        <span class="icon-run-fast textbook__game-icon"></span>
         <span class="textbook__game-name">Спринт</span>
       </button>
     </div>

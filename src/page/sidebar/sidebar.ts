@@ -1,8 +1,9 @@
 import createElement from '../../helpers/createElement';
 import textbook from "../../textbook/textbook";
 import {mainPage} from "../main/main-page";
+import {gamesPage} from "../../games/games";
 
-interface NavItem {
+export interface NavItem {
     name: string;
     icon: string;
     title: string;
@@ -94,6 +95,8 @@ export function sidebar(header?: HTMLElement) {
         switch (e.name) {
             case 'book': nav.onclick = () => textbook()
                 break
+            case 'games': nav.onclick = () => gamesPage()
+                break;
             //  добавить остальные страницы
             default: nav.onclick = () => mainPage()
         }

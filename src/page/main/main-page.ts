@@ -2,6 +2,7 @@ import createElement from '../../helpers/createElement';
 import {navs} from "../sidebar/sidebar";
 import textbook from "../../textbook/textbook";
 import {devs} from "../about/about-const";
+import {gamesPage} from "../../games/games";
 
 //пока заглушка
 const youtubeIframe = `<iframe class="img img--contain" 
@@ -31,6 +32,8 @@ function mainResources() {
             resources.append(nav)
             switch (e.name) {
                 case 'book': nav.onclick = () => textbook()
+                    break;
+                case 'games': nav.onclick = () => gamesPage()
                     break;
                 //  добавить остальные страницы
                 default: return

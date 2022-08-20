@@ -3,10 +3,6 @@
 .textbook {
   background: $background-image;
 
-  &__heading-container {
-    position: relative;
-  }
-
   &__img-bg {
     width: 100%;
   }
@@ -15,83 +11,82 @@
     display: flex;
     flex-direction: column;
     position: absolute;
-    bottom: 10px;
-    left: 20px;
+    bottom: 1rem;
+    left: 2rem;
   }
 
   &__heading {
-    font-family: "Fira Code";
-    letter-spacing: 15px;
-    font-weight: 500;
-    font-size: 128px;
-    line-height: 128px;
+    letter-spacing: 1.5rem;
+    font-weight: $f-bold;
+    font-size: 12.8rem;
+    line-height: 12.8rem;
     color: $white10;
+
+    &-container {
+      position: relative;
+    }
   }
 
   &__chapter {
-    font-family: "Fira Code";
-    font-weight: 400;
-    font-size: 64px;
-    line-height: 64px;
-    letter-spacing: 15px;
-    color: #ffffff;
+    font-size: 6.4rem;
+    line-height: 6.4rem;
+    letter-spacing: 1.5rem;
+    color: $white;
   }
 
   &__content-wrapper {
-    max-width: 1297px;
-    margin: 83px auto 0 auto;
-  }
-
-  &__nav-wrapper:first-child {
-    display: flex;
-    gap: 39px;
-    font-family: "Fira Code";
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 24px;
-    color: #422d6d;
+    max-width: 129.8rem;
+    margin: 8.2rem auto 0 auto;
   }
 
   &__nav {
     display: flex;
     justify-content: space-between;
-    background: #f7f3ff;
-    padding: 20px 40px;
+    background-color: $bg-dark;
+    padding: 2rem 4rem;
+    &-wrapper{
+      &:first-child{
+        display: flex;
+        gap: 3.9rem;
+        font-weight: $f-bold;
+        font-size: 2rem;
+        line-height: 2.4rem;
+        color: $text;
+      }
+    }
   }
 
   &__page-changer {
     display: flex;
-    gap: 12px;
+    gap: 1.2rem;
     align-items: center;
     justify-content: space-between;
   }
 
-  &__game-list {
-    display: flex;
-    gap: 36px;
-    font-family: "Fira Code";
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 24px;
-    color: #422d6d;
-  }
-
-  &__game-btn {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
+  &__game{
+    &-list {
+      display: flex;
+      gap: 3.6rem;
+      font-weight: $f-bold;
+      font-size: 2rem;
+      line-height: 2.4rem;
+      color: $text;
+    }
+    &-btn {
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+    }
+    &-icon {
+      color: #422d6d;
+      font-size: 2.4rem;
+    }
   }
 
   &__word-list {
     display: flex;
     flex-direction: column;
-    gap: 40px;
-    margin-top: 40px;
+    gap: 4rem;
+    margin-top: 4rem;
   }
-}
-
-.icon-run-fast,
-.icon-music-box {
-  color: #422d6d;
-  font-size: 24px;
 }

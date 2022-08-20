@@ -36,6 +36,10 @@
   cursor: pointer;
   transition: color .3s linear, border-color .3s linear;
 
+  &--lg{
+    width: calc(50% - 3.6rem);
+  }
+
   &:hover {
     border-color: $primary-dark;
     color: $primary-dark;
