@@ -16,3 +16,9 @@ export type SignIn = {
   userId: string;
   name: string;
 };
+
+export type SprintResult = {
+  wordEn: string;
+  wordRu: string;
+  result: boolean;
+};
