@@ -1,13 +1,11 @@
 import '../styles.scss';
-import {page} from "../page/page";
+import { pageRender } from '../page/page';
 
 //должны быть последними
 import '../assets/styles/atom.scss';
 
-
-
-const app = () =>  {
-    page()
+const app = () => {
+  pageRender();
 };
 
 export default app;
