@@ -43,7 +43,7 @@ function addCloseForm() {
   container?.appendChild(close);
 }
 
-export function renderAuthorization() {
+export function renderAuthorization(target: HTMLElement | string) {
   const sectionAuthorization = createElement('section', ['section-authorization']);
   const container = createElement('div', ['container', 'right-panel-active']);
   const formSignUp = createAuthorizationForm(['container__form', 'container--signup'], 'form1', SIGN_UP, true);
@@ -63,7 +63,12 @@ export function renderAuthorization() {
 
   appendChildArray(container, [formSignUp[0], formSignIn[0], containerOverlay]);
   sectionAuthorization.appendChild(container);
-  document.querySelector('body')?.appendChild(sectionAuthorization); //TODO: тут поменять потом
+
+  if (typeof target === 'string') {
+    document.querySelector(target)?.appendChild(sectionAuthorization);
+  } else {
+    target.appendChild(sectionAuthorization);
+  }
 
   addCloseForm();
 

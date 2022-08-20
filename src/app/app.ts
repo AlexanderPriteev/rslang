@@ -6,7 +6,7 @@ import textbook from '../textbook/textbook';
 import '../assets/styles/atom.scss';
 
 const app = () => {
-  // void renderAuthorization(); // вызов окна авторизации
+  // void renderAuthorization('body'); // вызов окна авторизации
   // textbook();
 };
 
