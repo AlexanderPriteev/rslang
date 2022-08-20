@@ -110,41 +110,231 @@
 }
 
 .sprint-sound {
+  cursor: pointer; 
   position: absolute;
   width: 72px;
   height: 72px;
   left: 75px;
   top: 39px;
   background: rgba(255, 255, 255, 0.4);
-  border: 2px solid #FFFFFF;
+  border: 2px solid $white10;
   backdrop-filter: blur(4px);
   border-radius: 36px;
+  background-image: url("../assets/images/volume.png");
+  background-size: cover;
+  opacity: 0.7;
+}
+
+.sprint-sound:hover {
+  opacity: 1;
 }
 
 .sprint-quest-container {
-  width: 725px;
-  height: 490px;    
-}
-
-.sprint-time-counter {
-  width: 129px;
-  height: 75px;  
-  background: rgba(255, 255, 255, 0.3);
-  border: 5px solid #FFFFFF;
-  backdrop-filter: blur(4px);  
-  border-radius: 12px;
-}
-
-.sprint-quest {
   width: 638px;
-  height: 490px;  
-  background: rgba(255, 255, 255, 0.3);
-  border: 5px solid #FFFFFF;
-  backdrop-filter: blur(24px);  
-  border-radius: 24px;
+  height: 580px;  
+  
+  .sprint-time-counter {
+    width: 129px;
+    height: 75px;  
+    background: rgba(255, 255, 255, 0.3);
+    border: 5px solid $white10;
+    backdrop-filter: blur(4px);  
+    border-radius: 12px;
+    font-family: 'Fira Code';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 64px;
+    line-height: 64px;
+    color: $white10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+
+  .sprint-quest {
+    width: 638px;
+    height: 490px;  
+    background: rgba(255, 255, 255, 0.3);
+    border: 5px solid $white10;
+    backdrop-filter: blur(24px);  
+    border-radius: 24px;
+
+    .sprint-quest-header {
+      height: 90px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;      
+
+      .quest-header__coefficient {
+        width: 56px;
+        height: 52px;
+        font-family: 'Fira Code';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 46px;
+        line-height: 52px;   
+        color: $white10;   
+      }
+
+      .quest-header__status {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 118px;
+        height: 26px;
+        gap: 20px;
+
+        div {
+          width: 26px;
+          height: 26px;    
+          background: $white10;
+          border-radius: 50%;
+        }
+      }
+
+      .quest-header__count-true {
+        width: 56px;
+        height: 52px; 
+        font-family: 'Fira Code';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 46px;
+        line-height: 52px;
+        color: $white10;     
+      }
+    }
+  }
 }
 
 
+.sprint-quest-main {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  height: 52px;
+  padding-top: 70px;
+
+  .sprint-quest__en {    
+    height: 52px;    
+    font-family: 'Fira Code';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 52px;
+    line-height: 52px;
+    letter-spacing: -0.03em;    
+    color: $white10;
+    margin-right: 16px;
+  }
+  .sprint-quest__sound {
+    width: 46px;
+    height: 46px;   
+    cursor: pointer; 
+    background-image: url('../assets/images/volume.png');
+    background-size: cover;
+    opacity: 0.7;  
+
+    &:hover {
+      opacity: 1;
+    } 
+  }  
+}
+
+.sprint-quest__rus {
+  padding: 40px 0 63px 0;
+  height: 52px;  
+  font-family: 'Fira Code';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 42px;
+  line-height: 52px;
+  color: #FFFFFF;
+  text-align: center;
+}
+
+.sprint-quest__btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+
+  button {
+    width: 264px;
+    height: 50px;
+    left: 0px;
+    top: 0px;    
+    border-radius: 10px;
+    font-family: 'Fira Code';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 31px;    
+    letter-spacing: 0.02em;
+    color: #FFFFFF;
+  }
+
+  button:nth-child(1) {
+    background: #4EED5E;
+  }
+  button:nth-child(2) {
+    background: #DA3030;
+  }  
+}
+
+.spring-result-container {
+  background-image: url("../assets/images/sprint-3.jpg");
+}
+
+.spring-result {
+  width: 638px;
+  height: 745px;
+  background: rgba(255, 255, 255, 0.3);
+  border: 5px solid $white10;
+  backdrop-filter: blur(24px);
+  border-radius: 24px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+}
+
+.spring-result__title {
+  padding: 41px 0 12px 0;
+  width: 526px;
+  height: 48px;
+  font-family: 'Fira Code';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 48px;
+  letter-spacing: -0.03em;
+  color: $white10;
+}
+
+.spring-result__column {
+  padding-bottom: 12px;
+  width: 527px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.6);
+
+  div:nth-child(1) {
+    height: 52px;
+    font-family: 'Fira Code';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 52px;
+    letter-spacing: -0.03em;
+    color: #FFFFFF;
+  }
+  div:nth-child(2) {
+    background-image: url("../assets/images/icons_check.png");
+    width: 32px;
+    height: 32px;
+  }
+}
 
 
 .hidden {

@@ -5,4 +5,6 @@ export default {
   ERROR_INPUT_EMAIL: 'Email не валиден',
   ERROR_INPUT_PASSWORD: 'Пароль не валиден. Колличество символов должно быть не менее 8',
   COUNT_GAME_SECTIONS: 6,
+  BTN_TITLE_FALSE: 'НЕВЕРНО',
+  BTN_TITLE_TRUE: 'ВЕРНО',
 };
