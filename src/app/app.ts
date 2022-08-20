@@ -1,13 +1,15 @@
 import '../styles.scss';
-import { renderAuthorization } from '../../src/authorization/index';
 import textbook from '../textbook/textbook';
+import {page} from "../page/page";
 
 //должны быть последними
 import '../assets/styles/atom.scss';
 
-const app = () => {
-  void renderAuthorization('body'); // вызов окна авторизации
-  textbook();
+
+
+const app = () =>  {
+  // textbook();
+    page()
 };
 
 export default app;

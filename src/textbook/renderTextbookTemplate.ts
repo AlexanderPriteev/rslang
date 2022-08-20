@@ -2,7 +2,7 @@ import createElement from '../helpers/createElement';
 import * as textbookImage from '../assets/images/textbookHeadingBg.png';
 import './textbook.scss';
 
-const body = document.querySelector('body'); // заменить body на root элемент
+//const body = document.querySelector('body'); // заменить body на root элемент
 
 const renderTextbookHeading = () => {
   const textbookHeadingContainer = createElement('div', ['textbook__heading-container']);
@@ -56,7 +56,7 @@ const renderTextBookNavPanel = () => {
   return navContainer;
 };
 
-const renderTextbookTemplate = () => {
+const renderTextbookTemplate = (root: string) => {
   const textbookPage = createElement('div', ['textbook']);
   textbookPage.appendChild(renderTextbookHeading());
   const mainContentWrapper = createElement('div', ['textbook__content-wrapper']);
@@ -64,7 +64,13 @@ const renderTextbookTemplate = () => {
   const wordList = createElement('div', ['textbook__word-list']);
   mainContentWrapper.appendChild(wordList);
   textbookPage.appendChild(mainContentWrapper);
-  body?.appendChild(textbookPage);
+
+  const thisRoot: HTMLElement | null = document.querySelector(root);
+  if(thisRoot){
+    thisRoot.innerHTML = ''
+    thisRoot.appendChild(textbookPage);
+  }
+
 };
 
 export default renderTextbookTemplate;
