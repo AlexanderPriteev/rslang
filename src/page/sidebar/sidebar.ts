@@ -1,5 +1,6 @@
 import createElement from '../../helpers/createElement';
 import textbook from "../../textbook/textbook";
+import {mainPage} from "../main/main-page";
 
 interface NavItem {
     name: string;
@@ -9,7 +10,7 @@ interface NavItem {
     link?: string;
 }
 
-const navs: NavItem[] = [
+export const navs: NavItem[] = [
     {
         name: 'main',
         icon: 'icon-building-home',
@@ -49,7 +50,10 @@ function navLink(item: NavItem) {
     const text = `<i class="nav-link__icon ${item.icon}"></i><span class="nav-link__title">${item.title}</span>`
     const aboutLink = createElement('a', item.isActive ? ['nav-link', 'active'] : ['nav-link'], text)
     aboutLink.setAttribute('data-target', item.name)
-    if (item.link) aboutLink.setAttribute('href', item.link)
+    if (item.link) {
+        aboutLink.setAttribute('href', item.link)
+        aboutLink.onclick = () => mainPage()
+    }
     return aboutLink
 }
 
@@ -63,12 +67,14 @@ function navListActiveBtn(parentList: HTMLElement) {
         const target = event.target as HTMLElement
         const targetParent = target.parentNode as HTMLElement
 
-        const list = parentList.querySelectorAll('.nav-link')
-        list.forEach((e) => {
-            if (e.classList.contains('active')) e.classList.remove('active')
-        })
-        if(target.classList.contains('nav-link')) target.classList.add('active')
-        if(targetParent.classList.contains('nav-link')) targetParent.classList.add('active')
+        if(!(target.classList.contains('sidebar__nav'))){
+            const list = parentList.querySelectorAll('.nav-link')
+            list.forEach((e) => {
+                if (e.classList.contains('active')) e.classList.remove('active')
+            })
+            if(target.classList.contains('nav-link')) target.classList.add('active')
+            if(targetParent.classList.contains('nav-link')) targetParent.classList.add('active')
+        }
     }
 }
 
@@ -89,6 +95,7 @@ export function sidebar(header?: HTMLElement) {
             case 'book': nav.onclick = () => textbook()
                 break
             //  добавить остальные страницы
+            default: nav.onclick = () => mainPage()
         }
     })
 
