@@ -15,7 +15,7 @@ export function renderWindowGame(target: HTMLElement | string) {
 
   const questContainer = createElement('div', ['sprint-quest-container']);
   const timeCounter = createElement('div', ['sprint-time-counter']);
-  timeCounter.appendChild(createElement('p', undefined, '60'));
+  timeCounter.appendChild(createElement('p', undefined, '00', 'timer'));
 
   const quest = createElement('div', ['sprint-quest']);
 

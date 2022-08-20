@@ -5,14 +5,15 @@ import '../global.scss';
 import { renderWindowStartGame } from '../sprint/renderStart';
 import { renderWindowGame } from '../sprint/renderGame';
 import { renderWindowGameResult } from '../sprint/renderGameResult';
-import { resultsGameSprint } from '../sprint/logic';
+import { resultsGameSprint, startTourSprint } from '../sprint/logic';
 
 const app = () => {
   //void renderAuthorization('main'); // вызов окна авторизации
   //textbook();
   //renderWindowStartGame('body');
   //renderWindowGame('body');
-  renderWindowGameResult('body', resultsGameSprint);
+  //renderWindowGameResult('body', resultsGameSprint);
+  startTourSprint();
 };
 
 export default app;
