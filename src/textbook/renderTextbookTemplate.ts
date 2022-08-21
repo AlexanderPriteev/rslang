@@ -2,7 +2,7 @@ import createElement from '../helpers/createElement';
 import * as textbookImage from '../assets/images/textbookHeadingBg.png';
 import './textbook.scss';
 
-const body = document.querySelector('body'); // заменить body на root элемент
+//const body = document.querySelector('body'); // заменить body на root элемент
 
 const renderTextbookHeading = () => {
   const textbookHeadingContainer = createElement('div', ['textbook__heading-container']);
@@ -30,7 +30,7 @@ const renderTextBookNavPanel = () => {
        <option class="textbook-select-option">Раздел 4</option>
        <option class="textbook-select-option">Раздел 5</option>
        <option class="textbook-select-option">Раздел 6</option>
-       <option class="textbook-select-option">Раздел 7</option>
+       <option class="textbook-select-option">Сложные слова</option>
      </select>
     <div class="textbook__page-changer">
      <button class="textbook__to-first-page"><span class="icon-to-first"></span></button>
@@ -43,11 +43,11 @@ const renderTextBookNavPanel = () => {
   <div class="textbook__nav-wrapper">
     <div class="textbook__game-list">
       <button class="textbook__game-btn">
-        <span class="icon-music-box"></span>
+        <span class="icon-music-box textbook__game-icon"></span>
         <span class="textbook__game-name">Аудиовызов</span>
       </button>
       <button class="textbook__game-btn">
-        <span class="icon-run-fast"></span>
+        <span class="icon-run-fast textbook__game-icon"></span>
         <span class="textbook__game-name">Спринт</span>
       </button>
     </div>
@@ -56,7 +56,7 @@ const renderTextBookNavPanel = () => {
   return navContainer;
 };
 
-const renderTextbookTemplate = () => {
+const renderTextbookTemplate = (root: string) => {
   const textbookPage = createElement('div', ['textbook']);
   textbookPage.appendChild(renderTextbookHeading());
   const mainContentWrapper = createElement('div', ['textbook__content-wrapper']);
@@ -64,7 +64,13 @@ const renderTextbookTemplate = () => {
   const wordList = createElement('div', ['textbook__word-list']);
   mainContentWrapper.appendChild(wordList);
   textbookPage.appendChild(mainContentWrapper);
-  body?.appendChild(textbookPage);
+
+  const thisRoot: HTMLElement | null = document.querySelector(root);
+  if(thisRoot){
+    thisRoot.innerHTML = ''
+    thisRoot.appendChild(textbookPage);
+  }
+
 };
 
 export default renderTextbookTemplate;

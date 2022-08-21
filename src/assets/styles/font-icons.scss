@@ -1,9 +1,6 @@
 @font-face {
   font-family: "icomoon";
-  src: url("../fonts/icomoon.eot?v215ai");
-  src: url("../fonts/icomoon.eot?v215ai#iefix") format("embedded-opentype"),
-    url("../fonts/icomoon.ttf?v215ai") format("truetype"), url("../fonts/icomoon.woff?v215ai") format("woff"),
-    url("../fonts/icomoon.svg?v215ai#icomoon") format("svg");
+  src: url("assets/fonts/icomoon.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -27,19 +24,15 @@
 
 .icon-to-first:before {
   content: "\e900";
-  color: #422d6d;
 }
 .icon-prev:before {
   content: "\e901";
-  color: #422d6d;
 }
 .icon-next:before {
   content: "\e902";
-  color: #422d6d;
 }
 .icon-to-last:before {
   content: "\e904";
-  color: #422d6d;
 }
 .icon-audio-document-outline:before {
   content: "\e905";
@@ -175,4 +168,19 @@
 }
 .icon-volume:before {
   content: "\e930";
+}
+.icon-check:before {
+  content: "\e931";
+}
+.icon-heart:before {
+  content: "\e932";
+}
+.icon-heart-filled:before {
+  content: "\e933";
+}
+.icon-mute:before {
+  content: "\e934";
+}
+.icon-team:before {
+  content: "\e935";
 }
