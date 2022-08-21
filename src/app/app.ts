@@ -7,8 +7,7 @@ import {statisticsRender} from "../staistics/staistics";
 import '../assets/styles/atom.scss';
 
 const app = () => {
- // pageRender();
-    statisticsRender()
+ pageRender();
 };
 
 export default app;

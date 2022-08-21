@@ -1,96 +1,25 @@
-import ApexCharts from 'apexcharts';
+import {chartCount, chartDay} from "./chartsAllTime";
+import createElement from "../helpers/createElement";
+import {statisticsBlock, statisticsCard} from "./customChart";
+import {gamesDonut, gamesLines, wordsDonut, wordsLines} from "./customChartData";
 
+export function statisticsRender(root = '.content-wrapper') {
+    const thisRoot: HTMLElement | null = document.querySelector(root);
+    if (thisRoot) {
+        thisRoot.innerHTML = '';
 
-const optionsCount = {
-    series: [{
-        name: "Выучено слов",
-        data: [30,140,195,350,449,460,570,691,725],
-    }],
-    chart: {
-        toolbar: {
-            show: false
-        },
-        animations: {
-            enabled: false,
-        },
-        type: 'area',
-        height: 350,
-        zoom: {
-            enabled: false
-        }
-    },
-    markers: {
-        size: 5,
-        colors: ["#AF95E6"],
-        strokeColor: "#AF95E6",
-    },
-    colors: ["#AF95E6"],
-    dataLabels: {
-        enabled: false
-    },
-    stroke: {
-        curve: 'straight'
-    },
-    xaxis: {
-        categories: ['Мар','Апр','Май','Июн','Июл','Авг','Сен', 'Окт', 'Ноя']
+        const statisticsTitle = '<h1 class="headline fs-lg">Статистика</h1>'
+        const statisticsPage = createElement('div', ['statistics'], statisticsTitle)
+        const wordsCards = [
+            statisticsCard(wordsLines, 'statistics-card--lg'),
+            statisticsCard([wordsDonut], 'statistics-card--sm')]
+        const gamesCards = [
+            statisticsCard([gamesDonut], 'statistics-card--sm'),
+            statisticsCard(gamesLines, 'statistics-card--lg')]
+        const words = statisticsBlock('слова', wordsCards)
+        const games = statisticsBlock('игры', gamesCards)
+        const allTime = statisticsBlock('за все время', [chartCount, chartDay])
+        statisticsPage.append(words, games, allTime)
+        thisRoot.append(statisticsPage)
     }
-};
-
-const optionsDay = {
-    series: [{
-        name: 'Слов',
-        data: [42, 68, 60, 88, 22, 56]
-    }],
-    chart: {
-        toolbar: {
-            show: false
-        },
-        animations: {
-            enabled: false,
-        },
-        height: 350,
-        type: 'bar',
-    },
-    colors: ["#AF95E6"],
-    plotOptions: {
-        bar: {
-            borderRadius: 0,
-            dataLabels: {
-                position: 'top'
-            },
-        }
-    },
-    dataLabels: {
-        offsetY: -20,
-        style: {
-            fontSize: '12px',
-            colors: ["#563C8A"]
-        }
-    },
-
-    xaxis: {
-        categories: ["18.08", "19.08", "20.08", "21.08", "22.08", "23.08"],
-        crosshairs: {
-            fill: {
-                type: 'gradient',
-                gradient: {
-                    colorFrom: '#D8E3F0',
-                    colorTo: '#BED1E6',
-                    stops: [0, 100],
-                    opacityFrom: 0.4,
-                    opacityTo: 0.5,
-                }
-            }
-        },
-    }
-
-}
-
-export function statisticsRender() {
-    const chartCount = new ApexCharts(document.querySelector("#chart-count"), optionsCount);
-
-    chartCount.render();
-
-    const chartDay = new ApexCharts(document.querySelector("#chart-day"), optionsDay);
-    chartDay.render();
 }
