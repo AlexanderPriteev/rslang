@@ -49,7 +49,7 @@ const requestMethods = () => {
   };
 
   const getAllUserWords = async (id: string, token: string) => {
-    const res = await request(`${base}users/${id}/words`, 'GET', null, {
+    const res = request(`${base}users/${id}/words`, 'GET', null, {
       'Content-type': 'application/json',
       Authorization: `Berear ${token}`,
     });
