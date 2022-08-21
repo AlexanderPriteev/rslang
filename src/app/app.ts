@@ -1,11 +1,11 @@
-import { renderAuthorization } from '../../src/authorization/index';
-import textbook from '../textbook/textbook';
-import '../assets/styles/font-icons.scss';
-import '../global.scss';
+import '../styles.scss';
+import { pageRender } from '../page/page';
+
+//должны быть последними
+import '../assets/styles/atom.scss';
 
 const app = () => {
-  void renderAuthorization('body'); // вызов окна авторизации
-  textbook();
+  pageRender();
 };
 
 export default app;

@@ -6,7 +6,8 @@
   "scripts": {
     "start": "webpack serve --open --config ./webpack.config.js --env mode=dev",
     "build": "webpack --config ./webpack.config.js --env mode=prod",
-    "lint": "eslint . --ext .ts"
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix"
   },
   "author": "Yura,Kirill,Alexander",
   "license": "ISC",
@@ -25,6 +26,7 @@
     "eslint-webpack-plugin": "^3.2.0",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.2.0",
+    "mini-css-extract-plugin": "^2.6.1",
     "prettier": "2.2.1",
     "sass": "^1.53.0",
     "sass-loader": "^13.0.2",
@@ -37,8 +39,5 @@
     "webpack-cli": "^4.10.0",
     "webpack-dev-server": "^3.11.2",
     "webpack-merge": "^5.7.3"
-  },
-  "dependencies": {
-    "normalize.css": "^8.0.1"
   }
 }

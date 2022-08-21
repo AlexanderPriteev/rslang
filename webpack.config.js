@@ -3,6 +3,7 @@ const { merge } = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyPlugin = require("copy-webpack-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const baseConfig = {
     entry: path.resolve(__dirname, './src/index.ts'),
@@ -23,18 +24,11 @@ const baseConfig = {
             {
                 test: /\.s[ac]ss$/i,
                 use: [
-                    'style-loader',
-                    'css-loader',
-                    'sass-loader',
-                    {
-                        loader: 'sass-resources-loader',
-                        options: {
-                            resources: [
-                                'src/styles/vars.scss',
-                            ]
-                        }
-                    }
-                ]
+                    // "style-loader",
+                    MiniCssExtractPlugin.loader,
+                    "css-loader",
+                    "sass-loader",
+                ],
             },
             {
                 test: /\.(png|jpe?g|gif|eot|ttf|woff(2)?)$/i,
@@ -65,7 +59,7 @@ const baseConfig = {
             template: path.resolve(__dirname, './src/index.html'),
             filename: 'index.html',
         }),
-        new CleanWebpackPlugin(),
+
         new CopyPlugin({
             patterns: [
                 {
@@ -75,6 +69,10 @@ const baseConfig = {
                 },
             ],
         }),
+        new MiniCssExtractPlugin({
+            filename: 'styles.css',
+        }),
+        new CleanWebpackPlugin(),
     ],
 };
 
