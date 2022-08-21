@@ -3,7 +3,7 @@ import { navs } from '../sidebar/sidebar';
 import textbook from '../../textbook/textbook';
 import { devs } from '../about/about-const';
 import { gamesPage } from '../../games/games';
-import {statisticsRender} from "../../staistics/staistics";
+import { statisticsRender } from '../../staistics/staistics';
 
 //пока заглушка
 const youtubeIframe = `<iframe class="img img--contain" 
@@ -30,7 +30,7 @@ function mainResources() {
           nav.onclick = () => gamesPage();
           break;
         case 'statistics':
-          nav.onclick = () =>statisticsRender()
+          nav.onclick = () => statisticsRender();
           break;
         //  добавить остальные страницы
       }
