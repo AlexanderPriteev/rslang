@@ -17,9 +17,11 @@ export function renderWindowStartGame(target: HTMLElement | string) {
   const arraySections: HTMLElement[] = [];
   for (let i = 0; i < COUNT_GAME_SECTIONS; i++) {
     const section = createElement('div', ['game-category__section', `section${i + 1}`]);
-    section.addEventListener('click', () => startSprint());
-    // const title = createElement('p', ['game-category__title'], `Раздел ${i + 1}`);
-    // section.appendChild(title);
+    section.addEventListener('click', (e) => {
+      const level = +(e.target as HTMLElement).className.slice(-1);
+
+      void startSprint(+level);
+    });
     arraySections.push(section);
   }
 

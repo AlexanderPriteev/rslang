@@ -1,11 +1,16 @@
 import '../styles.scss';
-import { pageRender } from '../page/page';
 
 //должны быть последними
 import '../assets/styles/atom.scss';
+import { renderWindowStartGame } from '../sprint/renderStart';
 
 const app = () => {
-  pageRender();
+  //pageRender();
+
+  renderWindowStartGame('body');
+  //renderWindowGame('body');
+  //renderWindowGameResult('body', resultsGameSprint);
+  //startTourSprint();
 };
 
 export default app;

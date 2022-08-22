@@ -4,42 +4,27 @@ import { SprintResult } from '../types/index';
 import { renderColumnWinner, renderWindowGameResult } from './renderGameResult';
 import { Word } from '../types/Word';
 import requestMethods from '../services/requestMethods';
+import constants from '../constants/index';
+import { getStoreGame, setStoreGame } from '../storage/index';
+const { SERVER } = constants;
 
-export const resultsGameSprint: SprintResult[] = [
-  { wordEn: '111', wordRu: '222', result: true },
-  { wordEn: '333', wordRu: '444', result: false },
-  { wordEn: '555', wordRu: '666', result: true },
-  { wordEn: '777', wordRu: '888', result: false },
-  { wordEn: '999', wordRu: '000', result: true },
-  { wordEn: '111', wordRu: '222', result: true },
-  { wordEn: '333', wordRu: '444', result: false },
-  { wordEn: '555', wordRu: '666', result: true },
-  { wordEn: '777', wordRu: '888', result: false },
-  { wordEn: '999', wordRu: '000', result: true },
-  { wordEn: '111', wordRu: '222', result: true },
-  { wordEn: '333', wordRu: '444', result: false },
-  { wordEn: '555', wordRu: '666', result: true },
-  { wordEn: '777', wordRu: '888', result: false },
-  { wordEn: '999', wordRu: '000', result: true },
-  { wordEn: '111', wordRu: '222', result: true },
-  { wordEn: '333', wordRu: '444', result: false },
-  { wordEn: '555', wordRu: '666', result: true },
-  { wordEn: '777', wordRu: '888', result: false },
-  { wordEn: '999', wordRu: '000', result: true },
-];
+export const resultsGameSprint: SprintResult[] = [];
 
-export const countPoints = 200;
+let index = 0;
 
-//старт игры (начало) - выбор уровня
-export function startSprint() {
-  const container = document.querySelector('div.sprint-container');
+let wordsArray: Word[] = [];
 
-  renderWindowGame('body');
-  container?.classList.add('hidden');
+let seriesCorrectAnswers = 0;
+
+let pointsForAnswer = 10;
+//TODO: delete magic number
+//рандомно возвращает true or false - можно регулировать вероятность выпадания правильного слова если менять 0,5
+function randomBoolean() {
+  return Math.random() < 0.5;
 }
 
 //получить массив слов указанной категории со всех 30 страниц
-async function getWordsByCategory(level: number): Promise<Word[]> {
+export async function getWordsByCategory(level: number): Promise<Word[]> {
   const promiseArray: Promise<Word[]>[] = [];
 
   for (let i = 0; i < 5; i++) {
@@ -51,12 +36,22 @@ async function getWordsByCategory(level: number): Promise<Word[]> {
   return words;
 }
 
+function checkSoundOff() {
+  const btnImg = document.querySelector('div.sprint-sound > img') as HTMLImageElement;
+
+  return btnImg.dataset.sound === 'on';
+}
+
 function endGame() {
-  //закрыть окно игры
-  renderWindowGameResult('body', resultsGameSprint);
+  if (checkSoundOff()) void void new Audio(`../assets/sounds/sound-time-end.mp3`).play();
+  const totalScore = (document.querySelector('div.quest-header__count-true') as HTMLElement).innerText;
+
+  renderWindowGameResult('body', resultsGameSprint, totalScore);
+  document.querySelector('div.sprint-game-container')?.classList.add('hidden');
 }
 
 function createTimer() {
+  //при закрытии окна остановить таймер
   let timer = 0;
   setTimeout(() => {
     endGame();
@@ -73,15 +68,117 @@ function createTimer() {
   }, 1000);
 }
 
-//старт тура игры (после выбора уровня, или при переходе с учебника)
-export function startTourSprint(words?: Word[]) {
-  renderWindowGame('body');
-  createTimer();
+function unActiveBtn(statusBtn: boolean) {
+  const btnArray = document.querySelectorAll('div.sprint-quest__btn > *');
+  (btnArray[0] as HTMLButtonElement).disabled = statusBtn ? false : true;
+  (btnArray[1] as HTMLButtonElement).disabled = statusBtn ? false : true;
 }
 
-function renderQuest() {}
+function writeQuest() {
+  const wordEn: HTMLElement | null = document.querySelector('div.sprint-quest__en');
+  const wordRu: HTMLElement | null = document.querySelector('div.sprint-quest__rus');
 
-function checkAnswer() {}
+  if (!(wordEn && wordRu)) throw new Error('Do not HTML Element');
+
+  unActiveBtn(true);
+
+  if (randomBoolean()) {
+    wordEn.innerText = wordsArray[index].word;
+    wordRu.innerText = wordsArray[index].wordTranslate;
+  } else {
+    wordEn.innerText = wordsArray[index].word;
+    const randomeIndex = Math.round(Math.random() * (wordsArray.length - 1));
+    wordRu.innerText = wordsArray[randomeIndex].wordTranslate;
+  }
+
+  if (checkSoundOff()) void new Audio(`${SERVER}${wordsArray[index].audio}`).play();
+}
+
+//старт игры
+export async function startSprint(levelOrWords: number | Word[]) {
+  wordsArray = typeof levelOrWords === 'number' ? await getWordsByCategory(levelOrWords) : levelOrWords;
+
+  renderWindowGame('body');
+  createTimer();
+
+  writeQuest();
+
+  const container = document.querySelector('div.sprint-container');
+  container?.classList.add('hidden');
+}
+
+function checkGameStorage(answer: boolean) {
+  let gameStor = getStoreGame();
+  if (!gameStor) gameStor = { trueAnswer: [0, 0], countNewWord: 0, seriesTrueAnswer: 0 };
+
+  gameStor.trueAnswer = [gameStor.trueAnswer[0] + 1, gameStor.trueAnswer[1] + (answer ? 1 : 0)];
+
+  if (answer) {
+    seriesCorrectAnswers++;
+    if (seriesCorrectAnswers > gameStor.seriesTrueAnswer) gameStor.seriesTrueAnswer = seriesCorrectAnswers;
+  } else {
+    seriesCorrectAnswers = 0;
+  }
+
+  if (index > gameStor.countNewWord) gameStor.countNewWord = index;
+
+  setStoreGame(gameStor);
+  console.log(gameStor);
+}
+
+function calculateScore(answer: boolean) {
+  const coefficient = document.querySelector('div.quest-header__coefficient') as HTMLElement;
+  const status = document.querySelectorAll('div.quest-header__status > *');
+  const score = document.querySelector('div.quest-header__count-true') as HTMLElement;
+
+  if (!answer) {
+    coefficient.innerText = 'X1';
+    pointsForAnswer = 10;
+    status.forEach((div) => {
+      div.classList.remove('btn-status-active');
+    });
+  } else {
+    score.innerText = (+score.innerText + pointsForAnswer).toString();
+
+    for (let i = 0; i < 3; i++) {
+      const div = status[i] as HTMLDivElement;
+
+      if (!div.classList.contains('btn-status-active')) {
+        div.classList.add('btn-status-active');
+        break;
+      }
+
+      if (i === 2) {
+        pointsForAnswer += 10;
+        coefficient.innerText = `X${pointsForAnswer / 10}`;
+
+        status.forEach((elem) => {
+          elem.classList.remove('btn-status-active');
+        });
+      }
+    }
+  }
+}
+
+function checkAnswer(answer: boolean) {
+  const word = wordsArray[index];
+  const wordRu = (document.querySelector('div.sprint-quest__rus') as HTMLElement).innerText;
+
+  if ((word.wordTranslate === wordRu && answer) || (word.wordTranslate !== wordRu && !answer)) {
+    resultsGameSprint.push({ wordEn: word.word, wordRu: wordRu, result: true });
+    calculateScore(true);
+    if (checkSoundOff()) void new Audio(`../assets/sounds/sound-good.mp3`).play();
+    checkGameStorage(true);
+  } else {
+    resultsGameSprint.push({ wordEn: word.word, wordRu: wordRu, result: false });
+    calculateScore(false);
+    if (checkSoundOff()) void new Audio(`../assets/sounds/sound-error.mp3`).play();
+    checkGameStorage(false);
+  }
+
+  index++;
+  setTimeout(() => writeQuest(), 1000);
+}
 
 export function completeTableWinners(target: HTMLElement, resultsSprint: SprintResult[]) {
   for (let i = 0; i < resultsSprint.length; i++) {
@@ -89,6 +186,83 @@ export function completeTableWinners(target: HTMLElement, resultsSprint: SprintR
   }
 }
 
-export function getResultString(resultPoints: number) {
+export function getResultString(resultPoints: string) {
   return `Ваш результат ${resultPoints} очков`;
+}
+
+function offSound() {
+  const btnImg = document.querySelector('div.sprint-sound > img') as HTMLImageElement;
+
+  btnImg.dataset.sound = btnImg.dataset.sound === 'on' ? 'off' : 'on';
+
+  if (btnImg.dataset.sound === 'off') {
+    btnImg.src = '../assets/images/sound-off.png';
+  } else {
+    btnImg.src = '../assets/images/sound.png';
+  }
+}
+
+export function eventListener() {
+  const container = document.querySelector('div.sprint-game-container');
+
+  container?.addEventListener('click', (event) => {
+    const classId = (event.target as HTMLElement).id;
+
+    switch (classId) {
+      case 'btn-sprint-false':
+        checkAnswer(false);
+        unActiveBtn(false);
+        break;
+
+      case 'btn-sprint-true':
+        checkAnswer(true);
+        unActiveBtn(false);
+        break;
+
+      case 'sprint-sound':
+        offSound();
+        break;
+
+      case 'sprint-word-sound':
+        void new Audio(`${SERVER}${wordsArray[index].audio}`).play();
+        break;
+
+      default:
+        break;
+    }
+  });
+}
+
+export function eventKeyUp() {
+  let timerOff = true;
+
+  document.onkeyup = function (e) {
+    switch (e.code) {
+      case 'ArrowLeft':
+        if (timerOff) {
+          checkAnswer(false);
+          unActiveBtn(false);
+          timerOff = false;
+          setTimeout(() => {
+            timerOff = true;
+          }, 1000);
+        }
+        break;
+
+      case 'ArrowRight':
+        if (timerOff) {
+          checkAnswer(true);
+          unActiveBtn(false);
+          timerOff = false;
+          setTimeout(() => {
+            timerOff = true;
+          }, 1000);
+        }
+
+        break;
+
+      default:
+        break;
+    }
+  };
 }

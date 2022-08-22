@@ -22,3 +22,9 @@ export type SprintResult = {
   wordRu: string;
   result: boolean;
 };
+
+export type StatisticGameStore = {
+  trueAnswer: [number, number];
+  countNewWord: number;
+  seriesTrueAnswer: number;
+};

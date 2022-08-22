@@ -4,7 +4,7 @@ import createElement from '../helpers/createElement';
 import appendChildArray from '../helpers/appendChildArray';
 import { closeWindow } from '../helpers/closeWindow';
 import { SprintResult } from '../types/index';
-import { completeTableWinners, countPoints, getResultString } from './logic';
+import { completeTableWinners, getResultString } from './logic';
 
 export function renderColumnWinner(target: HTMLElement | string, resultSprint: SprintResult) {
   const { wordEn, wordRu, result } = resultSprint;
@@ -25,14 +25,18 @@ export function renderColumnWinner(target: HTMLElement | string, resultSprint: S
   }
 }
 
-export function renderWindowGameResult(target: HTMLElement | string, resultsSprint: SprintResult[]) {
+export function renderWindowGameResult(
+  target: HTMLElement | string,
+  resultsSprint: SprintResult[],
+  totalScore: string
+) {
   const container = createElement('div', ['sprint-container', 'spring-result-container']);
   const btnClose = createElement('div', ['btn-close']);
   btnClose.addEventListener('click', () => closeWindow(container));
 
   const results = createElement('div', ['spring-result']);
 
-  const titleString = getResultString(countPoints);
+  const titleString = getResultString(totalScore);
   const title = createElement('div', ['spring-result__title'], titleString);
   const table = createElement('div');
 
