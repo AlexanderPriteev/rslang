@@ -6,7 +6,7 @@ export interface CustomChart {
   type: string;
 }
 
-export interface statisticsTab{
+export interface StatisticsTab {
   tabTitle: string;
   tabContent: HTMLElement;
 }
