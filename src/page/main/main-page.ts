@@ -1,6 +1,7 @@
 import createElement from '../../helpers/createElement';
 import { navs } from '../sidebar/sidebar';
 import textbook from '../../textbook/textbook';
+import dictionary from '../../dictionary/dictionary';
 import { devs } from '../about/about-const';
 import { gamesPage } from '../../games/games';
 import { statisticsRender } from '../../staistics/statistics';
@@ -31,6 +32,9 @@ function mainResources() {
           break;
         case 'statistics':
           nav.onclick = () => statisticsRender();
+          break;
+        case 'dictionary':
+          nav.onclick = () => dictionary();
           break;
         //  добавить остальные страницы
       }
