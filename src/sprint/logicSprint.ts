@@ -1,5 +1,5 @@
 import './style.scss';
-import { renderWindowGame } from './renderGame';
+import { renderWindowGame } from './renderSprintGame';
 import { SprintResult } from '../types/index';
 import { renderColumnWinner, renderWindowGameResult } from './renderGameResult';
 import requestMethods from '../services/requestMethods';
@@ -103,7 +103,7 @@ export async function startSprint(levelOrWords: number | WordInterface[]) {
 
   writeQuest();
 
-  const container = document.querySelector('div.sprint-container');
+  const container = document.querySelector('div.game-container');
   container?.classList.add('hidden');
 }
 

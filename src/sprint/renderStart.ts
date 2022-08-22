@@ -4,11 +4,12 @@ import createElement from '../helpers/createElement';
 import constants from '../constants/index';
 import appendChildArray from '../helpers/appendChildArray';
 import { closeWindow } from '../helpers/closeWindow';
-import { startSprint } from './logic';
-const { COUNT_GAME_SECTIONS } = constants;
+import { startSprint } from './logicSprint';
+import { startAudioCall } from './logicAudioCall';
+const { COUNT_GAME_SECTIONS, CLASS_CONTAINER_SPRINT } = constants;
 
-export function renderWindowStartGame(target: HTMLElement | string) {
-  const container = createElement('div', ['sprint-container', 'sprint-start-window']);
+export function renderWindowStartGame(target: HTMLElement | string, classes: string) {
+  const container = createElement('div', ['game-container', classes]);
   const btnClose = createElement('div', ['btn-close']);
   btnClose.addEventListener('click', () => closeWindow(container));
   const categoryContainer = createElement('div', ['game-category']);
@@ -20,7 +21,11 @@ export function renderWindowStartGame(target: HTMLElement | string) {
     section.addEventListener('click', (e) => {
       const level = +(e.target as HTMLElement).className.slice(-1);
 
-      void startSprint(+level);
+      if (classes === CLASS_CONTAINER_SPRINT) {
+        void startSprint(+level);
+      } else {
+        void startAudioCall(+level);
+      }
     });
     arraySections.push(section);
   }

@@ -1,6 +1,6 @@
 @import "../assets/styles/variables.scss";
 
-.sprint-container {
+.game-container {
   margin: 0 auto;
   background-position: center;
 	background-repeat: no-repeat;
@@ -13,6 +13,10 @@
 
 .sprint-start-window {
   background-image: url("../assets/images/sprint-1.jpg");
+}
+
+.audio-call-start-window {
+  background-image: url("../assets/images/audio-call-1.jpg");
 }
 
 .btn-close {
@@ -84,6 +88,7 @@
     height: 15rem;
     border-radius: 7.5rem;
     cursor: pointer; 
+    background-size: cover;
   }
 }
 
@@ -108,6 +113,10 @@
 
 .sprint-game-container {
   background-image: url("../assets/images/sprint-2.jpg");
+}
+
+.audio-call-game-container {
+  background-image: url("../assets/images/audio-call-2.jpg");
 }
 
 .sprint-sound {
@@ -297,6 +306,10 @@
   background-image: url("../assets/images/sprint-3.jpg");
 }
 
+.audio-call-result-container {
+  background-image: url("../assets/images/audio-call-3.jpg");
+}
+
 .spring-result {
   width: 638px;
   height: 745px;
@@ -352,6 +365,81 @@
     height: 32px;
   }
 }
+
+//------------------------------------------------------------
+
+
+
+.audio-call-quest {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+  width: 638px;
+  height: 578px;
+  background: rgba(255, 255, 255, 0.3);
+  border: 5px solid #FFFFFF;
+  backdrop-filter: blur(24px);
+  border-radius: 24px;
+
+  &__status {
+    padding-top: 51px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    width: 208px;
+    height: 32px;
+    div {
+      width: 32px;
+      height: 32px;
+      bottom: 12.21%;
+      //border: 2px solid #FFFFFF;
+      background-image: url('../assets/images/audio-call-status.png');
+      background-size: cover;
+    }
+  }
+
+  &__sound {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 57px 0;
+    width: 120px;
+    height: 120px;
+    border: 5px solid #FFFFFF;
+    border-radius: 50%;
+    
+    img {
+      background-size: cover;  
+      width: 100px;
+      height: 100px;
+    }
+  }
+
+  &__btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 33px;
+    button {    
+      width: 264px;
+      height: 50px;
+      border: 4px solid #FFFFFF;
+      border-radius: 10px;
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
 
 
 .hidden {
