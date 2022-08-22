@@ -49,13 +49,6 @@ export async function identityUser() {
   }
 }
 
-//принудительное закрытие окна авторизации
-export function closeWindowAuth() {
-  const section = document.querySelector('section.section-authorization');
-
-  if (section) section.parentNode?.removeChild(section);
-}
-
 //сбросить пароль
 export function replacePassword() {
   const { email, password } = getEmailAndPassFromForm(true);
