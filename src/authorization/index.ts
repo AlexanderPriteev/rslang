@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { createUser, identityUser, replacePassword } from './logic';
 import createElement from '../helpers/createElement';
 import appendChildArray from '../helpers/appendChildArray';

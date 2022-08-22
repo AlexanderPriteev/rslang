@@ -2,15 +2,10 @@ import '../styles.scss';
 
 //должны быть последними
 import '../assets/styles/atom.scss';
-import { renderWindowStartGame } from '../sprint/renderStart';
+import { pageRender } from '../page/page';
 
 const app = () => {
-  //pageRender();
-
-  renderWindowStartGame('body');
-  //renderWindowGame('body');
-  //renderWindowGameResult('body', resultsGameSprint);
-  //startTourSprint();
+  pageRender();
 };
 
 export default app;

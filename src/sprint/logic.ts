@@ -2,17 +2,17 @@ import './style.scss';
 import { renderWindowGame } from './renderGame';
 import { SprintResult } from '../types/index';
 import { renderColumnWinner, renderWindowGameResult } from './renderGameResult';
-import { Word } from '../types/Word';
 import requestMethods from '../services/requestMethods';
 import constants from '../constants/index';
 import { getStoreGame, setStoreGame } from '../storage/index';
+import { WordInterface } from '../types/wordInterface';
 const { SERVER } = constants;
 
 export const resultsGameSprint: SprintResult[] = [];
 
 let index = 0;
 
-let wordsArray: Word[] = [];
+let wordsArray: WordInterface[] = [];
 
 let seriesCorrectAnswers = 0;
 
@@ -24,11 +24,11 @@ function randomBoolean() {
 }
 
 //получить массив слов указанной категории со всех 30 страниц
-export async function getWordsByCategory(level: number): Promise<Word[]> {
-  const promiseArray: Promise<Word[]>[] = [];
+export async function getWordsByCategory(level: number): Promise<WordInterface[]> {
+  const promiseArray: Promise<WordInterface[]>[] = [];
 
   for (let i = 0; i < 5; i++) {
-    promiseArray.push(requestMethods().getWords(level, i) as Promise<Word[]>);
+    promiseArray.push(requestMethods().getWords(level, i) as Promise<WordInterface[]>);
   }
 
   const words = (await Promise.all(promiseArray)).flat(1);
@@ -95,7 +95,7 @@ function writeQuest() {
 }
 
 //старт игры
-export async function startSprint(levelOrWords: number | Word[]) {
+export async function startSprint(levelOrWords: number | WordInterface[]) {
   wordsArray = typeof levelOrWords === 'number' ? await getWordsByCategory(levelOrWords) : levelOrWords;
 
   renderWindowGame('body');
