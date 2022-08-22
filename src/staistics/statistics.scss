@@ -1,3 +1,5 @@
+@import "../assets/styles/variables.scss";
+
 .statistics {
   box-sizing: border-box;
   padding: 12rem 4rem 16rem;
@@ -11,6 +13,58 @@
     margin-bottom: 6rem;
     padding-bottom: 1.5rem;
     border-bottom: .5rem solid $primary;
+    display: flex;
+    justify-content: space-between;
+    align-self: center;
+
+    &-tab {
+      display: inline-flex;
+      align-items: center;
+      font-size: 3.2rem;
+      letter-spacing: 0;
+      text-transform: none;
+      line-height: 4rem;
+      position: relative;
+      cursor: pointer;
+      margin-right: 8.4rem;
+      color: $primary;
+      transition: color .25s linear;
+      &:after{
+        content: '';
+        position: absolute;
+        top: 0;
+        right: -4rem;
+        width: .4rem;
+        height: 100%;
+        background-color: $primary;
+        pointer-events: none;
+      }
+      &:last-child{
+        margin-right: 0;
+        &:after{
+          display: none;
+        }
+      }
+      &:hover{
+        color: $text;
+      }
+
+      &-icon{
+        width: 4rem;
+        min-height: 4rem;
+        height: 4rem;
+        font-size: 4rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 1.2rem;
+      }
+
+      &.active{
+        color: $text;
+        pointer-events: none;
+      }
+    }
   }
   &__list{
     display: flex;

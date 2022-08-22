@@ -24,7 +24,7 @@ export const wordsDonut: CustomChart = {
   type: 'donut',
 };
 
-export const gamesLines: CustomChart[] = [
+export const gamesSprintLines: CustomChart[] = [
   {
     title: 'Изучено новых слов сегодня:',
     width: 100,
@@ -41,9 +41,33 @@ export const gamesLines: CustomChart[] = [
   },
 ];
 
-export const gamesDonut: CustomChart = {
+export const gamesSprintDonut: CustomChart = {
   title: 'Правильных ответов за сегодня:',
   width: 68,
   value: 68,
+  type: 'donut',
+};
+
+export const gamesAudioLines: CustomChart[] = [
+  {
+    title: 'Изучено новых слов сегодня:',
+    width: 100,
+    color: '#70FF8F',
+    value: 99,
+    type: 'line',
+  },
+  {
+    title: 'Самая длинная серия правильных ответов за сегодня:',
+    width: 55,
+    color: '#70FFFF',
+    value: 60,
+    type: 'line',
+  },
+];
+
+export const gamesAudioDonut: CustomChart = {
+  title: 'Правильных ответов за сегодня:',
+  width: 90,
+  value: 90,
   type: 'donut',
 };

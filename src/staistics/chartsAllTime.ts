@@ -1,6 +1,6 @@
 import ApexCharts from 'apexcharts';
 import createElement from '../helpers/createElement';
-import { optionsCount, optionsDay } from './cartsAllTimeData';
+import { optionsCount, optionsDay } from './chartsAllTimeData';
 
 function chartApex<T>(title: string, options: T) {
   const headline = `<p class="statistics-card__title">${title}</p>`;

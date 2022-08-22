@@ -3,7 +3,7 @@ import { navs } from '../sidebar/sidebar';
 import textbook from '../../textbook/textbook';
 import { devs } from '../about/about-const';
 import { gamesPage } from '../../games/games';
-import { statisticsRender } from '../../staistics/staistics';
+import { statisticsRender } from '../../staistics/statistics';
 
 //пока заглушка
 const youtubeIframe = `<iframe class="img img--contain" 

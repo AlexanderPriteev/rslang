@@ -5,3 +5,8 @@ export interface CustomChart {
   value: number;
   type: string;
 }
+
+export interface statisticsTab{
+  tabTitle: string;
+  tabContent: HTMLElement;
+}

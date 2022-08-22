@@ -2,7 +2,7 @@ import createElement from '../../helpers/createElement';
 import textbook from '../../textbook/textbook';
 import { mainPage } from '../main/main-page';
 import { gamesPage } from '../../games/games';
-import { statisticsRender } from '../../staistics/staistics';
+import { statisticsRender } from '../../staistics/statistics';
 
 export interface NavItem {
   name: string;
