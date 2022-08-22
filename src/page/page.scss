@@ -20,6 +20,7 @@
   margin-bottom: 5rem;
 }
 
+
 .card-link {
   width: calc(25% - 4rem);
   margin: 2rem;
@@ -62,5 +63,14 @@
     letter-spacing: .12rem;
     line-height: 1;
     text-transform: uppercase;
+  }
+}
+
+.fs{
+  &-lg{
+    font-size: 9.2rem;
+  }
+  &-chart{
+    font-size: 3.6rem;
   }
 }

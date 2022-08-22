@@ -2,6 +2,7 @@ import createElement from '../../helpers/createElement';
 import textbook from '../../textbook/textbook';
 import { mainPage } from '../main/main-page';
 import { gamesPage } from '../../games/games';
+import { statisticsRender } from '../../staistics/statistics';
 
 export interface NavItem {
   name: string;
@@ -97,6 +98,9 @@ export function sidebarRender(header?: HTMLElement) {
         break;
       case 'games':
         nav.onclick = () => gamesPage();
+        break;
+      case 'statistics':
+        nav.onclick = () => statisticsRender();
         break;
       //  добавить остальные страницы
       default:

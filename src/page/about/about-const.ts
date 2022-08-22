@@ -1,4 +1,4 @@
-import { DevsLinks } from 'about-interface';
+import { DevsLinks } from './about-interface';
 
 export const devs: DevsLinks[] = [
   {

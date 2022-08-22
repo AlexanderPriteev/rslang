@@ -2,7 +2,7 @@
   display: flex;
   position: relative;
   max-width: 1217px;
-  height: 294px;
+  min-height: 294px;
   padding: 40px;
   gap: 60px;
   background: #ffffff;
@@ -11,6 +11,7 @@
 
   &__translate-container {
     display: flex;
+    gap: 5px;
   }
 
   &__usage-container-en,
@@ -18,6 +19,16 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+  }
+
+  &__usage-container-en {
+    margin-top: 15px;
+    border-bottom: 1px solid #aca0c5;
+    padding-bottom: 10px;
+  }
+
+  &__usage-container-ru {
+    margin-top: 10px;
   }
 
   &__image {
@@ -35,6 +46,7 @@
   }
 
   &__translate {
+    margin-top: 5px;
     font-family: "Fira Code";
     font-weight: 400;
     font-size: 28px;
@@ -43,7 +55,11 @@
   }
 
   .icon-volume {
-    font-size: 28px;
+    font-size: 32px;
+    align-self: center;
+    justify-self: center;
+    position: relative;
+    top: 2px;
   }
 
   &__definition-en,
@@ -66,7 +82,7 @@
   &__example-en span,
   &__example-ru span {
     padding: 8px 10px;
-    background: #f9f6ff !important;
+    background: #f9f6ff;
     border-radius: 6px;
     display: inline-block;
   }
@@ -99,6 +115,32 @@
     font-weight: 400;
     font-size: 14px;
     line-height: 20px;
+    color: #4eed5e;
+  }
+
+  &__add-complicated .icon-pen,
+  &__add-learned .icon-box-with-check {
+    font-size: 2rem;
+  }
+
+  &__difficult {
+    margin-left: 16px;
+    font-family: "Fira Code";
+    font-style: normal;
+    font-weight: 300;
+    font-size: 24px;
+    line-height: 32px;
+    letter-spacing: 0.03em;
+    color: #da3030;
+  }
+
+  &__learned {
+    margin-left: 16px;
+    font-family: "Fira Code";
+    font-style: normal;
+    font-weight: 300;
+    font-size: 24px;
+    line-height: 32px;
     color: #4eed5e;
   }
 }

@@ -1,13 +1,11 @@
 import createElement from '../helpers/createElement';
-import * as textbookImage from '../assets/images/textbookHeadingBg.png';
+import * as chapter1BG from '../assets/images/chapter-1.png';
 import './textbook.scss';
-
-//const body = document.querySelector('body'); // заменить body на root элемент
 
 const renderTextbookHeading = () => {
   const textbookHeadingContainer = createElement('div', ['textbook__heading-container']);
   const bgImageContainer = createElement('img', ['textbook__img-bg']) as HTMLImageElement;
-  bgImageContainer.src = textbookImage.default as string;
+  bgImageContainer.src = chapter1BG.default as string;
   const textbookTextContainer = createElement('div', ['textbook__text-container']);
   const textbookHeading = createElement('span', ['textbook__heading'], 'УЧЕБНИК');
   const textbookChapter = createElement('span', ['textbook__chapter'], 'Раздел 1');
@@ -22,15 +20,14 @@ const renderTextBookNavPanel = () => {
   const navContainer = createElement('div', ['textbook__nav']);
   navContainer.innerHTML = `
   <div class="textbook__nav-wrapper">
-      <select class="textbook-select" size="1">
-       <span class="icon-book-1"></span>
-       <option class="textbook-select-option" selected>Раздел 1</option>
-       <option class="textbook-select-option">Раздел 2</option>
-       <option class="textbook-select-option">Раздел 3</option>
-       <option class="textbook-select-option">Раздел 4</option>
-       <option class="textbook-select-option">Раздел 5</option>
-       <option class="textbook-select-option">Раздел 6</option>
-       <option class="textbook-select-option">Сложные слова</option>
+      <select class="textbook__select" size="1">
+       <option class="textbook__select-option" selected>Раздел 1</option>
+       <option class="textbook__select-option">Раздел 2</option>
+       <option class="textbook__select-option">Раздел 3</option>
+       <option class="textbook__select-option">Раздел 4</option>
+       <option class="textbook__select-option">Раздел 5</option>
+       <option class="textbook__select-option">Раздел 6</option>
+       <option class="textbook__select-option">Сложные слова</option>
      </select>
     <div class="textbook__page-changer">
      <button class="textbook__to-first-page"><span class="icon-to-first"></span></button>
@@ -66,11 +63,10 @@ const renderTextbookTemplate = (root: string) => {
   textbookPage.appendChild(mainContentWrapper);
 
   const thisRoot: HTMLElement | null = document.querySelector(root);
-  if(thisRoot){
-    thisRoot.innerHTML = ''
+  if (thisRoot) {
+    thisRoot.innerHTML = '';
     thisRoot.appendChild(textbookPage);
   }
-
 };
 
 export default renderTextbookTemplate;
