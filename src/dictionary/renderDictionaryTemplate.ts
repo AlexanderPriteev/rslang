@@ -35,7 +35,7 @@ const renderdictionaryNavPanel = () => {
 </div>
 <div class="dictionary__nav-wrapper">
   <div class="dictionary__alphabet-search">
-    <button class="dictionary__alphabet-btn">A</button>
+    <button class="dictionary__alphabet-btn alphabet-active">A</button>
     <button class="dictionary__alphabet-btn">B</button>
     <button class="dictionary__alphabet-btn">C</button>
     <button class="dictionary__alphabet-btn">D</button>

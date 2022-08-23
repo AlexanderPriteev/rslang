@@ -45,11 +45,13 @@ const getNewContent = async () => {
         return complicatedWord;
       });
     const complicatedWordsDataAwait = Promise.all(complicatedWords);
-    void complicatedWordsDataAwait.then((data) => renderWordList(data as WordInterface[], userWords));
+    void complicatedWordsDataAwait.then((data) =>
+      renderWordList(data as WordInterface[], userWords, '.textbook__word-list')
+    );
     return;
   }
   document.querySelector('.textbook__page-changer')?.classList.remove('hide');
-  renderWordList(newContent, userWords);
+  renderWordList(newContent, userWords, '.textbook__word-list');
 };
 
 const updatePageContent = () => {
