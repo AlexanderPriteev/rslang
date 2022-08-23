@@ -1,0 +1,150 @@
+@import "../assets/styles/variables.scss";
+
+.dictionary {
+  background: $background-image;
+
+  &__img-bg {
+    width: 100%;
+  }
+
+  &__text-container {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    bottom: 2rem;
+    left: 3rem;
+  }
+
+  &__heading {
+    letter-spacing: 1.5rem;
+    font-weight: $f-bold;
+    font-size: 12.8rem;
+    line-height: 12.8rem;
+    color: $white10;
+
+    &-container {
+      position: relative;
+    }
+  }
+
+  &__chapter {
+    font-size: 6.4rem;
+    line-height: 6.4rem;
+    letter-spacing: 1.5rem;
+    color: $white;
+  }
+
+  &__content-wrapper {
+    max-width: 129.8rem;
+    margin: 8.2rem auto 0 auto;
+  }
+
+  &__nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 28px;
+    background-color: $bg-dark;
+    padding: 2.8rem 4rem;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    &-wrapper {
+      display: flex;
+      justify-content: space-between;
+      &:first-child {
+        display: flex;
+        gap: 3.9rem;
+        font-weight: $f-bold;
+        font-size: 2rem;
+        line-height: 2.4rem;
+        color: $text;
+      }
+    }
+  }
+
+  &__search-wrapper {
+    display: flex;
+  }
+
+  &__search {
+    width: 673px;
+    text-indent: 15px;
+  }
+
+  &__search-btn {
+    background: #a588e2;
+    border-radius: 0px 16px 16px 0px;
+    padding: 15px 38px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 14px;
+    color: white;
+  }
+
+  &__page-changer {
+    font-family: "Fira Code";
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    color: #422d6d;
+    width: 100px;
+    display: flex;
+    gap: 1.2rem;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__current-page {
+    margin-bottom: 3px;
+  }
+
+  &__game {
+    &-list {
+      display: flex;
+      gap: 3.6rem;
+      font-weight: $f-bold;
+      font-size: 2rem;
+      line-height: 2.4rem;
+      color: $text;
+    }
+    &-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1.2rem;
+    }
+    &-icon {
+      color: #422d6d;
+      font-size: 3.4rem;
+    }
+  }
+
+  &__word-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    margin-top: 4rem;
+  }
+
+  &__alphabet-search {
+    display: flex;
+    gap: 16px;
+  }
+
+  &__alphabet-btn {
+    font-family: "Fira Code";
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 24px;
+    color: #422d6d;
+  }
+}
+
+.hide {
+  display: none;
+}
+
+.alphabet-active {
+  color: #a588e2;
+}

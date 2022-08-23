@@ -1,13 +1,14 @@
 import '../styles.scss';
+import { routing } from '../routing/routing';
 
 //должны быть последними
 import '../assets/styles/atom.scss';
-import { pageRender } from '../page/page';
-import { renderWindowStartGame } from '../sprint/renderStart';
 
 const app = () => {
-  //pageRender();
-  renderWindowStartGame('body', 'audio-call-start-window');
+  const pathname = window.location.pathname;
+  const search = window.location.search;
+  if (search) routing(pathname, search);
+  else routing(pathname);
 };
 
 export default app;

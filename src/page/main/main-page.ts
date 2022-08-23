@@ -1,9 +1,7 @@
 import createElement from '../../helpers/createElement';
 import { navs } from '../sidebar/sidebar';
-import textbook from '../../textbook/textbook';
 import { devs } from '../about/about-const';
-import { gamesPage } from '../../games/games';
-import { statisticsRender } from '../../staistics/statistics';
+import { setLocation } from '../../routing/routing';
 
 //пока заглушка
 const youtubeIframe = `<iframe class="img img--contain" 
@@ -17,23 +15,12 @@ const youtubeIframe = `<iframe class="img img--contain"
 function mainResources() {
   const resources = createElement('section', ['main-resources']);
   navs.forEach((e) => {
-    if (e.name !== 'main') {
+    if (e.name !== 'index') {
       const navText = `<i class="card-link__icon ${e.icon}"></i>
                               <h3 class="card-link__title">${e.title}</h3>`;
       const nav = createElement('div', ['card-link'], navText);
       resources.append(nav);
-      switch (e.name) {
-        case 'book':
-          nav.onclick = () => textbook();
-          break;
-        case 'games':
-          nav.onclick = () => gamesPage();
-          break;
-        case 'statistics':
-          nav.onclick = () => statisticsRender();
-          break;
-        //  добавить остальные страницы
-      }
+      nav.onclick = () => setLocation(e.name);
     }
   });
   return resources;
