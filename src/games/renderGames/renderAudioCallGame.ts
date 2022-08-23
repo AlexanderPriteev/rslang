@@ -1,18 +1,18 @@
-import './style.scss';
+import '../games.scss';
 
-import createElement from '../helpers/createElement';
-import appendChildArray from '../helpers/appendChildArray';
-import { eventKeyUp, eventListener } from './logicSprint';
-import { closeWindow } from '../helpers/closeWindow';
+import createElement from '../../helpers/createElement';
+import appendChildArray from '../../helpers/appendChildArray';
+import { eventKeyUp, eventListener } from '../logicGames/logicSprint';
+import { closeWindow } from '../../helpers/closeWindow';
 
 function renderButtonGroup() {
   const questBtn = createElement('div', ['audio-call-quest__btn']);
-  const questBtn1 = createElement('button', undefined);
-  const questBtn2 = createElement('button', undefined);
-  const questBtn3 = createElement('button', undefined);
-  const questBtn4 = createElement('button', undefined);
-  const questBtn5 = createElement('button', undefined);
-  const questBtn6 = createElement('button', undefined);
+  const questBtn1 = createElement('button', undefined, undefined, 'btn-audio-call');
+  const questBtn2 = createElement('button', undefined, undefined, 'btn-audio-call');
+  const questBtn3 = createElement('button', undefined, undefined, 'btn-audio-call');
+  const questBtn4 = createElement('button', undefined, undefined, 'btn-audio-call');
+  const questBtn5 = createElement('button', undefined, undefined, 'btn-audio-call');
+  const questBtn6 = createElement('button', undefined, undefined, 'btn-audio-call');
 
   appendChildArray(questBtn, [questBtn1, questBtn2, questBtn3, questBtn4, questBtn5, questBtn6]);
 
@@ -64,6 +64,6 @@ export function renderAudioCallGame(target: HTMLElement | string) {
     target.appendChild(container);
   }
 
-  eventListener();
+  eventListener('div.audio-call-game-container');
   eventKeyUp();
 }

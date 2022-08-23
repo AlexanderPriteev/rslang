@@ -1,10 +1,10 @@
-import './style.scss';
+import '../games.scss';
 
-import createElement from '../helpers/createElement';
-import appendChildArray from '../helpers/appendChildArray';
-import { SprintResult } from '../types/index';
-import { completeTableWinners, getResultString } from './logicSprint';
-import { setLocation } from '../routing/routing';
+import createElement from '../../helpers/createElement';
+import appendChildArray from '../../helpers/appendChildArray';
+import { SprintResult } from '../../types/index';
+import { completeTableWinners, getResultString } from '../logicGames/logicSprint';
+import { setLocation } from '../../routing/routing';
 
 export function renderColumnWinner(target: HTMLElement | string, resultSprint: SprintResult) {
   const { wordEn, wordRu, result } = resultSprint;

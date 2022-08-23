@@ -3,7 +3,7 @@ import { mainPage } from '../page/main/main-page';
 import textbook from '../textbook/textbook';
 import { statisticsRender } from '../staistics/statistics';
 import { gamesPage } from '../games/games';
-import { renderWindowStartGame } from '../sprint/renderStart';
+import { renderWindowStartGame } from '../games/renderGames/renderStart';
 import { openAuth } from '../page/header/header-auth';
 import { notFoundRender } from '../page/page-not-found/not-found';
 

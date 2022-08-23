@@ -1,11 +1,12 @@
-import './style.scss';
-import { renderWindowGame } from './renderSprintGame';
-import { SprintResult } from '../types/index';
-import { renderColumnWinner, renderWindowGameResult } from './renderGameResult';
-import requestMethods from '../services/requestMethods';
-import constants from '../constants/index';
-import { getStoreGame, setStoreGame } from '../storage/index';
-import { WordInterface } from '../types/wordInterface';
+import '../games.scss';
+import { renderWindowGame } from '../renderGames/renderSprintGame';
+import { SprintResult } from '../../types/index';
+import { renderColumnWinner, renderWindowGameResult } from '../renderGames/renderGameResult';
+import requestMethods from '../../services/requestMethods';
+import constants from '../../constants/index';
+import { getStoreGame, setStoreGame } from '../../storage/index';
+import { WordInterface } from '../../types/wordInterface';
+import { checkAudioAnswer, onSound } from './logicAudioCall';
 const { SERVER } = constants;
 
 export const resultsGameSprint: SprintResult[] = [];
@@ -27,7 +28,7 @@ function randomBoolean() {
 export async function getWordsByCategory(level: number): Promise<WordInterface[]> {
   const promiseArray: Promise<WordInterface[]>[] = [];
 
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 30; i++) {
     promiseArray.push(requestMethods().getWords(level, i) as Promise<WordInterface[]>);
   }
 
@@ -203,15 +204,12 @@ function offSound() {
   }
 }
 
-export function eventListener() {
-  const container = document.querySelector('div.sprint-game-container');
-  console.log(container);
+export function eventListener(classes: string) {
+  const container = document.querySelector(classes);
 
   container?.addEventListener('click', (event) => {
-    console.log('789');
-
     const classId = (event.target as HTMLElement).id;
-    console.log(classId);
+
     switch (classId) {
       case 'btn-sprint-false':
         checkAnswer(false);
@@ -229,6 +227,14 @@ export function eventListener() {
 
       case 'sprint-word-sound':
         void new Audio(`${SERVER}${wordsArray[index].audio}`).play();
+        break;
+
+      case 'call-sound':
+        onSound();
+        break;
+
+      case 'btn-audio-call':
+        checkAudioAnswer(event.target as HTMLButtonElement);
         break;
 
       default:

@@ -1,11 +1,11 @@
-import './style.scss';
+import '../games.scss';
 
-import createElement from '../helpers/createElement';
-import constants from '../constants/index';
-import appendChildArray from '../helpers/appendChildArray';
-import { startSprint } from './logicSprint';
-import { startAudioCall } from './logicAudioCall';
-import { setLocation } from '../routing/routing';
+import createElement from '../../helpers/createElement';
+import constants from '../../constants/index';
+import appendChildArray from '../../helpers/appendChildArray';
+import { startSprint } from '../logicGames/logicSprint';
+import { startAudioCall } from '../logicGames/logicAudioCall';
+import { setLocation } from '../../routing/routing';
 const { COUNT_GAME_SECTIONS, CLASS_CONTAINER_SPRINT } = constants;
 
 export function renderWindowStartGame(target: HTMLElement | string, classes = 'body') {
