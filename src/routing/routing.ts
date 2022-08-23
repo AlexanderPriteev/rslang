@@ -29,7 +29,10 @@ export function routing(rout: string, options?: string) {
       pageRender(gamesPage, 'games');
       break;
     case '/sprint':
-      renderWindowStartGame();
+      renderWindowStartGame('body', 'sprint-start-window');
+      break;
+    case '/audio-call':
+      renderWindowStartGame('body', 'audio-call-start-window');
       break;
 
     case '/auth':

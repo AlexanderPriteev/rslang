@@ -3,7 +3,7 @@ import './style.scss';
 import createElement from '../helpers/createElement';
 import appendChildArray from '../helpers/appendChildArray';
 import constants from '../constants/index';
-import { eventKeyUp, eventListener } from './logic';
+import { eventKeyUp, eventListener } from './logicSprint';
 import { setLocation } from '../routing/routing';
 
 const { BTN_TITLE_FALSE, BTN_TITLE_TRUE } = constants;

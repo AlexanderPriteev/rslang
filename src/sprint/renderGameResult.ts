@@ -3,7 +3,7 @@ import './style.scss';
 import createElement from '../helpers/createElement';
 import appendChildArray from '../helpers/appendChildArray';
 import { SprintResult } from '../types/index';
-import { completeTableWinners, getResultString } from './logic';
+import { completeTableWinners, getResultString } from './logicSprint';
 import { setLocation } from '../routing/routing';
 
 export function renderColumnWinner(target: HTMLElement | string, resultSprint: SprintResult) {

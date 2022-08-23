@@ -47,7 +47,8 @@ function endGame() {
   const totalScore = (document.querySelector('div.quest-header__count-true') as HTMLElement).innerText;
 
   renderWindowGameResult('body', resultsGameSprint, totalScore);
-  document.querySelector('div.sprint-game-container')?.classList.add('hidden');
+  //document.querySelector('div.sprint-game-container')?.classList.add('hidden');
+  document.querySelector('div.sprint-game-container')?.remove();
 }
 
 function createTimer() {
@@ -104,7 +105,8 @@ export async function startSprint(levelOrWords: number | WordInterface[]) {
   writeQuest();
 
   const container = document.querySelector('div.game-container');
-  container?.classList.add('hidden');
+  container?.remove();
+  //container?.classList.add('hidden');
 }
 
 function checkGameStorage(answer: boolean) {
@@ -123,7 +125,6 @@ function checkGameStorage(answer: boolean) {
   if (index > gameStor.countNewWord) gameStor.countNewWord = index;
 
   setStoreGame(gameStor);
-  console.log(gameStor);
 }
 
 function calculateScore(answer: boolean) {
@@ -204,10 +205,13 @@ function offSound() {
 
 export function eventListener() {
   const container = document.querySelector('div.sprint-game-container');
+  console.log(container);
 
   container?.addEventListener('click', (event) => {
-    const classId = (event.target as HTMLElement).id;
+    console.log('789');
 
+    const classId = (event.target as HTMLElement).id;
+    console.log(classId);
     switch (classId) {
       case 'btn-sprint-false':
         checkAnswer(false);
