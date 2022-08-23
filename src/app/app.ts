@@ -5,7 +5,9 @@ import {routing} from "../routing/routing";
 import '../assets/styles/atom.scss';
 
 const app = () => {
-  routing(window.location.pathname)
+  const pathname = window.location.pathname
+  const search = window.location.search
+  search ? routing(pathname, search) : routing(pathname)
 };
 
 export default app;

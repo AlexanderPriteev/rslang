@@ -14,8 +14,7 @@ export function pageBaseMarkup(){
   return page
 }
 
-export function pageRender(renderInner: () => void, activeTabName?: string) {
-  if(activeTabName)  console.log(activeTabName)
+export function pageRender(renderInner: (opt?: string) => void, activeTabName?: string, options?: string) {
   const page = pageBaseMarkup();
   const main = createElement('main', ['main-section']);
   const content = createElement('div', ['content-wrapper']);
@@ -23,5 +22,6 @@ export function pageRender(renderInner: () => void, activeTabName?: string) {
   const aside = sidebarRender(head, activeTabName);
   main.append(aside, content);
   page.append(head, main, footerRender());
-  renderInner()
+  options ? renderInner(options) : renderInner()
+
 }

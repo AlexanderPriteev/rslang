@@ -7,14 +7,17 @@ import {renderWindowStartGame} from "../sprint/renderStart";
 import {openAuth} from "../page/header/header-auth";
 import {notFoundRender} from "../page/page-not-found/not-found";
 
-export function routing(rout: string){
+export function routing(rout: string, options?: string){
+    const book = options ? pageRender(textbook , 'book', options)
+                : pageRender(textbook , 'book');
+
     switch (rout){
         case '/': pageRender(mainPage, 'index');
             break;
         case '/index': pageRender(mainPage, 'index');
             break;
 
-        case '/book': pageRender(textbook, 'book');
+        case '/book': void book;
             break;
         case '/statistics': pageRender(statisticsRender, 'statistics');
             break;
@@ -30,9 +33,15 @@ export function routing(rout: string){
     }
 }
 
-export function setLocation(rout: string = ''){
+export function setLocation(rout: string = '', options?:string){
     try {
-        window.history.pushState(null, '', rout);
-        routing(`/${rout}`);
+        window.history.pushState(null, '', `${rout}${options || ''}`);
+        options ? routing(`/${rout}`, options) : routing(`/${rout}`);
     } catch(e) {}
+}
+
+export function routPath(){
+    const pathname = window.location.pathname
+    const search = window.location.search
+    return search ? [pathname, search] : [pathname]
 }
