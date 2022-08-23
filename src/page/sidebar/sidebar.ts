@@ -3,21 +3,20 @@ import textbook from '../../textbook/textbook';
 import { mainPage } from '../main/main-page';
 import { gamesPage } from '../../games/games';
 import { statisticsRender } from '../../staistics/statistics';
+import {setLocation} from "../../routing/routing";
 
 export interface NavItem {
   name: string;
   icon: string;
   title: string;
-  isActive?: boolean;
   link?: string;
 }
 
 export const navs: NavItem[] = [
   {
-    name: 'main',
+    name: 'index',
     icon: 'icon-building-home',
     title: 'Домой',
-    isActive: true,
   },
   {
     name: 'book',
@@ -47,9 +46,9 @@ const about: NavItem = {
   link: '#about',
 };
 
-function navLink(item: NavItem) {
+function navLink(item: NavItem, isActive?: boolean) {
   const text = `<i class="nav-link__icon ${item.icon}"></i><span class="nav-link__title">${item.title}</span>`;
-  const aboutLink = createElement('a', item.isActive ? ['nav-link', 'active'] : ['nav-link'], text);
+  const aboutLink = createElement('a', isActive ? ['nav-link', 'active'] : ['nav-link'], text);
   aboutLink.setAttribute('data-target', item.name);
   if (item.link) {
     aboutLink.setAttribute('href', item.link);
@@ -63,23 +62,7 @@ function openSidebar() {
   main.classList.toggle('open');
 }
 
-function navListActiveBtn(parentList: HTMLElement) {
-  parentList.onclick = (event) => {
-    const target = event.target as HTMLElement;
-    const targetParent = target.parentNode as HTMLElement;
-
-    if (!target.classList.contains('sidebar__nav')) {
-      const list = parentList.querySelectorAll('.nav-link');
-      list.forEach((e) => {
-        if (e.classList.contains('active')) e.classList.remove('active');
-      });
-      if (target.classList.contains('nav-link')) target.classList.add('active');
-      if (targetParent.classList.contains('nav-link')) targetParent.classList.add('active');
-    }
-  };
-}
-
-export function sidebarRender(header?: HTMLElement) {
+export function sidebarRender(header?: HTMLElement, activeTabName?: string) {
   if (header) {
     const controlElement = createElement('i', ['header__collapse', 'icon-navigation']);
     controlElement.onclick = openSidebar;
@@ -88,24 +71,10 @@ export function sidebarRender(header?: HTMLElement) {
 
   const sidebar = createElement('aside', ['sidebar']);
   const navList = createElement('nav', ['sidebar__nav']);
-  navListActiveBtn(navList);
   navs.forEach((e) => {
-    const nav = navLink(e);
+    const nav = navLink(e, activeTabName === e.name);
     navList.append(nav);
-    switch (e.name) {
-      case 'book':
-        nav.onclick = () => textbook();
-        break;
-      case 'games':
-        nav.onclick = () => gamesPage();
-        break;
-      case 'statistics':
-        nav.onclick = () => statisticsRender();
-        break;
-      //  добавить остальные страницы
-      default:
-        nav.onclick = () => mainPage();
-    }
+    nav.onclick = () => setLocation(e.name);
   });
 
   const aboutLink = createElement('div', ['sidebar__link']);

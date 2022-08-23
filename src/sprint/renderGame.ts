@@ -5,6 +5,7 @@ import appendChildArray from '../helpers/appendChildArray';
 import constants from '../constants/index';
 import { eventKeyUp, eventListener } from './logic';
 import { closeWindow } from '../helpers/closeWindow';
+import {setLocation} from "../routing/routing";
 
 const { BTN_TITLE_FALSE, BTN_TITLE_TRUE } = constants;
 
@@ -70,7 +71,12 @@ export function renderWindowGame(target: HTMLElement | string) {
   btnSound.appendChild(soundIcon);
 
   const btnClose = createElement('div', ['btn-close']);
-  btnClose.addEventListener('click', () => closeWindow(container));
+  //btnClose.addEventListener('click', () => closeWindow(container));
+  btnClose.onclick = () => {
+    setLocation('games');
+    container.remove();
+  };
+
   const questContainer = renderQuestContainer();
 
   appendChildArray(container, [btnSound, btnClose, questContainer]);

@@ -5,12 +5,18 @@ import constants from '../constants/index';
 import appendChildArray from '../helpers/appendChildArray';
 import { closeWindow } from '../helpers/closeWindow';
 import { startSprint } from './logic';
+import {setLocation} from "../routing/routing";
 const { COUNT_GAME_SECTIONS } = constants;
 
-export function renderWindowStartGame(target: HTMLElement | string) {
+export function renderWindowStartGame(target: HTMLElement | string = 'body') {
   const container = createElement('div', ['sprint-container', 'sprint-start-window']);
   const btnClose = createElement('div', ['btn-close']);
-  btnClose.addEventListener('click', () => closeWindow(container));
+  //btnClose.addEventListener('click', () => closeWindow(container));
+  btnClose.onclick = () => {
+    setLocation('games');
+    container.remove();
+  };
+
   const categoryContainer = createElement('div', ['game-category']);
   const text = createElement('span', ['game-category__text'], 'Выберите категорию:');
 
@@ -29,8 +35,11 @@ export function renderWindowStartGame(target: HTMLElement | string) {
   appendChildArray(container, [btnClose, categoryContainer]);
 
   if (typeof target === 'string') {
-    document.querySelector(target)?.appendChild(container);
+    const targetContainer = document.querySelector(target) as HTMLElement;
+    targetContainer.innerHTML = '';
+    targetContainer.appendChild(container);
   } else {
+    target.innerHTML = '';
     target.appendChild(container);
   }
 }

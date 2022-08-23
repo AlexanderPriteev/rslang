@@ -5,6 +5,7 @@ import appendChildArray from '../helpers/appendChildArray';
 import { closeWindow } from '../helpers/closeWindow';
 import { SprintResult } from '../types/index';
 import { completeTableWinners, getResultString } from './logic';
+import {setLocation} from "../routing/routing";
 
 export function renderColumnWinner(target: HTMLElement | string, resultSprint: SprintResult) {
   const { wordEn, wordRu, result } = resultSprint;
@@ -32,7 +33,11 @@ export function renderWindowGameResult(
 ) {
   const container = createElement('div', ['sprint-container', 'spring-result-container']);
   const btnClose = createElement('div', ['btn-close']);
-  btnClose.addEventListener('click', () => closeWindow(container));
+  //btnClose.addEventListener('click', () => closeWindow(container));
+  btnClose.onclick = () => {
+    setLocation('games');
+    container.remove();
+  };
 
   const results = createElement('div', ['spring-result']);
 

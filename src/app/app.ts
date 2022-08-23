@@ -1,11 +1,11 @@
 import '../styles.scss';
+import {routing} from "../routing/routing";
 
 //должны быть последними
 import '../assets/styles/atom.scss';
-import { pageRender } from '../page/page';
 
 const app = () => {
-  pageRender();
+  routing(window.location.pathname)
 };
 
 export default app;
