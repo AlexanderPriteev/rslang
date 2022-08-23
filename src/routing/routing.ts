@@ -5,6 +5,7 @@ import {statisticsRender} from "../staistics/statistics";
 import {gamesPage} from "../games/games";
 import {renderWindowStartGame} from "../sprint/renderStart";
 import {openAuth} from "../page/header/header-auth";
+import {notFoundRender} from "../page/page-not-found/not-found";
 
 export function routing(rout: string){
     switch (rout){
@@ -25,6 +26,7 @@ export function routing(rout: string){
 
         case '/auth': openAuth()
             break;
+        default: notFoundRender()
     }
 }
 
