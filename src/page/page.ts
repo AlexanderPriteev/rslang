@@ -3,15 +3,15 @@ import { headerRender } from './header/header';
 import { sidebarRender } from './sidebar/sidebar';
 import { footerRender } from './footer/footer';
 
-export function pageBaseMarkup(){
+export function pageBaseMarkup() {
   const body = document.body;
-  let page: HTMLElement | null = body.querySelector('.page-wrapper')
-  if(page) page.innerHTML = ''
-  else{
+  let page: HTMLElement | null = body.querySelector('.page-wrapper');
+  if (page) page.innerHTML = '';
+  else {
     page = createElement('div', ['page-wrapper']);
-    body.append(page)
+    body.append(page);
   }
-  return page
+  return page;
 }
 
 export function pageRender(renderInner: (opt?: string) => void, activeTabName?: string, options?: string) {
@@ -22,6 +22,6 @@ export function pageRender(renderInner: (opt?: string) => void, activeTabName?: 
   const aside = sidebarRender(head, activeTabName);
   main.append(aside, content);
   page.append(head, main, footerRender());
-  options ? renderInner(options) : renderInner()
-
+  if (options) renderInner(options);
+  else renderInner();
 }

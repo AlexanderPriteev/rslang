@@ -1,7 +1,7 @@
 import createElement from '../../helpers/createElement';
 import { renderAuthorization } from '../../authorization/index';
 import { headerRender } from './header';
-import {setLocation} from "../../routing/routing";
+import { setLocation } from '../../routing/routing';
 
 export function openAuth() {
   const body = document.body;

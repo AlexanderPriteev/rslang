@@ -1,9 +1,6 @@
 import createElement from '../../helpers/createElement';
-import textbook from '../../textbook/textbook';
 import { mainPage } from '../main/main-page';
-import { gamesPage } from '../../games/games';
-import { statisticsRender } from '../../staistics/statistics';
-import {setLocation} from "../../routing/routing";
+import { setLocation } from '../../routing/routing';
 
 export interface NavItem {
   name: string;

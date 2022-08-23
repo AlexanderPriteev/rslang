@@ -4,7 +4,7 @@ import './textbook.scss';
 import './word.scss';
 
 const textbook = (options?: string) => {
-  if (options) console.log(options)
+  if (options) console.log(options);
   renderTextbookTemplate('.content-wrapper');
   pageSwitcher();
 };

@@ -1,11 +1,7 @@
 import createElement from '../../helpers/createElement';
 import { navs } from '../sidebar/sidebar';
-import textbook from '../../textbook/textbook';
-import dictionary from '../../dictionary/dictionary';
 import { devs } from '../about/about-const';
-import { gamesPage } from '../../games/games';
-import { statisticsRender } from '../../staistics/statistics';
-import {setLocation} from "../../routing/routing";
+import { setLocation } from '../../routing/routing';
 
 //пока заглушка
 const youtubeIframe = `<iframe class="img img--contain" 
@@ -24,7 +20,7 @@ function mainResources() {
                               <h3 class="card-link__title">${e.title}</h3>`;
       const nav = createElement('div', ['card-link'], navText);
       resources.append(nav);
-      nav.onclick = () => setLocation(e.name)
+      nav.onclick = () => setLocation(e.name);
     }
   });
   return resources;

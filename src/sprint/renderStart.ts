@@ -3,9 +3,8 @@ import './style.scss';
 import createElement from '../helpers/createElement';
 import constants from '../constants/index';
 import appendChildArray from '../helpers/appendChildArray';
-import { closeWindow } from '../helpers/closeWindow';
 import { startSprint } from './logic';
-import {setLocation} from "../routing/routing";
+import { setLocation } from '../routing/routing';
 const { COUNT_GAME_SECTIONS } = constants;
 
 export function renderWindowStartGame(target: HTMLElement | string = 'body') {
