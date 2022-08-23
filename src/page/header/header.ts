@@ -5,7 +5,7 @@ import { headerAuth } from './header-auth';
 export function headerRender(user?: boolean, login?: boolean) {
   const logo: DevsLinks = {
     name: 'RS Lang',
-    link: '/index.html',
+    link: '/index',
     image: './assets/images/lang-logo.svg',
   };
   const header = createElement('header', ['header']);

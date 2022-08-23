@@ -1,6 +1,7 @@
 import createElement from '../helpers/createElement';
 import { NavItem } from '../page/sidebar/sidebar';
 import './games.scss';
+import { setLocation } from '../routing/routing';
 
 const gamesItems: NavItem[] = [
   {
@@ -26,6 +27,7 @@ export function gamesPage(root = '.content-wrapper') {
       const navText = `<i class="card-link__icon ${e.icon}"></i>
                               <h3 class="card-link__title">${e.title}</h3>`;
       const nav = createElement('div', ['card-link', 'card-link--lg'], navText);
+      nav.onclick = () => setLocation(e.name);
       list.append(nav);
       switch (e.name) {
         //  добавить остальные страницы
