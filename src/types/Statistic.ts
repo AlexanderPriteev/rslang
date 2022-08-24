@@ -1,24 +1,32 @@
-interface GameStatistic{
-    date: Date;
-    studied: number;
-    errors: number;
-    correct: number;
-    longSeries: number
+interface DataSetting{
+    wordsPerDay: number;
+    optional: {
+        statistic: Statistic;
+    }
 }
 
-interface WordStatistic{
-    date: Date;
+export interface WordStatistic{
+    date: string;
     studied: number;
     errors: number;
     correct: number;
-    longSeries: number
+    longSeries?: number
+    added?: number;
 }
+
 
 export interface Statistic {
     today: WordStatistic;
-    wordSHistory?: WordStatistic[];
-    sprint?: GameStatistic;
-    sprintHistory?: GameStatistic[];
-    audioCall?: GameStatistic;
-    audioCallHistory?: GameStatistic[];
+    wordsHistory?: WordStatistic[];
+    sprint?: WordStatistic;
+    sprintHistory?: WordStatistic[];
+    audioCall?: WordStatistic;
+    audioCallHistory?: WordStatistic[];
+}
+
+export interface DataForStatistic{
+    wordsPerDay: number;
+    optional: {
+        statistics: Statistic;
+    }
 }

@@ -3,24 +3,24 @@ import { CustomChart } from '../types/customChartInterface';
 export const wordsLines: CustomChart[] = [
   {
     title: 'Изучено новых слов сегодня:',
-    width: 70,
+    width: 0,
     color: '#70FF8F',
-    value: 124,
+    value: 0,
     type: 'line',
   },
   {
     title: 'Добавлено новых слов сегодня:',
-    width: 100,
+    width: 0,
     color: '#70FFFF',
-    value: 156,
+    value: 0,
     type: 'line',
   },
 ];
 
 export const wordsDonut: CustomChart = {
   title: 'Правильных ответов за сегодня:',
-  width: 70,
-  value: 70,
+  width: 0,
+  value: 0,
   type: 'donut',
 };
 
@@ -53,7 +53,7 @@ export const gamesAudioLines: CustomChart[] = [
     title: 'Изучено новых слов сегодня:',
     width: 100,
     color: '#70FF8F',
-    value: 99,
+    value: 199,
     type: 'line',
   },
   {
