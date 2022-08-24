@@ -1,10 +1,10 @@
-import './style.scss';
+import '../games.scss';
 
-import createElement from '../helpers/createElement';
-import appendChildArray from '../helpers/appendChildArray';
-import { SprintResult } from '../types/index';
-import { completeTableWinners, getResultString } from './logic';
-import { setLocation } from '../routing/routing';
+import createElement from '../../helpers/createElement';
+import appendChildArray from '../../helpers/appendChildArray';
+import { SprintResult } from '../../types/index';
+import { completeTableWinners, getResultString } from '../logicGames/logicSprint';
+import { setLocation } from '../../routing/routing';
 
 export function renderColumnWinner(target: HTMLElement | string, resultSprint: SprintResult) {
   const { wordEn, wordRu, result } = resultSprint;
@@ -30,7 +30,7 @@ export function renderWindowGameResult(
   resultsSprint: SprintResult[],
   totalScore: string
 ) {
-  const container = createElement('div', ['sprint-container', 'spring-result-container']);
+  const container = createElement('div', ['game-container', 'spring-result-container']);
   const btnClose = createElement('div', ['btn-close']);
   //btnClose.addEventListener('click', () => closeWindow(container));
   btnClose.onclick = () => {

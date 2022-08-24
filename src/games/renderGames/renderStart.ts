@@ -1,14 +1,15 @@
-import './style.scss';
+import '../games.scss';
 
-import createElement from '../helpers/createElement';
-import constants from '../constants/index';
-import appendChildArray from '../helpers/appendChildArray';
-import { startSprint } from './logic';
-import { setLocation } from '../routing/routing';
-const { COUNT_GAME_SECTIONS } = constants;
+import createElement from '../../helpers/createElement';
+import constants from '../../constants/index';
+import appendChildArray from '../../helpers/appendChildArray';
+import { startSprint } from '../logicGames/logicSprint';
+import { startAudioCall } from '../logicGames/logicAudioCall';
+import { setLocation } from '../../routing/routing';
+const { COUNT_GAME_SECTIONS, CLASS_CONTAINER_SPRINT } = constants;
 
-export function renderWindowStartGame(target: HTMLElement | string = 'body') {
-  const container = createElement('div', ['sprint-container', 'sprint-start-window']);
+export function renderWindowStartGame(target: HTMLElement | string, classes = 'body') {
+  const container = createElement('div', ['game-container', classes]);
   const btnClose = createElement('div', ['btn-close']);
   //btnClose.addEventListener('click', () => closeWindow(container));
   btnClose.onclick = () => {
@@ -25,7 +26,11 @@ export function renderWindowStartGame(target: HTMLElement | string = 'body') {
     section.addEventListener('click', (e) => {
       const level = +(e.target as HTMLElement).className.slice(-1);
 
-      void startSprint(+level);
+      if (classes === CLASS_CONTAINER_SPRINT) {
+        void startSprint(+level);
+      } else {
+        void startAudioCall(+level);
+      }
     });
     arraySections.push(section);
   }

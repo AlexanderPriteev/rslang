@@ -8,4 +8,5 @@ export default {
   COUNT_GAME_SECTIONS: 6,
   BTN_TITLE_FALSE: 'НЕВЕРНО',
   BTN_TITLE_TRUE: 'ВЕРНО',
+  CLASS_CONTAINER_SPRINT: 'sprint-start-window',
 };

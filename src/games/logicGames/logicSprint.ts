@@ -1,11 +1,12 @@
-import './style.scss';
-import { renderWindowGame } from './renderGame';
-import { SprintResult } from '../types/index';
-import { renderColumnWinner, renderWindowGameResult } from './renderGameResult';
-import requestMethods from '../services/requestMethods';
-import constants from '../constants/index';
-import { getStoreGame, setStoreGame } from '../storage/index';
-import { WordInterface } from '../types/wordInterface';
+import '../games.scss';
+import { renderWindowGame } from '../renderGames/renderSprintGame';
+import { SprintResult } from '../../types/index';
+import { renderColumnWinner, renderWindowGameResult } from '../renderGames/renderGameResult';
+import requestMethods from '../../services/requestMethods';
+import constants from '../../constants/index';
+import { getStoreGame, setStoreGame } from '../../storage/index';
+import { WordInterface } from '../../types/wordInterface';
+import { checkAudioAnswer, onSound } from './logicAudioCall';
 const { SERVER } = constants;
 
 export const resultsGameSprint: SprintResult[] = [];
@@ -27,7 +28,7 @@ function randomBoolean() {
 export async function getWordsByCategory(level: number): Promise<WordInterface[]> {
   const promiseArray: Promise<WordInterface[]>[] = [];
 
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 30; i++) {
     promiseArray.push(requestMethods().getWords(level, i) as Promise<WordInterface[]>);
   }
 
@@ -47,7 +48,8 @@ function endGame() {
   const totalScore = (document.querySelector('div.quest-header__count-true') as HTMLElement).innerText;
 
   renderWindowGameResult('body', resultsGameSprint, totalScore);
-  document.querySelector('div.sprint-game-container')?.classList.add('hidden');
+  //document.querySelector('div.sprint-game-container')?.classList.add('hidden');
+  document.querySelector('div.sprint-game-container')?.remove();
 }
 
 function createTimer() {
@@ -103,8 +105,9 @@ export async function startSprint(levelOrWords: number | WordInterface[]) {
 
   writeQuest();
 
-  const container = document.querySelector('div.sprint-container');
-  container?.classList.add('hidden');
+  const container = document.querySelector('div.game-container');
+  container?.remove();
+  //container?.classList.add('hidden');
 }
 
 function checkGameStorage(answer: boolean) {
@@ -123,7 +126,6 @@ function checkGameStorage(answer: boolean) {
   if (index > gameStor.countNewWord) gameStor.countNewWord = index;
 
   setStoreGame(gameStor);
-  console.log(gameStor);
 }
 
 function calculateScore(answer: boolean) {
@@ -202,8 +204,8 @@ function offSound() {
   }
 }
 
-export function eventListener() {
-  const container = document.querySelector('div.sprint-game-container');
+export function eventListener(classes: string) {
+  const container = document.querySelector(classes);
 
   container?.addEventListener('click', (event) => {
     const classId = (event.target as HTMLElement).id;
@@ -225,6 +227,14 @@ export function eventListener() {
 
       case 'sprint-word-sound':
         void new Audio(`${SERVER}${wordsArray[index].audio}`).play();
+        break;
+
+      case 'call-sound':
+        onSound();
+        break;
+
+      case 'btn-audio-call':
+        checkAudioAnswer(event.target as HTMLButtonElement);
         break;
 
       default:

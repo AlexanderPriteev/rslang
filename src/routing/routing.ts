@@ -3,7 +3,7 @@ import { mainPage } from '../page/main/main-page';
 import textbook from '../textbook/textbook';
 import { statisticsRender } from '../statistics/statistics';
 import { gamesPage } from '../games/games';
-import { renderWindowStartGame } from '../sprint/renderStart';
+import { renderWindowStartGame } from '../games/renderGames/renderStart';
 import { openAuth } from '../page/header/header-auth';
 import { notFoundRender } from '../page/page-not-found/not-found';
 
@@ -29,7 +29,10 @@ export function routing(rout: string, options?: string) {
       pageRender(gamesPage, 'games');
       break;
     case '/sprint':
-      renderWindowStartGame();
+      renderWindowStartGame('body', 'sprint-start-window');
+      break;
+    case '/audio-call':
+      renderWindowStartGame('body', 'audio-call-start-window');
       break;
 
     case '/auth':
