@@ -1,10 +1,10 @@
-import './style.scss';
+import '../games.scss';
 
-import createElement from '../helpers/createElement';
-import appendChildArray from '../helpers/appendChildArray';
-import constants from '../constants/index';
-import { eventKeyUp, eventListener } from './logic';
-import { setLocation } from '../routing/routing';
+import createElement from '../../helpers/createElement';
+import appendChildArray from '../../helpers/appendChildArray';
+import constants from '../../constants/index';
+import { eventKeyUp, eventListener } from '../logicGames/logicSprint';
+import { setLocation } from '../../routing/routing';
 
 const { BTN_TITLE_FALSE, BTN_TITLE_TRUE } = constants;
 
@@ -61,7 +61,7 @@ function renderQuestContainer() {
 }
 
 export function renderWindowGame(target: HTMLElement | string) {
-  const container = createElement('div', ['sprint-container', 'sprint-game-container']);
+  const container = createElement('div', ['game-container', 'sprint-game-container']);
 
   const btnSound = createElement('div', ['sprint-sound']);
   const soundIcon = createElement('img', undefined, undefined, 'sprint-sound') as HTMLImageElement;
@@ -86,6 +86,6 @@ export function renderWindowGame(target: HTMLElement | string) {
     target.appendChild(container);
   }
 
-  eventListener();
+  eventListener('div.sprint-game-container');
   eventKeyUp();
 }
