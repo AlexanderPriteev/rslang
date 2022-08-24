@@ -1,7 +1,7 @@
 import { pageRender } from '../page/page';
 import { mainPage } from '../page/main/main-page';
 import textbook from '../textbook/textbook';
-import { statisticsRender } from '../staistics/statistics';
+import { statisticsRender } from '../statistics/statistics';
 import { gamesPage } from '../games/games';
 import { renderWindowStartGame } from '../sprint/renderStart';
 import { openAuth } from '../page/header/header-auth';
