@@ -2,8 +2,9 @@ import '../games.scss';
 
 import createElement from '../../helpers/createElement';
 import appendChildArray from '../../helpers/appendChildArray';
-import { eventKeyUp, eventListener } from '../logicGames/logicSprint';
-import { closeWindow } from '../../helpers/closeWindow';
+import { eventListener } from '../logicGames/logicSprint';
+import { setLocation } from '../../routing/routing';
+import { eventKeyUpAudioCall } from '../logicGames/logicAudioCall';
 
 function renderButtonGroup() {
   const questBtn = createElement('div', ['audio-call-quest__btn']);
@@ -54,7 +55,10 @@ export function renderAudioCallGame(target: HTMLElement | string) {
   btnSound.appendChild(soundIcon);
 
   const btnClose = createElement('div', ['btn-close']);
-  btnClose.addEventListener('click', () => closeWindow(container));
+  btnClose.onclick = () => {
+    setLocation('games');
+    container.remove();
+  };
 
   appendChildArray(container, [btnSound, btnClose, renderQuestGroup()]);
 
@@ -65,5 +69,5 @@ export function renderAudioCallGame(target: HTMLElement | string) {
   }
 
   eventListener('div.audio-call-game-container');
-  eventKeyUp();
+  eventKeyUpAudioCall();
 }

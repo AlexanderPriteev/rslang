@@ -3,7 +3,7 @@ import '../games.scss';
 import createElement from '../../helpers/createElement';
 import appendChildArray from '../../helpers/appendChildArray';
 import constants from '../../constants/index';
-import { eventKeyUp, eventListener } from '../logicGames/logicSprint';
+import { eventKeyUpSprint, eventListener } from '../logicGames/logicSprint';
 import { setLocation } from '../../routing/routing';
 
 const { BTN_TITLE_FALSE, BTN_TITLE_TRUE } = constants;
@@ -70,7 +70,6 @@ export function renderWindowGame(target: HTMLElement | string) {
   btnSound.appendChild(soundIcon);
 
   const btnClose = createElement('div', ['btn-close']);
-  //btnClose.addEventListener('click', () => closeWindow(container));
   btnClose.onclick = () => {
     setLocation('games');
     container.remove();
@@ -87,5 +86,5 @@ export function renderWindowGame(target: HTMLElement | string) {
   }
 
   eventListener('div.sprint-game-container');
-  eventKeyUp();
+  eventKeyUpSprint();
 }

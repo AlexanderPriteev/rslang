@@ -6,7 +6,7 @@ import requestMethods from '../../services/requestMethods';
 import constants from '../../constants/index';
 import { getStoreGame, setStoreGame } from '../../storage/index';
 import { WordInterface } from '../../types/wordInterface';
-import { checkAudioAnswer, onSound } from './logicAudioCall';
+import { checkAudioCallAnswer, onSound } from './logicAudioCall';
 const { SERVER } = constants;
 
 export const resultsGameSprint: SprintResult[] = [];
@@ -18,7 +18,7 @@ let wordsArray: WordInterface[] = [];
 let seriesCorrectAnswers = 0;
 
 let pointsForAnswer = 10;
-//TODO: delete magic number
+
 //рандомно возвращает true or false - можно регулировать вероятность выпадания правильного слова если менять 0,5
 function randomBoolean() {
   return Math.random() < 0.5;
@@ -37,7 +37,7 @@ export async function getWordsByCategory(level: number): Promise<WordInterface[]
   return words;
 }
 
-function checkSoundOff() {
+export function checkSoundOff() {
   const btnImg = document.querySelector('div.sprint-sound > img') as HTMLImageElement;
 
   return btnImg.dataset.sound === 'on';
@@ -47,7 +47,7 @@ function endGame() {
   if (checkSoundOff()) void void new Audio(`../assets/sounds/sound-time-end.mp3`).play();
   const totalScore = (document.querySelector('div.quest-header__count-true') as HTMLElement).innerText;
 
-  renderWindowGameResult('body', resultsGameSprint, totalScore);
+  renderWindowGameResult('body', resultsGameSprint, totalScore, 'spring-result-container');
   //document.querySelector('div.sprint-game-container')?.classList.add('hidden');
   document.querySelector('div.sprint-game-container')?.remove();
 }
@@ -62,7 +62,7 @@ function createTimer() {
   const refreshId = setInterval(() => {
     timer = timer += 1;
     const timerElement = document.querySelector('#timer') as HTMLElement;
-    timerElement.innerText = timer < 10 ? '0' + timer.toString() : timer.toString();
+    if (timerElement) timerElement.innerText = timer < 10 ? '0' + timer.toString() : timer.toString();
 
     if (timer >= 60) {
       clearInterval(refreshId);
@@ -167,12 +167,12 @@ function checkAnswer(answer: boolean) {
   const wordRu = (document.querySelector('div.sprint-quest__rus') as HTMLElement).innerText;
 
   if ((word.wordTranslate === wordRu && answer) || (word.wordTranslate !== wordRu && !answer)) {
-    resultsGameSprint.push({ wordEn: word.word, wordRu: wordRu, result: true });
+    resultsGameSprint.push({ wordEn: word.word, wordRu: word.wordTranslate, result: true, audio: word.audio });
     calculateScore(true);
     if (checkSoundOff()) void new Audio(`../assets/sounds/sound-good.mp3`).play();
     checkGameStorage(true);
   } else {
-    resultsGameSprint.push({ wordEn: word.word, wordRu: wordRu, result: false });
+    resultsGameSprint.push({ wordEn: word.word, wordRu: word.wordTranslate, result: false, audio: word.audio });
     calculateScore(false);
     if (checkSoundOff()) void new Audio(`../assets/sounds/sound-error.mp3`).play();
     checkGameStorage(false);
@@ -209,6 +209,7 @@ export function eventListener(classes: string) {
 
   container?.addEventListener('click', (event) => {
     const classId = (event.target as HTMLElement).id;
+    let timerOff = true;
 
     switch (classId) {
       case 'btn-sprint-false':
@@ -234,7 +235,11 @@ export function eventListener(classes: string) {
         break;
 
       case 'btn-audio-call':
-        checkAudioAnswer(event.target as HTMLButtonElement);
+        if (timerOff) checkAudioCallAnswer(event.target as HTMLButtonElement);
+        timerOff = false;
+        setTimeout(() => {
+          timerOff = true;
+        }, 1000);
         break;
 
       default:
@@ -243,7 +248,7 @@ export function eventListener(classes: string) {
   });
 }
 
-export function eventKeyUp() {
+export function eventKeyUpSprint() {
   let timerOff = true;
 
   document.onkeyup = function (e) {

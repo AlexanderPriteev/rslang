@@ -1,22 +1,28 @@
 import '../games.scss';
-
+import constants from '../../constants/index';
 import createElement from '../../helpers/createElement';
 import appendChildArray from '../../helpers/appendChildArray';
 import { SprintResult } from '../../types/index';
 import { completeTableWinners, getResultString } from '../logicGames/logicSprint';
 import { setLocation } from '../../routing/routing';
+const { SERVER } = constants;
 
 export function renderColumnWinner(target: HTMLElement | string, resultSprint: SprintResult) {
-  const { wordEn, wordRu, result } = resultSprint;
+  const { wordEn, wordRu, result, audio } = resultSprint;
 
   const column = createElement('div', ['spring-result__column']);
+  const sound = createElement('div', ['sound-result']) as HTMLDivElement;
+  sound.style.backgroundImage = "url('../../assets/images/sound.png')";
+  sound.onclick = () => {
+    void new Audio(`${SERVER}${audio}`).play();
+  };
   const columnText = createElement('div', undefined, `${wordEn} - ${wordRu}`);
   const columnResult = createElement('div') as HTMLDivElement;
   columnResult.style.backgroundImage = result
     ? "url('../assets/images/icons_check.png')"
     : "url('../assets/images/icons_close.png')";
 
-  appendChildArray(column, [columnText, columnResult]);
+  appendChildArray(column, [sound, columnText, columnResult]);
 
   if (typeof target === 'string') {
     document.querySelector(target)?.appendChild(column);
@@ -28,9 +34,10 @@ export function renderColumnWinner(target: HTMLElement | string, resultSprint: S
 export function renderWindowGameResult(
   target: HTMLElement | string,
   resultsSprint: SprintResult[],
-  totalScore: string
+  totalScore: string,
+  clases: string
 ) {
-  const container = createElement('div', ['game-container', 'spring-result-container']);
+  const container = createElement('div', ['game-container', clases]);
   const btnClose = createElement('div', ['btn-close']);
   //btnClose.addEventListener('click', () => closeWindow(container));
   btnClose.onclick = () => {
