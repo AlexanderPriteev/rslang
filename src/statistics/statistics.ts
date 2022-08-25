@@ -85,7 +85,7 @@ const getChartData = async () => {
 }
 
 export async function statisticsRender(root = '.content-wrapper') {
-  const allTimesChartsData = await getChartData()
+  await getChartData()
   const thisRoot: HTMLElement | null = document.querySelector(root);
   if (thisRoot) {
     thisRoot.innerHTML = '';
@@ -99,7 +99,6 @@ export async function statisticsRender(root = '.content-wrapper') {
     const words = statisticsBlock(wordsCards, 'слова');
     const games = statisticsTabs(gamesTabs(), 'игры');
 
-    //console.log(optionsCount)
 
       const allTime = statisticsBlock([chartCount, chartDay], 'за все время');
       statisticsPage.append(words, games, allTime);

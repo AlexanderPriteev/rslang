@@ -47,7 +47,7 @@ function endGame() {
   if (checkSoundOff()) void void new Audio(`../assets/sounds/sound-time-end.mp3`).play();
   const totalScore = (document.querySelector('div.quest-header__count-true') as HTMLElement).innerText;
 
-  renderWindowGameResult('body', resultsGameSprint, totalScore);
+  renderWindowGameResult('body', resultsGameSprint, totalScore, 'sprint');
   //document.querySelector('div.sprint-game-container')?.classList.add('hidden');
   document.querySelector('div.sprint-game-container')?.remove();
 }
@@ -167,12 +167,12 @@ function checkAnswer(answer: boolean) {
   const wordRu = (document.querySelector('div.sprint-quest__rus') as HTMLElement).innerText;
 
   if ((word.wordTranslate === wordRu && answer) || (word.wordTranslate !== wordRu && !answer)) {
-    resultsGameSprint.push({ wordEn: word.word, wordRu: wordRu, result: true });
+    resultsGameSprint.push({ wordEn: word.word, wordRu: wordRu, wordID: word.id, result: true });
     calculateScore(true);
     if (checkSoundOff()) void new Audio(`../assets/sounds/sound-good.mp3`).play();
     checkGameStorage(true);
   } else {
-    resultsGameSprint.push({ wordEn: word.word, wordRu: wordRu, result: false });
+    resultsGameSprint.push({ wordEn: word.word, wordRu: wordRu, wordID: word.id, result: false });
     calculateScore(false);
     if (checkSoundOff()) void new Audio(`../assets/sounds/sound-error.mp3`).play();
     checkGameStorage(false);
