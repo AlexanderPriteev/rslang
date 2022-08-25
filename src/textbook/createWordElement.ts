@@ -3,6 +3,7 @@ import { UserWordInterface, WordInterface } from '../types/wordInterface';
 import { getStore } from '../storage/index';
 import requestMethods from '../services/requestMethods';
 import constants from '../constants/index';
+import {DataForStatistic} from "../types/Statistic";
 
 const request = requestMethods();
 const { SERVER } = constants;
@@ -10,7 +11,7 @@ let audio: HTMLAudioElement = new Audio();
 
 // добавление в список сложных слов
 const addComplicatedWordListener = (element: HTMLButtonElement, wordId: string) => {
-  element.addEventListener('click', (e) => {
+  element.addEventListener('click', async (e) => {
     const user = getStore()!;
     if (!user) {
       console.log('не авторизирован');
@@ -18,13 +19,19 @@ const addComplicatedWordListener = (element: HTMLButtonElement, wordId: string) 
     }
     const buttonState = (element.childNodes[1] as HTMLElement).innerHTML;
     if (buttonState === 'Удалить из сложное') {
-      void request.deleteUserWord(user.id, wordId, user.token);
+      await request.deleteUserWord(user.id, wordId, user.token);
       element.innerHTML = '<span class="icon-pen"></span><span>Добавить в сложное</span>';
       element.parentNode?.parentNode?.childNodes[1].childNodes[0].removeChild(
         element.parentNode?.parentNode?.childNodes[1].childNodes[0].childNodes[1]
       );
     } else {
-      void request.createUserWord(user.id, wordId, 'complicated', user.token);
+      await request.createUserWord(user.id, wordId, 'complicated', user.token);
+
+      const userStatisticResponse = (await requestMethods().getUserStatistic(user.id,  user.token)) as DataForStatistic
+      const userStatistic = userStatisticResponse.optional.statistics
+      userStatistic.today.added = (userStatistic.today.added || 0)  + 1
+      await requestMethods().updateUserStatistic(user.id, '1', user.token, {statistics: userStatistic});
+
       element.innerHTML = '<span class="icon-pen"></span><span>Удалить из сложное</span>';
       element.parentNode?.parentNode?.childNodes[1].childNodes[0].appendChild(
         createElement('span', ['word__difficult'], 'СЛОЖНОЕ')
@@ -34,7 +41,7 @@ const addComplicatedWordListener = (element: HTMLButtonElement, wordId: string) 
 };
 
 const addLearnedWordListener = (element: HTMLButtonElement, wordId: string) => {
-  element.addEventListener('click', (e) => {
+  element.addEventListener('click', async (e) => {
     const user = getStore()!;
     if (!user) {
       console.log('не авторизирован');
@@ -46,6 +53,13 @@ const addLearnedWordListener = (element: HTMLButtonElement, wordId: string) => {
         element.parentNode?.parentNode?.childNodes[1].childNodes[0].childNodes[1]
       );
     });
+
+    const userStatisticResponse = (await requestMethods().getUserStatistic(user.id,  user.token)) as DataForStatistic
+    const userStatistic = userStatisticResponse.optional.statistics
+    userStatistic.today.studied = (userStatistic.today.studied || 0)  + 1
+    await requestMethods().updateUserStatistic(user.id, '1', user.token, {statistics: userStatistic});
+
+
     (element.parentNode as HTMLElement).classList.add('hide');
     element.parentNode?.parentNode?.childNodes[1].childNodes[0].appendChild(
       createElement('span', ['word__learned'], 'ИЗУЧЕНО')
