@@ -47,7 +47,7 @@ function endGame() {
   if (checkSoundOff()) void void new Audio(`../assets/sounds/sound-time-end.mp3`).play();
   const totalScore = (document.querySelector('div.quest-header__count-true') as HTMLElement).innerText;
 
-  renderWindowGameResult('body', resultsGameSprint, totalScore, 'sprint');
+  void renderWindowGameResult('body', resultsGameSprint, totalScore, 'sprint');
   //document.querySelector('div.sprint-game-container')?.classList.add('hidden');
   document.querySelector('div.sprint-game-container')?.remove();
 }

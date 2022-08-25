@@ -5,10 +5,7 @@ import appendChildArray from '../../helpers/appendChildArray';
 import { SprintResult } from '../../types/index';
 import { completeTableWinners, getResultString } from '../logicGames/logicSprint';
 import { setLocation } from '../../routing/routing';
-import requestMethods from "../../services/requestMethods";
-import {getStore} from "../../storage";
-import {DataForStatistic} from "../../types/Statistic";
-import {addStatisticGame} from "../logicGames/gameStatistic";
+import { addStatisticGame } from '../logicGames/gameStatistic';
 
 export function renderColumnWinner(target: HTMLElement | string, resultSprint: SprintResult) {
   const { wordEn, wordRu, result } = resultSprint;
@@ -28,7 +25,6 @@ export function renderColumnWinner(target: HTMLElement | string, resultSprint: S
     target.appendChild(column);
   }
 }
-
 
 export async function renderWindowGameResult(
   target: HTMLElement | string,
@@ -61,6 +57,5 @@ export async function renderWindowGameResult(
   } else {
     target.appendChild(container);
   }
-  await addStatisticGame(resultsSprint, gameName)
+  await addStatisticGame(resultsSprint, gameName);
 }
-

@@ -13,7 +13,7 @@ export function setStore(user: User) {
 }
 export function clearUserStore() {
   storage.removeItem('user');
-  window.location.reload()
+  window.location.reload();
 }
 
 export function getStoreGame(): StatisticGameStore | undefined {

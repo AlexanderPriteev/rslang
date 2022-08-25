@@ -6,6 +6,7 @@ import { gamesPage } from '../games/games';
 import { renderWindowStartGame } from '../games/renderGames/renderStart';
 import { openAuth } from '../page/header/header-auth';
 import { notFoundRender } from '../page/page-not-found/not-found';
+import { getStore } from '../storage';
 
 export function routing(rout: string, options?: string) {
   const book = options ? pageRender(textbook, 'book', options) : pageRender(textbook, 'book');
@@ -22,7 +23,7 @@ export function routing(rout: string, options?: string) {
       void book;
       break;
     case '/statistics':
-      pageRender(statisticsRender, 'statistics');
+      if (getStore()) pageRender(statisticsRender, 'statistics');
       break;
 
     case '/games':

@@ -6,7 +6,6 @@ import createInputElement from '../helpers/createInputElement';
 import './style.scss';
 import constants from '../constants/index';
 
-
 const { SIGN_IN, SIGN_UP, FORGOT_PASS } = constants;
 
 function createAuthorizationForm(classes: string[], id: string, text: string, upOrIn: boolean) {

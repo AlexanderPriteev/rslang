@@ -1,4 +1,4 @@
-export const optionsCount = (values: number[], dates: string[]) =>{
+export const optionsCount = (values: number[], dates: string[]) => {
   return {
     series: [
       {
@@ -35,13 +35,12 @@ export const optionsCount = (values: number[], dates: string[]) =>{
       categories: dates,
       labels: {
         show: values.length < 22,
-      }
+      },
     },
   };
-}
+};
 
-
-export const optionsDay = (values: number[], dates: string[] ) => {
+export const optionsDay = (values: number[], dates: string[]) => {
   return {
     series: [
       {
@@ -96,4 +95,4 @@ export const optionsDay = (values: number[], dates: string[] ) => {
       },
     },
   };
-}
+};
