@@ -1,10 +1,3 @@
-interface DataSetting{
-    wordsPerDay: number;
-    optional: {
-        statistic: Statistic;
-    }
-}
-
 export interface WordStatistic{
     date: string;
     studied: number;
@@ -13,7 +6,6 @@ export interface WordStatistic{
     longSeries?: number
     added?: number;
 }
-
 
 export interface Statistic {
     today: WordStatistic;
@@ -25,8 +17,8 @@ export interface Statistic {
 }
 
 export interface DataForStatistic{
-    wordsPerDay: number;
+    learnedWords: number;
     optional: {
-        statistics: Statistic;
-    }
+        statistics: Statistic
+    };
 }

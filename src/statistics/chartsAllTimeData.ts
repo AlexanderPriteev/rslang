@@ -2,7 +2,7 @@ export const optionsCount = {
   series: [
     {
       name: 'Выучено слов',
-      data: [30, 140, 195, 350, 449, 460, 570, 691, 725],
+      data: [] as number[],
     },
   ],
   chart: {
@@ -31,7 +31,7 @@ export const optionsCount = {
     curve: 'straight',
   },
   xaxis: {
-    categories: ['Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя'],
+    categories: [] as string[],
   },
 };
 
@@ -39,7 +39,7 @@ export const optionsDay = {
   series: [
     {
       name: 'Слов',
-      data: [42, 68, 60, 88, 22, 56],
+      data: [] as number[],
     },
   ],
   chart: {
@@ -70,7 +70,7 @@ export const optionsDay = {
   },
 
   xaxis: {
-    categories: ['18.08', '19.08', '20.08', '21.08', '22.08', '23.08'],
+    categories: [] as string[],
     crosshairs: {
       fill: {
         type: 'gradient',

@@ -113,8 +113,8 @@ const requestMethods = () => {
     return res;
   };
 
-  const updateUserStatistic = async (id: string, learnedWord: string, token: string, optional = {}) => {
-    await request(`${base}users/${id}/statistics`, 'PUT', JSON.stringify({ learnedWord, optional }), {
+  const updateUserStatistic = async (id: string, learnedWords: string, token: string, optional = {}) => {
+    await request(`${base}users/${id}/statistics`, 'PUT', JSON.stringify({ learnedWords, optional }), {
       'Content-type': 'application/json',
       Authorization: `Berear ${token}`,
     }); // Поменять логику запроса, когда дело дойдет до реализации функционала

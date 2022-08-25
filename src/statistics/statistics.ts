@@ -1,4 +1,4 @@
-import { chartCount, chartDay } from './chartsAllTime';
+import {chartCount, chartDay} from './chartsAllTime';
 import createElement from '../helpers/createElement';
 import { statisticsBlock, statisticsCard } from './chartsBlock';
 import {
@@ -15,6 +15,8 @@ import { statisticsTabs } from './customChart';
 import {DataForStatistic, Statistic, WordStatistic} from "../types/Statistic";
 import requestMethods from "../services/requestMethods";
 import {getStore} from "../storage";
+import {optionsCount, optionsDay} from "./chartsAllTimeData";
+
 
 function updateData(lines: CustomChart[], donut: CustomChart, values: WordStatistic) {
   let count = 0;
@@ -52,12 +54,10 @@ const gamesTabs = ():StatisticsTab[] => [
   },
 ];
 
-
-export async function statisticsRender(root = '.content-wrapper') {
-
+const getChartData = async () => {
   const user = getStore()
   if(user){
-    const dataGraph = await requestMethods().getUserSettings(user.id, user.token ) as DataForStatistic;
+    const dataGraph = await requestMethods().getUserStatistic(user.id, user.token ) as DataForStatistic;
     const dataStat:Statistic = dataGraph.optional.statistics
     updateData(wordsLines, wordsDonut, dataStat.today)
     if(dataStat.sprint)
@@ -65,8 +65,21 @@ export async function statisticsRender(root = '.content-wrapper') {
     if(dataStat.audioCall)
       updateData(gamesAudioLines, gamesAudioDonut, dataStat.audioCall)
 
+    if(dataStat.wordsHistory){
+      let count = 0
+      const values = dataStat.wordsHistory.map((e) => e.studied)
+      const valuesUp = values.map((e) => count += e)
+      const dates = dataStat.wordsHistory.map((e) => e.date)
+      optionsCount.series[0].data = valuesUp
+      optionsCount.xaxis.categories = dates
+      optionsDay.series[0].data = values
+      optionsDay.xaxis.categories = dates
+    }
   }
+}
 
+export async function statisticsRender(root = '.content-wrapper') {
+  await getChartData()
   const thisRoot: HTMLElement | null = document.querySelector(root);
   if (thisRoot) {
     thisRoot.innerHTML = '';
