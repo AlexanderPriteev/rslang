@@ -11,6 +11,10 @@ export function getStore(): User | undefined {
 export function setStore(user: User) {
   storage.setItem('user', JSON.stringify(user));
 }
+export function clearUserStore() {
+  storage.removeItem('user');
+  window.location.reload()
+}
 
 export function getStoreGame(): StatisticGameStore | undefined {
   const game = storage.getItem('gameStatistic');

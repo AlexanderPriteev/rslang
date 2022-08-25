@@ -1,4 +1,4 @@
-import {chartCount, chartDay} from './chartsAllTime';
+import {chartApex} from './chartsAllTime';
 import createElement from '../helpers/createElement';
 import { statisticsBlock, statisticsCard } from './chartsBlock';
 import {
@@ -16,7 +16,11 @@ import {DataForStatistic, Statistic, WordStatistic} from "../types/Statistic";
 import requestMethods from "../services/requestMethods";
 import {getStore} from "../storage";
 import {optionsCount, optionsDay} from "./chartsAllTimeData";
+//import {optionsCount, optionsDay} from "./chartsAllTimeData";
+// import {optionsCount, optionsDay} from "./chartsAllTimeData";
 
+let chartCount: HTMLElement
+let chartDay: HTMLElement
 
 function updateData(lines: CustomChart[], donut: CustomChart, values: WordStatistic) {
   let count = 0;
@@ -27,7 +31,7 @@ function updateData(lines: CustomChart[], donut: CustomChart, values: WordStatis
   const addedMax = count > studied
   const wordsError = values.errors
   const wordsCorrect = values.correct
-  const correctCount = wordsCorrect / (wordsCorrect + wordsError) * 100
+  const correctCount = wordsCorrect / (wordsCorrect + wordsError) * 100 || 0
   lines[0].width = addedMax ? studied / count * 100 : 100;
   lines[0].value = studied
   lines[1].width = !addedMax ? count / studied * 100 : 100;
@@ -60,26 +64,28 @@ const getChartData = async () => {
     const dataGraph = await requestMethods().getUserStatistic(user.id, user.token ) as DataForStatistic;
     const dataStat:Statistic = dataGraph.optional.statistics
     updateData(wordsLines, wordsDonut, dataStat.today)
-    if(dataStat.sprint)
-      updateData(gamesSprintLines, gamesSprintDonut, dataStat.sprint)
-    if(dataStat.audioCall)
-      updateData(gamesAudioLines, gamesAudioDonut, dataStat.audioCall)
+    updateData(gamesSprintLines, gamesSprintDonut, dataStat.sprint)
+    updateData(gamesAudioLines, gamesAudioDonut, dataStat.audioCall)
 
+    const values = [] as number[]
+    const valuesUp = [] as number[]
+    const dates = [] as string[]
+    let count = 0
     if(dataStat.wordsHistory){
-      let count = 0
-      const values = dataStat.wordsHistory.map((e) => e.studied)
-      const valuesUp = values.map((e) => count += e)
-      const dates = dataStat.wordsHistory.map((e) => e.date)
-      optionsCount.series[0].data = valuesUp
-      optionsCount.xaxis.categories = dates
-      optionsDay.series[0].data = values
-      optionsDay.xaxis.categories = dates
+      values.push(...dataStat.wordsHistory.map((e) => e.studied))
+      valuesUp.push(...values.map((e) => count += e))
+      dates.push(...dataStat.wordsHistory.map((e) => e.date))
     }
+    values.push(dataStat.today.studied)
+    valuesUp.push(count + dataStat.today.studied)
+    dates.push(dataStat.today.date)
+    chartCount = chartApex('Всего изучено слов', optionsCount(valuesUp, dates));
+    chartDay = chartApex('Изучено слов в день', optionsDay(values, dates));
   }
 }
 
 export async function statisticsRender(root = '.content-wrapper') {
-  await getChartData()
+  const allTimesChartsData = await getChartData()
   const thisRoot: HTMLElement | null = document.querySelector(root);
   if (thisRoot) {
     thisRoot.innerHTML = '';
@@ -92,8 +98,13 @@ export async function statisticsRender(root = '.content-wrapper') {
     ];
     const words = statisticsBlock(wordsCards, 'слова');
     const games = statisticsTabs(gamesTabs(), 'игры');
-    const allTime = statisticsBlock([chartCount, chartDay], 'за все время');
-    statisticsPage.append(words, games, allTime);
-    thisRoot.append(statisticsPage);
+
+    //console.log(optionsCount)
+
+      const allTime = statisticsBlock([chartCount, chartDay], 'за все время');
+      statisticsPage.append(words, games, allTime);
+      thisRoot.append(statisticsPage);
+
+
   }
 }

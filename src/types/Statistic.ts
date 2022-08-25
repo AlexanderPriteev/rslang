@@ -10,9 +10,9 @@ export interface WordStatistic{
 export interface Statistic {
     today: WordStatistic;
     wordsHistory?: WordStatistic[];
-    sprint?: WordStatistic;
+    sprint: WordStatistic;
     sprintHistory?: WordStatistic[];
-    audioCall?: WordStatistic;
+    audioCall: WordStatistic;
     audioCallHistory?: WordStatistic[];
 }
 
