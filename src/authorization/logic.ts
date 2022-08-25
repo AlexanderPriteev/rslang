@@ -58,8 +58,6 @@ export async function createUser() {
     user.token = token;
     user.refreshToken = refreshToken;
     await requestMethods().updateUserStatistic(id, '1', token, { statistics: defaultStatistics() });
-    const test1 = await requestMethods().getUserStatistic(id, token);
-    console.log(test1);
 
     setStore(user);
     console.log(getStore());
