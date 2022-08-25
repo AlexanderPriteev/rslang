@@ -28,9 +28,10 @@ export function renderColumnWinner(target: HTMLElement | string, resultSprint: S
 export function renderWindowGameResult(
   target: HTMLElement | string,
   resultsSprint: SprintResult[],
-  totalScore: string
+  totalScore: string,
+  clases: string
 ) {
-  const container = createElement('div', ['game-container', 'spring-result-container']);
+  const container = createElement('div', ['game-container', clases]);
   const btnClose = createElement('div', ['btn-close']);
   //btnClose.addEventListener('click', () => closeWindow(container));
   btnClose.onclick = () => {

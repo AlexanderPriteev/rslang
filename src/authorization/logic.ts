@@ -44,6 +44,13 @@ export async function identityUser() {
     const user = new User(name, email, password, userId, token, refreshToken);
     setStore(user);
     console.log(getStore());
+
+    await requestMethods().updateUserSettings(userId, '15', token, { test: 'test', test2: 'test' });
+    const test2 = await requestMethods().getUserSettings(userId, token);
+    console.log('test2', test2);
+    await requestMethods().updateUserStatistic(userId, '15', token, { test: 'test', test2: 'test' });
+    const test1 = await requestMethods().getUserStatistic(userId, token);
+    console.log('test1', test1);
   } catch (error) {
     console.log(error); //TODO: сделать вывод сообщения в форме об неверном пароле/email
   }
