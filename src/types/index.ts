@@ -21,6 +21,7 @@ export type SprintResult = {
   wordEn: string;
   wordRu: string;
   result: boolean;
+  audio: string;
 };
 
 export type StatisticGameStore = {

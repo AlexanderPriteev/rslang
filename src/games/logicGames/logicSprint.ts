@@ -62,7 +62,7 @@ function createTimer() {
   const refreshId = setInterval(() => {
     timer = timer += 1;
     const timerElement = document.querySelector('#timer') as HTMLElement;
-    timerElement.innerText = timer < 10 ? '0' + timer.toString() : timer.toString();
+    if (timerElement) timerElement.innerText = timer < 10 ? '0' + timer.toString() : timer.toString();
 
     if (timer >= 60) {
       clearInterval(refreshId);
@@ -167,12 +167,12 @@ function checkAnswer(answer: boolean) {
   const wordRu = (document.querySelector('div.sprint-quest__rus') as HTMLElement).innerText;
 
   if ((word.wordTranslate === wordRu && answer) || (word.wordTranslate !== wordRu && !answer)) {
-    resultsGameSprint.push({ wordEn: word.word, wordRu: word.wordTranslate, result: true });
+    resultsGameSprint.push({ wordEn: word.word, wordRu: word.wordTranslate, result: true, audio: word.audio });
     calculateScore(true);
     if (checkSoundOff()) void new Audio(`../assets/sounds/sound-good.mp3`).play();
     checkGameStorage(true);
   } else {
-    resultsGameSprint.push({ wordEn: word.word, wordRu: word.wordTranslate, result: false });
+    resultsGameSprint.push({ wordEn: word.word, wordRu: word.wordTranslate, result: false, audio: word.audio });
     calculateScore(false);
     if (checkSoundOff()) void new Audio(`../assets/sounds/sound-error.mp3`).play();
     checkGameStorage(false);

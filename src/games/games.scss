@@ -377,6 +377,13 @@
   border-bottom: 2px solid rgba(255, 255, 255, 0.6);
 
   div:nth-child(1) {
+    width: 40px;
+    height: 32px;
+    cursor: pointer;
+    background-size: cover;
+  }
+
+  div:nth-child(2) {
     //height: 52px;
     font-family: 'Fira Code';
     font-style: normal;
@@ -386,15 +393,13 @@
     letter-spacing: -0.03em;
     color: #FFFFFF;
   }
-  div:nth-child(2) {
+  div:nth-child(3) {
     width: 32px;
     height: 32px;
   }
 }
 
 //------------------------------------------------------------
-
-
 
 .audio-call-quest {
   display: flex;

@@ -98,10 +98,10 @@ export function checkAudioCallAnswer(btn: HTMLButtonElement | string) {
 
   if (wordsArrayCall[ind].wordTranslate === title) {
     if (checkSoundOff()) void new Audio(`../assets/sounds/sound-good.mp3`).play();
-    resultsGameAudioCall.push({ wordEn: word.word, wordRu: word.wordTranslate, result: true });
+    resultsGameAudioCall.push({ wordEn: word.word, wordRu: word.wordTranslate, result: true, audio: word.audio });
   } else {
     if (checkSoundOff()) void new Audio(`../assets/sounds/sound-error.mp3`).play();
-    resultsGameAudioCall.push({ wordEn: word.word, wordRu: word.wordTranslate, result: false });
+    resultsGameAudioCall.push({ wordEn: word.word, wordRu: word.wordTranslate, result: false, audio: word.audio });
     numberErrorAnswer += 1;
     redrawNumberLives();
     if (numberErrorAnswer === 5) endGame();
