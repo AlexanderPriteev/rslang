@@ -84,7 +84,7 @@ function redrawNumberLives() {
 
 function endGame() {
   const totalScore = resultsGameAudioCall.filter((el) => el.result).length * 10;
-  renderWindowGameResult('body', resultsGameAudioCall, totalScore.toString(), 'audio-call-result-container');
+  void renderWindowGameResult('body', resultsGameAudioCall, totalScore.toString(), 'audio-call-result-container', 'audio-call');
 
   document.querySelector('div.audio-call-game-container')?.remove();
 }
@@ -98,10 +98,10 @@ export function checkAudioCallAnswer(btn: HTMLButtonElement | string) {
 
   if (wordsArrayCall[ind].wordTranslate === title) {
     if (checkSoundOff()) void new Audio(`../assets/sounds/sound-good.mp3`).play();
-    resultsGameAudioCall.push({ wordEn: word.word, wordRu: word.wordTranslate, result: true, audio: word.audio });
+    resultsGameAudioCall.push({ wordEn: word.word, wordRu: word.wordTranslate, wordID: word.id, result: true, audio: word.audio });
   } else {
     if (checkSoundOff()) void new Audio(`../assets/sounds/sound-error.mp3`).play();
-    resultsGameAudioCall.push({ wordEn: word.word, wordRu: word.wordTranslate, result: false, audio: word.audio });
+    resultsGameAudioCall.push({ wordEn: word.word, wordRu: word.wordTranslate, wordID: word.id, result: false, audio: word.audio });
     numberErrorAnswer += 1;
     redrawNumberLives();
     if (numberErrorAnswer === 5) endGame();
