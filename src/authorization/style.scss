@@ -42,7 +42,7 @@
 
   &-input {
     position: relative;
-    margin-bottom: 1.5rem;
+    margin-bottom: max(1.5rem, 11px);
 
     &:last-child {
       margin-bottom: 0;
@@ -97,6 +97,32 @@
 
       &.active {
         pointer-events: auto;
+      }
+    }
+
+    &__error{
+      display: inline-block;
+      font-size: max(1rem, 8px);
+      line-height: 1;
+      color: $red;
+      position: absolute;
+      right: 0;
+      top: min(-1rem, -8px);
+    }
+    &.error{
+      .auth-input{
+        &__field{
+          border-color: $red;
+        }
+        &__label{
+          color: $red;
+        }
+        &__icon{
+          color: $red-light;
+          &:hover{
+            color: $red;
+          }
+        }
       }
     }
   }

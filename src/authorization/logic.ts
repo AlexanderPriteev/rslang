@@ -90,7 +90,8 @@ export async function identityUser() {
 }
 
 //сбросить пароль
-export function replacePassword() {
+export function replacePassword(mail: string, pass: string) {
+  console.log(mail + ' ' + pass)
   const { email, password } = getEmailAndPassFromForm(true);
   document.querySelector('div.container')?.classList.add('right-panel-active');
 
