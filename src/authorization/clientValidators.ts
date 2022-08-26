@@ -16,8 +16,8 @@ export function removeErrors(container: HTMLFormElement) {
 }
 
 export function passValidation(pass: HTMLFormElement) {
-    if(pass.value.length < 9){
-        addError(pass, 'Необходимо более 8 символов')
+    if(pass.value.length < 7){
+        addError(pass, 'Необходимо более 6 символов')
         return false
     }
     return true

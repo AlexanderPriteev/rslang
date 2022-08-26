@@ -4,7 +4,7 @@ import {createUser, identityUser, replacePassword} from "./logic";
 import constants from "../constants";
 import {emailValidator, emptyValidator, removeErrors, twoPassValidation} from "./clientValidators";
 
-const { SIGN_IN, SIGN_UP, FORGOT_PASS } = constants;
+const { SIGN_IN, SIGN_UP} = constants;
 
 export function signInForm(container: HTMLFormElement){
     container.innerHTML = '';
@@ -20,13 +20,23 @@ export function signInForm(container: HTMLFormElement){
     const btnWrapper = createElement('div', ['auth-form__wrapper']);
     btnWrapper.append(btnPrimary, btnSecondary)
 
-    const linkWrapper = createElement('div', ['auth-link-wrapper']);
-    const link = createElement('span', ['auth-link'], FORGOT_PASS);
-    linkWrapper.append(link)
-    btnPrimary.onclick = () => identityUser();
+    const valueInput = inputEmail.querySelector('#emailIn') as HTMLFormElement
+    const passInput = inputPass.querySelector('#passIn') as HTMLFormElement
+
+    // const linkWrapper = createElement('div', ['auth-link-wrapper']);
+    // const link = createElement('span', ['auth-link'], FORGOT_PASS);
+    //linkWrapper.append(link)
+    btnPrimary.onclick = () => {
+        removeErrors(container)
+        if(emptyValidator([valueInput, passInput])){
+            if(emailValidator(valueInput)){
+                void identityUser(valueInput, passInput)
+            }
+        }
+    };
     btnSecondary.onclick = () => signUpForm(container);
-    link.onclick = () => resetPassForm(container);
-    container.append(h2, inputWrapper, btnWrapper, linkWrapper)
+    //link.onclick = () => resetPassForm(container);
+    container.append(h2, inputWrapper, btnWrapper/*, linkWrapper*/)
 }
 
 export function signUpForm(container: HTMLFormElement){
@@ -45,7 +55,23 @@ export function signUpForm(container: HTMLFormElement){
     const btnWrapper = createElement('div', ['auth-form__wrapper']);
     btnWrapper.append(btnPrimary, btnSecondary)
 
-    btnPrimary.onclick = () => createUser();
+
+    const valueName = inputName.querySelector('#name') as HTMLFormElement
+    const valueInput = inputEmail.querySelector('#emailUp') as HTMLFormElement
+    const passInput = inputPass.querySelector('#passUp') as HTMLFormElement
+    const passRepeat = inputRepeatPass.querySelector('#repeatPass') as HTMLFormElement
+
+    btnPrimary.onclick = () => {
+        removeErrors(container)
+        if(emptyValidator([valueName, valueInput, passInput, passRepeat])){
+            const emailVal = emailValidator(valueInput)
+            const twoPassVal = twoPassValidation(passInput, passRepeat)
+            if(emailVal && twoPassVal){
+                    void createUser();
+            }
+        }
+
+    }
     btnSecondary.onclick = () => signInForm(container);
     container.append(h2, inputWrapper, btnWrapper)
 }
@@ -76,7 +102,9 @@ export function resetPassForm(container: HTMLFormElement){
     btnPrimary.onclick = () => {
         removeErrors(container)
         if(emptyValidator([valueInput, passInput, passRepeat])){
-            if(emailValidator(valueInput) && twoPassValidation(passInput, passRepeat)){
+            const emailVal = emailValidator(valueInput)
+            const twoPassVal = twoPassValidation(passInput, passRepeat)
+            if(emailVal && twoPassVal){
                 replacePassword(valueInput.value, passInput.value);
             }
         }
