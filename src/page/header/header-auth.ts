@@ -3,12 +3,14 @@ import { renderAuthorization } from '../../authorization/index';
 import { headerRender } from './header';
 import { setLocation } from '../../routing/routing';
 import { clearUserStore, getStore } from '../../storage';
+import {footerRender} from "../footer/footer";
+import {pageBaseMarkup} from "../page";
 
 export function openAuth() {
-  const body = document.body;
-  body.innerHTML = '';
-  body.append(headerRender());
-  renderAuthorization('body'); // вызов окна авторизации
+  const page = pageBaseMarkup()
+  page.append(headerRender());
+  renderAuthorization('.page-wrapper'); // вызов окна авторизации
+  page.append(footerRender());
 }
 
 export function headerAuth() {

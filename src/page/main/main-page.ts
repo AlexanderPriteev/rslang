@@ -2,6 +2,7 @@ import createElement from '../../helpers/createElement';
 import { navs } from '../sidebar/sidebar';
 import { devs } from '../about/about-const';
 import { setLocation } from '../../routing/routing';
+import {getStore} from "../../storage";
 
 //пока заглушка
 const youtubeIframe = `<iframe class="img img--contain" 
@@ -15,6 +16,7 @@ const youtubeIframe = `<iframe class="img img--contain"
 function mainResources() {
   const resources = createElement('section', ['main-resources']);
   navs.forEach((e) => {
+    if(e.onlyUser && !getStore()) return
     if (e.name !== 'index') {
       const navText = `<i class="card-link__icon ${e.icon}"></i>
                               <h3 class="card-link__title">${e.title}</h3>`;
