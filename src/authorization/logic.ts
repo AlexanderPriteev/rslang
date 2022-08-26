@@ -6,6 +6,7 @@ import { defaultStatistics } from '../statistics/defaultValue';
 import { setLocation } from '../routing/routing';
 import { closeWindow } from '../helpers/closeWindow';
 import { DataForStatistic } from '../types/Statistic';
+import { addError } from './clientValidators';
 
 async function setCurrentDateStatistic(userId: string, token: string) {
   const userStatisticResponse = (await requestMethods().getUserStatistic(userId, token)) as DataForStatistic;
@@ -71,28 +72,27 @@ export async function createUser() {
 }
 
 //вход для ранее зарегистрированного пользователя
-export async function identityUser() {
+export async function identityUser(mail: HTMLFormElement, pass: HTMLFormElement) {
   try {
-    const { email, password } = getEmailAndPassFromForm(true);
+    const email = mail.value as string;
+    const password = pass.value as string;
     const { token, refreshToken, userId, name } = (await requestMethods().userSignIn(email, password)) as SignIn;
     const user = new User(name, email, password, userId, token, refreshToken);
     setStore(user);
-
     closeWindow('.section-authorization');
     setLocation('index');
 
-    console.log(getStore());
-
     await setCurrentDateStatistic(userId, token);
-  } catch (error) {
-    console.log(error); //TODO: сделать вывод сообщения в форме об неверном пароле/email
+  } catch {
+    addError(mail, 'Логин или/и пароль не корректны');
+    addError(pass, 'Логин или/и пароль не корректны');
   }
 }
 
 //сбросить пароль
-export function replacePassword() {
+export function replacePassword(mail: string, pass: string) {
+  console.log(mail + ' ' + pass);
   const { email, password } = getEmailAndPassFromForm(true);
-  document.querySelector('div.container')?.classList.add('right-panel-active');
 
   const { inputInEmail, inputInPass } = getEmailAndPassFromForm(false);
   inputInEmail.value = email;

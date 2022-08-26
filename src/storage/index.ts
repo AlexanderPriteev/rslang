@@ -9,7 +9,13 @@ export function getStore(): User | undefined {
 }
 
 export function setStore(user: User) {
-  storage.setItem('user', JSON.stringify(user));
+  const userStr = {
+    name: user.name,
+    email: user.email,
+    id: user.id,
+    token: user.token,
+  };
+  storage.setItem('user', JSON.stringify(userStr));
 }
 export function clearUserStore() {
   storage.removeItem('user');

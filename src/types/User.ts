@@ -32,7 +32,7 @@ export class User {
   }
 
   #validationPassword(pass: string) {
-    if (pass.length > 8) {
+    if (pass.length > 6) {
       return pass;
     } else {
       throw new Error(ERROR_INPUT_PASSWORD);
