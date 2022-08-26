@@ -2,6 +2,36 @@ import requestMethods from '../services/requestMethods';
 import { getStore, setStore } from '../storage/index';
 import { SignIn, UserCreateRes } from '../types/index';
 import { User } from '../types/User';
+import { defaultStatistics } from '../statistics/defaultValue';
+import { setLocation } from '../routing/routing';
+import { closeWindow } from '../helpers/closeWindow';
+import { DataForStatistic } from '../types/Statistic';
+
+async function setCurrentDateStatistic(userId: string, token: string) {
+  const userStatisticResponse = (await requestMethods().getUserStatistic(userId, token)) as DataForStatistic;
+  const userStatistic = userStatisticResponse.optional.statistics;
+  const lastEntry = userStatistic.today.date;
+  const today = new Date().toLocaleDateString().split('.').reverse().join('-');
+  if (lastEntry !== today) {
+    let dateEmpty = lastEntry;
+    if (!userStatistic.wordsHistory) userStatistic.wordsHistory = [];
+    if (!userStatistic.sprintHistory) userStatistic.sprintHistory = [];
+    if (!userStatistic.audioCallHistory) userStatistic.audioCallHistory = [];
+    while (dateEmpty !== today) {
+      const newDate = new Date(dateEmpty);
+      newDate.setDate(newDate.getDate() + 1);
+      userStatistic.wordsHistory.push(userStatistic.today);
+      userStatistic.sprintHistory.push(userStatistic.sprint);
+      userStatistic.audioCallHistory.push(userStatistic.audioCall);
+      const defaultValue = defaultStatistics(newDate);
+      dateEmpty = newDate.toLocaleDateString().split('.').reverse().join('-');
+      userStatistic.today = defaultValue.today;
+      userStatistic.sprint = defaultValue.sprint;
+      userStatistic.audioCall = defaultValue.audioCall;
+    }
+  }
+  await requestMethods().updateUserStatistic(userId, '1', token, { statistics: userStatistic });
+}
 
 function getEmailAndPassFromForm(InOrUp: boolean) {
   const str = InOrUp ? 'In' : 'Up';
@@ -27,8 +57,12 @@ export async function createUser() {
     const { token, refreshToken } = (await requestMethods().userSignIn(user.email, user.password)) as SignIn;
     user.token = token;
     user.refreshToken = refreshToken;
+    await requestMethods().updateUserStatistic(id, '1', token, { statistics: defaultStatistics() });
+
     setStore(user);
     console.log(getStore());
+    closeWindow('.section-authorization');
+    setLocation('index');
 
     //TODO: при окончании регистрации надо поменять вид кнопки авторизации на "выйти"
   } catch (error) {
@@ -43,14 +77,13 @@ export async function identityUser() {
     const { token, refreshToken, userId, name } = (await requestMethods().userSignIn(email, password)) as SignIn;
     const user = new User(name, email, password, userId, token, refreshToken);
     setStore(user);
+
+    closeWindow('.section-authorization');
+    setLocation('index');
+
     console.log(getStore());
 
-    await requestMethods().updateUserSettings(userId, '15', token, { test: 'test', test2: 'test' });
-    const test2 = await requestMethods().getUserSettings(userId, token);
-    console.log('test2', test2);
-    await requestMethods().updateUserStatistic(userId, '15', token, { test: 'test', test2: 'test' });
-    const test1 = await requestMethods().getUserStatistic(userId, token);
-    console.log('test1', test1);
+    await setCurrentDateStatistic(userId, token);
   } catch (error) {
     console.log(error); //TODO: сделать вывод сообщения в форме об неверном пароле/email
   }

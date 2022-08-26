@@ -3,53 +3,73 @@ import { UserWordInterface, WordInterface } from '../types/wordInterface';
 import { getStore } from '../storage/index';
 import requestMethods from '../services/requestMethods';
 import constants from '../constants/index';
+import { DataForStatistic } from '../types/Statistic';
 
 const request = requestMethods();
 const { SERVER } = constants;
 let audio: HTMLAudioElement = new Audio();
 
 // добавление в список сложных слов
+async function asyncComplicatedWord(element: HTMLButtonElement, wordId: string) {
+  const user = getStore()!;
+  if (!user) {
+    console.log('не авторизирован');
+    return;
+  }
+  const buttonState = (element.childNodes[1] as HTMLElement).innerHTML;
+  if (buttonState === 'Удалить из сложное') {
+    await request.deleteUserWord(user.id, wordId, user.token);
+    element.innerHTML = '<span class="icon-pen"></span><span>Добавить в сложное</span>';
+    element.parentNode?.parentNode?.childNodes[1].childNodes[0].removeChild(
+      element.parentNode?.parentNode?.childNodes[1].childNodes[0].childNodes[1]
+    );
+  } else {
+    await request.createUserWord(user.id, wordId, 'complicated', user.token);
+
+    const userStatisticResponse = (await requestMethods().getUserStatistic(user.id, user.token)) as DataForStatistic;
+    const userStatistic = userStatisticResponse.optional.statistics;
+    userStatistic.today.added = (userStatistic.today.added || 0) + 1;
+    await requestMethods().updateUserStatistic(user.id, '1', user.token, { statistics: userStatistic });
+
+    element.innerHTML = '<span class="icon-pen"></span><span>Удалить из сложное</span>';
+    element.parentNode?.parentNode?.childNodes[1].childNodes[0].appendChild(
+      createElement('span', ['word__difficult'], 'СЛОЖНОЕ')
+    );
+  }
+}
+
 const addComplicatedWordListener = (element: HTMLButtonElement, wordId: string) => {
-  element.addEventListener('click', (e) => {
-    const user = getStore()!;
-    if (!user) {
-      console.log('не авторизирован');
-      return;
-    }
-    const buttonState = (element.childNodes[1] as HTMLElement).innerHTML;
-    if (buttonState === 'Удалить из сложное') {
-      void request.deleteUserWord(user.id, wordId, user.token);
-      element.innerHTML = '<span class="icon-pen"></span><span>Добавить в сложное</span>';
-      element.parentNode?.parentNode?.childNodes[1].childNodes[0].removeChild(
-        element.parentNode?.parentNode?.childNodes[1].childNodes[0].childNodes[1]
-      );
-    } else {
-      void request.createUserWord(user.id, wordId, 'complicated', user.token);
-      element.innerHTML = '<span class="icon-pen"></span><span>Удалить из сложное</span>';
-      element.parentNode?.parentNode?.childNodes[1].childNodes[0].appendChild(
-        createElement('span', ['word__difficult'], 'СЛОЖНОЕ')
-      );
-    }
+  element.addEventListener('click', () => {
+    void asyncComplicatedWord(element, wordId);
   });
 };
 
-const addLearnedWordListener = (element: HTMLButtonElement, wordId: string) => {
-  element.addEventListener('click', (e) => {
-    const user = getStore()!;
-    if (!user) {
-      console.log('не авторизирован');
-      return;
-    }
-    void request.createUserWord(user.id, wordId, 'learned', user.token).catch(() => {
-      void request.updateUserWord(user.id, wordId, 'learned', user.token);
-      element.parentNode?.parentNode?.childNodes[1].childNodes[0].removeChild(
-        element.parentNode?.parentNode?.childNodes[1].childNodes[0].childNodes[1]
-      );
-    });
-    (element.parentNode as HTMLElement).classList.add('hide');
-    element.parentNode?.parentNode?.childNodes[1].childNodes[0].appendChild(
-      createElement('span', ['word__learned'], 'ИЗУЧЕНО')
+async function asyncListenerWord(element: HTMLButtonElement, wordId: string) {
+  const user = getStore()!;
+  if (!user) {
+    console.log('не авторизирован');
+    return;
+  }
+  void request.createUserWord(user.id, wordId, 'learned', user.token).catch(() => {
+    void request.updateUserWord(user.id, wordId, 'learned', user.token);
+    element.parentNode?.parentNode?.childNodes[1].childNodes[0].removeChild(
+      element.parentNode?.parentNode?.childNodes[1].childNodes[0].childNodes[1]
     );
+  });
+
+  const userStatisticResponse = (await requestMethods().getUserStatistic(user.id, user.token)) as DataForStatistic;
+  const userStatistic = userStatisticResponse.optional.statistics;
+  userStatistic.today.studied = (userStatistic.today.studied || 0) + 1;
+  await requestMethods().updateUserStatistic(user.id, '1', user.token, { statistics: userStatistic });
+
+  (element.parentNode as HTMLElement).classList.add('hide');
+  element.parentNode?.parentNode?.childNodes[1].childNodes[0].appendChild(
+    createElement('span', ['word__learned'], 'ИЗУЧЕНО')
+  );
+}
+const addLearnedWordListener = (element: HTMLButtonElement, wordId: string) => {
+  element.addEventListener('click', () => {
+    void asyncListenerWord(element, wordId);
   });
 };
 //

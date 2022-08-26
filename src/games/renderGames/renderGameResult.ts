@@ -5,6 +5,8 @@ import appendChildArray from '../../helpers/appendChildArray';
 import { SprintResult } from '../../types/index';
 import { completeTableWinners, getResultString } from '../logicGames/logicSprint';
 import { setLocation } from '../../routing/routing';
+import { addStatisticGame } from '../logicGames/gameStatistic';
+
 const { SERVER } = constants;
 
 export function renderColumnWinner(target: HTMLElement | string, resultSprint: SprintResult) {
@@ -31,15 +33,15 @@ export function renderColumnWinner(target: HTMLElement | string, resultSprint: S
   }
 }
 
-export function renderWindowGameResult(
+export async function renderWindowGameResult(
   target: HTMLElement | string,
   resultsSprint: SprintResult[],
   totalScore: string,
-  clases: string
+  classes: string,
+  gameName: string
 ) {
-  const container = createElement('div', ['game-container', clases]);
+  const container = createElement('div', ['game-container', classes]);
   const btnClose = createElement('div', ['btn-close']);
-  //btnClose.addEventListener('click', () => closeWindow(container));
   btnClose.onclick = () => {
     setLocation('games');
     container.remove();
@@ -62,4 +64,5 @@ export function renderWindowGameResult(
   } else {
     target.appendChild(container);
   }
+  await addStatisticGame(resultsSprint, gameName);
 }

@@ -2,7 +2,6 @@ import requestMethods from '../services/requestMethods';
 import { getStore } from '../storage/index';
 import { TextbookSessionInterface } from '../types/sessionStorage';
 import { UserWordInterface, WordInterface } from '../types/wordInterface';
-import renderWordCard from './createWordElement';
 import renderWordList from './renderWordList';
 import * as chapter1BG from '../assets/images/chapter-1.png';
 import * as chapter2BG from '../assets/images/chapter-2.png';

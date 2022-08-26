@@ -20,6 +20,7 @@ export type SignIn = {
 export type SprintResult = {
   wordEn: string;
   wordRu: string;
+  wordID: string;
   result: boolean;
   audio: string;
 };

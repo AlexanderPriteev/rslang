@@ -5,7 +5,6 @@ import appendChildArray from '../helpers/appendChildArray';
 import createInputElement from '../helpers/createInputElement';
 import './style.scss';
 import constants from '../constants/index';
-import { closeWindow } from '../helpers/closeWindow';
 
 const { SIGN_IN, SIGN_UP, FORGOT_PASS } = constants;
 
@@ -36,14 +35,14 @@ function createAuthorizationForm(classes: string[], id: string, text: string, up
   return [container, form];
 }
 
-function addCloseForm() {
-  const container = document.querySelector('div.container');
-  const close = createElement('a', ['close']) as HTMLAnchorElement;
-  close.href = '#';
-  close.addEventListener('click', () => closeWindow('section.section-authorization'));
-
-  container?.appendChild(close);
-}
+// function addCloseForm() {
+//   const container = document.querySelector('div.container');
+//   const close = createElement('a', ['close']) as HTMLAnchorElement;
+//   close.href = '#';
+//   close.addEventListener('click', () => closeWindow('section.section-authorization'));
+//
+//   container?.appendChild(close);
+// }
 
 export function renderAuthorization(target: HTMLElement | string) {
   const sectionAuthorization = createElement('section', ['section-authorization']);
@@ -72,7 +71,7 @@ export function renderAuthorization(target: HTMLElement | string) {
     target.appendChild(sectionAuthorization);
   }
 
-  addCloseForm();
+  // addCloseForm();
 
   btnLeft.addEventListener('click', () => {
     container.classList.remove('right-panel-active');

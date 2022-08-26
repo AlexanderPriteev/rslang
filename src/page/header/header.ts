@@ -2,7 +2,7 @@ import createElement from '../../helpers/createElement';
 import { DevsLinks } from '../about/about-interface';
 import { headerAuth } from './header-auth';
 
-export function headerRender(user?: boolean, login?: boolean) {
+export function headerRender(userHead?: boolean) {
   const logo: DevsLinks = {
     name: 'RS Lang',
     link: '/index',
@@ -15,9 +15,9 @@ export function headerRender(user?: boolean, login?: boolean) {
   logoHeader.setAttribute('href', logo.link);
   header.append(logoHeader);
 
-  if (user) {
+  if (userHead) {
     const headerUser = createElement('div', ['header__user']);
-    headerUser.append(headerAuth(login || false));
+    headerUser.append(headerAuth());
     header.append(headerUser);
   }
   return header;
