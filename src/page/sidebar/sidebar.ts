@@ -1,12 +1,14 @@
 import createElement from '../../helpers/createElement';
 import { mainPage } from '../main/main-page';
 import { setLocation } from '../../routing/routing';
+import {getStore} from "../../storage";
 
 export interface NavItem {
   name: string;
   icon: string;
   title: string;
   link?: string;
+  onlyUser?: boolean;
 }
 
 export const navs: NavItem[] = [
@@ -34,6 +36,7 @@ export const navs: NavItem[] = [
     name: 'statistics',
     icon: 'icon-chart-column',
     title: 'Статистика',
+    onlyUser: true
   },
 ];
 const about: NavItem = {
@@ -44,6 +47,7 @@ const about: NavItem = {
 };
 
 function navLink(item: NavItem, isActive?: boolean) {
+  if(item.onlyUser && !getStore()) return
   const text = `<i class="nav-link__icon ${item.icon}"></i><span class="nav-link__title">${item.title}</span>`;
   const aboutLink = createElement('a', isActive ? ['nav-link', 'active'] : ['nav-link'], text);
   aboutLink.setAttribute('data-target', item.name);
@@ -70,12 +74,14 @@ export function sidebarRender(header?: HTMLElement, activeTabName?: string) {
   const navList = createElement('nav', ['sidebar__nav']);
   navs.forEach((e) => {
     const nav = navLink(e, activeTabName === e.name);
-    navList.append(nav);
-    nav.onclick = () => setLocation(e.name);
+    if(nav){
+      navList.append(nav);
+      nav.onclick = () => setLocation(e.name);
+    }
   });
 
   const aboutLink = createElement('div', ['sidebar__link']);
-  aboutLink.append(navLink(about));
+  aboutLink.append(navLink(about) as HTMLElement);
   sidebar.append(navList, aboutLink);
   return sidebar;
 }

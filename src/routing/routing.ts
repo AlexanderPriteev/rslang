@@ -24,6 +24,7 @@ export function routing(rout: string, options?: string) {
       break;
     case '/statistics':
       if (getStore()) pageRender(statisticsRender, 'statistics');
+      else pageRender(mainPage, 'index');
       break;
 
     case '/games':

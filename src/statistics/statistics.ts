@@ -14,10 +14,8 @@ import { CustomChart, StatisticsTab } from '../types/customChartInterface';
 import { statisticsTabs } from './customChart';
 import { DataForStatistic, Statistic, WordStatistic } from '../types/Statistic';
 import requestMethods from '../services/requestMethods';
-import { getStore } from '../storage';
+import {clearUserStore, getStore} from '../storage';
 import { optionsCount, optionsDay } from './chartsAllTimeData';
-//import {optionsCount, optionsDay} from "./chartsAllTimeData";
-// import {optionsCount, optionsDay} from "./chartsAllTimeData";
 
 let chartCount: HTMLElement;
 let chartDay: HTMLElement;
@@ -60,7 +58,8 @@ const gamesTabs = (): StatisticsTab[] => [
 const getChartData = async () => {
   const user = getStore();
   if (user) {
-    const dataGraph = (await requestMethods().getUserStatistic(user.id, user.token)) as DataForStatistic;
+    const dataGraph = await requestMethods().getUserStatistic(user.id, user.token)
+        .catch(clearUserStore) as DataForStatistic;
     const dataStat: Statistic = dataGraph.optional.statistics;
     updateData(wordsLines, wordsDonut, dataStat.today);
     updateData(gamesSprintLines, gamesSprintDonut, dataStat.sprint);
