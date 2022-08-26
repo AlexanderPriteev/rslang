@@ -1,7 +1,7 @@
 import createElement from '../../helpers/createElement';
 import { mainPage } from '../main/main-page';
 import { setLocation } from '../../routing/routing';
-import {getStore} from "../../storage";
+import { getStore } from '../../storage';
 
 export interface NavItem {
   name: string;
@@ -36,7 +36,7 @@ export const navs: NavItem[] = [
     name: 'statistics',
     icon: 'icon-chart-column',
     title: 'Статистика',
-    onlyUser: true
+    onlyUser: true,
   },
 ];
 const about: NavItem = {
@@ -47,7 +47,7 @@ const about: NavItem = {
 };
 
 function navLink(item: NavItem, isActive?: boolean) {
-  if(item.onlyUser && !getStore()) return
+  if (item.onlyUser && !getStore()) return;
   const text = `<i class="nav-link__icon ${item.icon}"></i><span class="nav-link__title">${item.title}</span>`;
   const aboutLink = createElement('a', isActive ? ['nav-link', 'active'] : ['nav-link'], text);
   aboutLink.setAttribute('data-target', item.name);
@@ -74,7 +74,7 @@ export function sidebarRender(header?: HTMLElement, activeTabName?: string) {
   const navList = createElement('nav', ['sidebar__nav']);
   navs.forEach((e) => {
     const nav = navLink(e, activeTabName === e.name);
-    if(nav){
+    if (nav) {
       navList.append(nav);
       nav.onclick = () => setLocation(e.name);
     }

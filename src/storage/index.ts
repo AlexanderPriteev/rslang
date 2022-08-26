@@ -13,8 +13,8 @@ export function setStore(user: User) {
     name: user.name,
     email: user.email,
     id: user.id,
-    token: user.token
-  }
+    token: user.token,
+  };
   storage.setItem('user', JSON.stringify(userStr));
 }
 export function clearUserStore() {

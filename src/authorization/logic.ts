@@ -6,7 +6,7 @@ import { defaultStatistics } from '../statistics/defaultValue';
 import { setLocation } from '../routing/routing';
 import { closeWindow } from '../helpers/closeWindow';
 import { DataForStatistic } from '../types/Statistic';
-import {addError} from "./clientValidators";
+import { addError } from './clientValidators';
 
 async function setCurrentDateStatistic(userId: string, token: string) {
   const userStatisticResponse = (await requestMethods().getUserStatistic(userId, token)) as DataForStatistic;
@@ -83,17 +83,16 @@ export async function identityUser(mail: HTMLFormElement, pass: HTMLFormElement)
     setLocation('index');
 
     await setCurrentDateStatistic(userId, token);
-  } catch  {
-    addError(mail, "Логин или/и пароль не корректны")
-    addError(pass, "Логин или/и пароль не корректны")
+  } catch {
+    addError(mail, 'Логин или/и пароль не корректны');
+    addError(pass, 'Логин или/и пароль не корректны');
   }
 }
 
 //сбросить пароль
 export function replacePassword(mail: string, pass: string) {
-  console.log(mail + ' ' + pass)
+  console.log(mail + ' ' + pass);
   const { email, password } = getEmailAndPassFromForm(true);
-
 
   const { inputInEmail, inputInPass } = getEmailAndPassFromForm(false);
   inputInEmail.value = email;
