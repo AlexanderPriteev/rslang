@@ -1,7 +1,6 @@
 @import "../assets/styles/variables.scss";
 
 .textbook {
-  background: $background-image;
 
   &__img-bg {
     width: 100%;
@@ -16,19 +15,19 @@
   }
 
   &__select {
-    min-width: 272px;
-    border: 1px solid #a588e2;
-    border-radius: 10px;
+    min-width: 27.2rem;
+    border: .1rem solid #a588e2;
+    border-radius: 1rem;
     padding: 0.25em 0.5em;
     cursor: pointer;
     background-color: #fff;
     background-image: linear-gradient(to top, #f9f9f9, #fff 33%);
-
-    font-family: "Fira Code";
+    outline: none;
+    font-family: $font-primary;
     font-weight: 400;
-    font-size: 18px;
-    line-height: 24px;
-    letter-spacing: -1px;
+    font-size: 1.8rem;
+    line-height: 2.4rem;
+    letter-spacing: -.01em;
     color: #422d6d;
   }
 
@@ -41,13 +40,17 @@
 
     &-container {
       position: relative;
+      box-sizing: border-box;
+      border-bottom: .5rem solid $primary;
+      line-height: 0;
+      background-color: $primary;
     }
   }
 
   &__chapter {
     font-size: 6.4rem;
     line-height: 6.4rem;
-    letter-spacing: 1.5rem;
+    letter-spacing: .07em;
     color: $white;
   }
 
@@ -59,10 +62,14 @@
   &__nav {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     background-color: $bg-dark;
     padding: 2.8rem 4rem;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
-    border-radius: 6px;
+    box-shadow: $shadow-3;
+    border-radius: .6rem;
+    position: sticky;
+    top: 8rem;
+    z-index: 5;
     &-wrapper {
       &:first-child {
         display: flex;
@@ -89,16 +96,19 @@
       font-weight: $f-bold;
       font-size: 2rem;
       line-height: 2.4rem;
-      color: $text;
     }
     &-btn {
       display: flex;
       justify-content: center;
       align-items: center;
       gap: 1.2rem;
+      color: $text;
+      transition: color .2s linear;
+      &:hover{
+        color: $primary;
+      }
     }
     &-icon {
-      color: #422d6d;
       font-size: 3.4rem;
     }
   }
@@ -108,9 +118,32 @@
     flex-direction: column;
     gap: 4rem;
     margin-top: 4rem;
+    margin-bottom: 15rem;
   }
-}
 
-.hide {
-  display: none;
+  &__current-page{
+    font-size: 2.4rem;
+  }
+  &__page{
+    color: $text;
+    transition: color .2s linear;
+    &:hover{
+      color: $primary;
+    }
+
+    &.block{
+      pointer-events: none;
+      color: $primary;
+      opacity: .5;
+    }
+  }
+
+  &__subtitle{
+    font-size: 3.6rem;
+    letter-spacing: -.03em;
+    font-weight: $f-bold;
+    color: $green-2;
+    margin-bottom: 0.8rem;
+    line-height: 1;
+  }
 }

@@ -3,8 +3,7 @@ import pageSwitcher from './pageSwitcher';
 import './textbook.scss';
 import './word.scss';
 
-const textbook = (options?: string) => {
-  if (options) console.log(options);
+const textbook = () => {
   renderTextbookTemplate('.content-wrapper');
   pageSwitcher();
 };

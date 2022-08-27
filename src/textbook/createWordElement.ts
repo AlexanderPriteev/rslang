@@ -1,32 +1,48 @@
 import createElement from '../helpers/createElement';
 import { UserWordInterface, WordInterface } from '../types/wordInterface';
-import { getStore } from '../storage/index';
+import {clearUserStore, getStore} from '../storage/index';
 import requestMethods from '../services/requestMethods';
 import constants from '../constants/index';
 import { DataForStatistic } from '../types/Statistic';
+import {learnedPage, searchPathBook} from "./pageSwitcher";
+import {DataForUserWord, UserWordOptions} from "../types/UserWordOptions";
 
 const request = requestMethods();
 const { SERVER } = constants;
 let audio: HTMLAudioElement = new Audio();
 
+const newWordEmpty: UserWordOptions = {
+  count: 0,
+  longSeries: 0,
+  audioCorrect: 0,
+  audioError: 0,
+  sprintCorrect: 0,
+  sprintError: 0
+}
+
 // добавление в список сложных слов
 async function asyncComplicatedWord(element: HTMLButtonElement, wordId: string) {
-  const user = getStore()!;
-  if (!user) {
-    console.log('не авторизирован');
-    return;
-  }
+  const user = getStore();
+  if (!user) return;
+
   const buttonState = (element.childNodes[1] as HTMLElement).innerHTML;
   if (buttonState === 'Удалить из сложное') {
-    await request.deleteUserWord(user.id, wordId, user.token);
-    element.innerHTML = '<span class="icon-pen"></span><span>Добавить в сложное</span>';
+    await request.updateUserWord(user.id, wordId, 'added', user.token);
+    element.innerHTML = '<span class="icon-pen"></span><span>В сложное</span>';
     element.parentNode?.parentNode?.childNodes[1].childNodes[0].removeChild(
       element.parentNode?.parentNode?.childNodes[1].childNodes[0].childNodes[1]
     );
-  } else {
-    await request.createUserWord(user.id, wordId, 'complicated', user.token);
 
-    const userStatisticResponse = (await requestMethods().getUserStatistic(user.id, user.token)) as DataForStatistic;
+    if(searchPathBook().chapter === 6){
+      const parent = document.querySelector(`[data-id='${wordId}']`) as HTMLElement
+      parent.remove()
+    }
+  }
+  else {
+    await request.createUserWord(user.id, wordId, 'complicated', user.token, newWordEmpty)
+        .catch(() => request.updateUserWord(user.id, wordId, 'complicated', user.token));
+
+    const userStatisticResponse = await requestMethods().getUserStatistic(user.id, user.token).catch(clearUserStore) as DataForStatistic;
     const userStatistic = userStatisticResponse.optional.statistics;
     userStatistic.today.added = (userStatistic.today.added || 0) + 1;
     await requestMethods().updateUserStatistic(user.id, '1', user.token, { statistics: userStatistic });
@@ -36,6 +52,7 @@ async function asyncComplicatedWord(element: HTMLButtonElement, wordId: string) 
       createElement('span', ['word__difficult'], 'СЛОЖНОЕ')
     );
   }
+  learnedPage()
 }
 
 const addComplicatedWordListener = (element: HTMLButtonElement, wordId: string) => {
@@ -45,17 +62,17 @@ const addComplicatedWordListener = (element: HTMLButtonElement, wordId: string) 
 };
 
 async function asyncListenerWord(element: HTMLButtonElement, wordId: string) {
-  const user = getStore()!;
-  if (!user) {
-    console.log('не авторизирован');
-    return;
+  const user = getStore();
+  if (!user) return;
+  if(searchPathBook().chapter === 6){
+    const parent = document.querySelector(`[data-id='${wordId}']`) as HTMLElement
+    parent.remove()
+    await request.updateUserWord(user.id, wordId, 'learned', user.token);
   }
-  void request.createUserWord(user.id, wordId, 'learned', user.token).catch(() => {
-    void request.updateUserWord(user.id, wordId, 'learned', user.token);
-    element.parentNode?.parentNode?.childNodes[1].childNodes[0].removeChild(
-      element.parentNode?.parentNode?.childNodes[1].childNodes[0].childNodes[1]
-    );
-  });
+  else {
+    await request.createUserWord(user.id, wordId, 'learned', user.token, newWordEmpty)
+        .catch(() => request.updateUserWord(user.id, wordId, 'learned', user.token));
+  }
 
   const userStatisticResponse = (await requestMethods().getUserStatistic(user.id, user.token)) as DataForStatistic;
   const userStatistic = userStatisticResponse.optional.statistics;
@@ -66,6 +83,7 @@ async function asyncListenerWord(element: HTMLButtonElement, wordId: string) {
   element.parentNode?.parentNode?.childNodes[1].childNodes[0].appendChild(
     createElement('span', ['word__learned'], 'ИЗУЧЕНО')
   );
+  learnedPage()
 }
 const addLearnedWordListener = (element: HTMLButtonElement, wordId: string) => {
   element.addEventListener('click', () => {
@@ -82,13 +100,17 @@ const wordExistInUserLearnedList = (id: string, userWords: UserWordInterface[]):
   return userWords.some((item: UserWordInterface) => item.wordId === id && item.difficulty === 'learned');
 };
 
+const wordExistInUserAddedList = (id: string, userWords: UserWordInterface[]): boolean => {
+  return userWords.some((item: UserWordInterface) => item.wordId === id && item.difficulty === 'added');
+};
+
 const createComplicatedBtn = (word: WordInterface, existsInComplicated: boolean, containerHeading: HTMLElement) => {
   let content: string;
   if (existsInComplicated) {
     content = '<span class="icon-pen"></span><span>Удалить из сложное</span>';
     containerHeading.appendChild(createElement('span', ['word__difficult'], 'СЛОЖНОЕ'));
   } else {
-    content = '<span class="icon-pen"></span><span>Добавить в сложное</span>';
+    content = '<span class="icon-pen"></span><span>В сложное</span>';
   }
 
   const complicatedBtn = createElement('button', ['word__add-complicated'], content) as HTMLButtonElement;
@@ -105,11 +127,11 @@ const createLearnedBtn = (
 ) => {
   let content: string;
   if (existsInLearned) {
-    content = '<span class="icon-pen"></span><span>Изучено</span>';
+    content = '<span class="icon-pen"></span><span>В изученное</span>';
     containerHeading.appendChild(createElement('span', ['word__learned'], 'ИЗУЧЕНО'));
     buttonsContainer.classList.add('hide');
   } else {
-    content = '<span class="icon-box-with-check"></span><span>Изучено</span>';
+    content = '<span class="icon-box-with-check"></span><span>В изученное</span>';
   }
   const learnedBtn = createElement('button', ['word__add-learned'], content) as HTMLButtonElement;
 
@@ -135,18 +157,65 @@ const addAudioListener = (audioContainer: HTMLButtonElement, word: WordInterface
   });
 };
 
+const learnProgressItem = (correct: number, error:number, icon: string, id: string) =>{
+  const item = createElement('div', ['learn__item'], '',id)
+  const name = createElement('i', ['learn__icon', icon])
+  const correctText = `<i class="learn__icon icon-check"></i>${correct}`
+  const errorText = `<i class="learn__icon icon-close"></i>${error}`
+  const correctData = createElement('div', ['learn__data', 'learn__data--correct'], correctText)
+  const errorData = createElement('div', ['learn__data', 'learn__data--error'], errorText)
+  item.append(name, correctData, errorData)
+  return item
+}
+
+export const learnProgress = (wordProgress: UserWordOptions) =>{
+  const container = createElement('div', ['learn'])
+  const sprint = learnProgressItem(wordProgress.sprintCorrect, wordProgress.sprintError, 'icon-run-fast', 'sprint')
+  const audio = learnProgressItem(wordProgress.audioCorrect, wordProgress.audioError, 'icon-music-box', 'audioCall')
+  container.append(sprint, audio)
+  return container
+}
+
+const wordOptions = async (word: WordInterface, head: HTMLElement, col: HTMLElement) =>{
+  const user = getStore()
+  if(user){
+    const data = await request.getUserWordById(user.id, word.id, user.token) as DataForUserWord
+    const optional = data.optional
+    if(optional.count){
+      if(optional.count === 1 && data.difficulty === 'added'){
+          const newBadge = createElement('span', ['word__added'], 'NEW')
+          head.append(newBadge)
+      }
+      col.append(learnProgress(optional))
+    }
+  }
+
+}
+
+
 const createWordElement = (word: WordInterface, userWords: UserWordInterface[]) => {
   const wordExistsInComplicatedList = wordExistInUserComplicatedList(word.id, userWords);
   const wordExistsInLearnedList = wordExistInUserLearnedList(word.id, userWords);
+  const wordExistsInUserAddedList =  wordExistInUserAddedList(word.id, userWords);
+
+
+
+
   const cardContainer = createElement('div', ['word']);
   cardContainer.dataset.id = word.id;
+
+  const wordImageCol = createElement('div', ['word__image-column']);
+  const wordImageWrapper = createElement('div', ['word__image-wrapper']);
   const wordImage = createElement('img', ['word__image']) as HTMLImageElement;
   wordImage.src = `${SERVER}${word.image}`;
+  wordImageWrapper.append(wordImage)
+  wordImageCol.append(wordImageWrapper)
+
   const wordContentWrapper = createElement('div', ['word__content-wrapper']);
   const wordHeading = createElement('h3', ['word__heading'], word.word);
   const wordTranslateContainer = createElement('div', ['word__translate-container']);
   const wordTranslate = createElement('h4', ['word__translate'], `${word.wordTranslate} ${word.transcription}`);
-  const wordAudio = createElement('button', ['icon-volume']) as HTMLButtonElement;
+  const wordAudio = createElement('button', ['icon-volume', 'word__volume']) as HTMLButtonElement;
   addAudioListener(wordAudio, word);
   const wordUsageContainerEn = createElement('div', ['word__usage-container-en']);
   const wordDefinitionEn = createElement('span', ['word__definition-en'], word.textMeaning);
@@ -161,9 +230,14 @@ const createWordElement = (word: WordInterface, userWords: UserWordInterface[]) 
   const buttonsContainer = createElement('div', ['word__buttons-container']);
   const complicatedBtn = createComplicatedBtn(word, wordExistsInComplicatedList, wordHeading);
   const learnedBtn = createLearnedBtn(word, wordExistsInLearnedList, wordHeading, buttonsContainer); // поменять
-  cardContainer.appendChild(wordImage);
+
+  if(wordExistsInUserAddedList || wordExistsInLearnedList || wordExistsInComplicatedList){
+    void wordOptions(word, wordHeading, wordImageCol)
+  }
+
+  cardContainer.appendChild(wordImageCol);
   cardContainer.appendChild(wordContentWrapper);
-  cardContainer.appendChild(buttonsContainer);
+  if(getStore()) cardContainer.appendChild(buttonsContainer);
   wordContentWrapper.appendChild(wordHeading);
   wordContentWrapper.appendChild(wordTranslateContainer);
   wordTranslateContainer.appendChild(wordTranslate);
