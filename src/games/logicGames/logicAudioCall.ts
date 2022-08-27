@@ -61,6 +61,9 @@ function renderQuest() {
 
 //старт игры
 export async function startAudioCall(levelOrWords: number | WordInterface[]) {
+  ind = 0;
+  numberErrorAnswer = 0;
+
   wordsArrayCall = typeof levelOrWords === 'number' ? await getWordsByCategory(levelOrWords) : levelOrWords;
 
   renderAudioCallGame('body');

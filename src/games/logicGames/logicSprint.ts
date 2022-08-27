@@ -5,9 +5,11 @@ import { renderColumnWinner, renderWindowGameResult } from '../renderGames/rende
 import requestMethods from '../../services/requestMethods';
 import constants from '../../constants/index';
 import { getStoreGame, setStoreGame } from '../../storage/index';
-import { WordInterface } from '../../types/wordInterface';
+import { UserWordInterface, WordInterface } from '../../types/wordInterface';
 import { checkAudioCallAnswer, onSound } from './logicAudioCall';
+import { User } from '../../types/User';
 const { SERVER } = constants;
+import { getStore } from '../../storage';
 
 export const resultsGameSprint: SprintResult[] = [];
 
@@ -24,7 +26,26 @@ function randomBoolean() {
   return Math.random() < 0.5;
 }
 
-//получить массив слов указанной категории со всех 30 страниц
+//получение ID слов 'learned' для авторизованного пользователя или undefined при отсутствии авторизации
+export async function getIdLearnedWords() {
+  const user: User | undefined = getStore();
+
+  if (user) {
+    const userWord = (await requestMethods().getAllUserWords(user.id, user.token)) as UserWordInterface[];
+    //TODO: сделать логику при протухшем токене
+
+    const arr: string[] = [];
+    for (let i = 0; i < userWord.length; i++) {
+      if (userWord[i].difficulty === 'learned') arr.push(userWord[i].wordId);
+    }
+
+    return arr;
+  }
+
+  return;
+}
+
+//получить массив слов указанной категории со всех 30 страниц c учетом выученных слов пользователя
 export async function getWordsByCategory(level: number): Promise<WordInterface[]> {
   const promiseArray: Promise<WordInterface[]>[] = [];
 
@@ -34,7 +55,15 @@ export async function getWordsByCategory(level: number): Promise<WordInterface[]
 
   const words = (await Promise.all(promiseArray)).flat(1);
 
-  return words;
+  const wordsUserId = await getIdLearnedWords();
+  if (wordsUserId && wordsUserId.length > 0) {
+    return words.filter((word: WordInterface) => {
+      const indexWord = wordsUserId.indexOf(word.id);
+      return indexWord === -1;
+    });
+  } else {
+    return words;
+  }
 }
 
 export function checkSoundOff() {
@@ -98,6 +127,8 @@ function writeQuest() {
 
 //старт игры
 export async function startSprint(levelOrWords: number | WordInterface[]) {
+  index = 0;
+
   wordsArray = typeof levelOrWords === 'number' ? await getWordsByCategory(levelOrWords) : levelOrWords;
 
   renderWindowGame('body');
@@ -107,7 +138,6 @@ export async function startSprint(levelOrWords: number | WordInterface[]) {
 
   const container = document.querySelector('div.game-container');
   container?.remove();
-  //container?.classList.add('hidden');
 }
 
 function checkGameStorage(answer: boolean) {
