@@ -1,121 +1,147 @@
+@import "../assets/styles/variables.scss";
+
 .word {
   display: flex;
   position: relative;
-  max-width: 1217px;
-  min-height: 294px;
-  padding: 40px;
-  gap: 60px;
+  width: 100%;
+  max-width: 121.7rem;
+  min-height: 29.4rem;
+  padding: 4rem;
+  gap: 6rem;
   background: #ffffff;
-  box-shadow: 4px 4px 12px rgba(86, 60, 138, 0.25);
-  border-radius: 12px;
+  box-shadow: $shadow-2;
+  border-radius: 1.2rem;
 
   &__translate-container {
     display: flex;
-    gap: 5px;
+    gap: .5rem;
   }
 
   &__usage-container-en,
   &__usage-container-ru {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 1rem;
   }
 
   &__usage-container-en {
-    margin-top: 15px;
-    border-bottom: 1px solid #aca0c5;
-    padding-bottom: 10px;
+    margin-top: 1.8rem;
+    border-bottom: .1rem solid #aca0c5;
+    padding-bottom: 2rem;
   }
 
   &__usage-container-ru {
-    margin-top: 10px;
+    margin-top: 1.5rem;
   }
 
   &__image {
-    border-radius: 50px;
-    width: 250px;
-    height: 250px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    &-wrapper{
+      border-radius: 1.6rem;
+      width: 25rem;
+      height: 25rem;
+      margin-bottom: 1.2rem;
+      overflow: hidden;
+      &:last-child{
+        margin-bottom: 0;
+      }
+    }
+    &-column{
+      display: flex;
+      flex-direction: column;
+    }
+
   }
 
   &__heading {
-    font-family: "Fira Code";
-    font-weight: 500;
-    font-size: 34px;
-    line-height: 32px;
-    color: #000000;
+    font-weight: $f-bold;
+    font-size: 3.4rem;
+    line-height: 1;
+    color: $black;
   }
 
   &__translate {
-    margin-top: 5px;
-    font-family: "Fira Code";
-    font-weight: 400;
-    font-size: 28px;
-    line-height: 32px;
-    color: #000000;
+    margin-top: .5rem;
+    font-weight: $f-normal;
+    font-size: 2.8rem;
+    line-height: 3.2rem;
+    color: $black;
   }
 
-  .icon-volume {
-    font-size: 32px;
+  &__volume {
+    font-size: 3.2rem;
     align-self: center;
     justify-self: center;
     position: relative;
-    top: 2px;
+    top: .2rem;
+    color: $text;
+    transition: color .2s linear;
+    &:hover{
+      color: $primary;
+    }
   }
 
   &__definition-en,
   &__definition-ru {
-    font-family: "Fira Code";
     font-weight: 400;
-    font-size: 24px;
-    line-height: 36px;
-    color: #000000;
+    font-size: 2.4rem;
+    line-height: 3.6rem;
+    color: $black;
   }
 
   &__example-en,
   &__example-ru {
-    font-family: "Fira Code";
     font-weight: 300;
-    font-size: 20px;
-    line-height: 24px;
+    font-size: 2rem;
+    line-height: 2.4rem;
   }
 
   &__example-en span,
   &__example-ru span {
-    padding: 8px 10px;
+    padding: .8rem 1rem;
     background: #f9f6ff;
-    border-radius: 6px;
+    border-radius: .6rem;
     display: inline-block;
   }
 
   &__buttons-container {
     display: flex;
     flex-direction: row-reverse;
-    gap: 40px;
+    gap: 4rem;
     position: absolute;
-    top: 50px;
-    right: 50px;
+    top: 5rem;
+    right: 5rem;
   }
 
   &__add-complicated,
   &__add-learned {
     display: flex;
-    gap: 6px;
+    gap: .6rem;
   }
 
   &__add-complicated {
-    font-family: "Fira Code";
     font-weight: 400;
-    font-size: 14px;
-    line-height: 20px;
+    font-size: max(1.6rem, 11px);
+    line-height: 2rem;
     color: #422d6d;
+    transition: color .2s linear;
+    &:hover{
+      color: $primary;
+    }
   }
 
   &__add-learned {
-    font-family: "Fira Code";
     font-weight: 400;
-    font-size: 14px;
-    line-height: 20px;
+    font-size: max(1.6rem, 11px);
+    line-height: 2rem;
     color: #4eed5e;
+    transition: color .2s linear;
+    &:hover{
+      color: $green-2;
+    }
   }
 
   &__add-complicated .icon-pen,
@@ -124,23 +150,67 @@
   }
 
   &__difficult {
-    margin-left: 16px;
-    font-family: "Fira Code";
+    margin-left: 1.6rem;
     font-style: normal;
     font-weight: 300;
-    font-size: 24px;
-    line-height: 32px;
+    font-size: 2.4rem;
+    line-height: 3.2rem;
     letter-spacing: 0.03em;
-    color: #da3030;
+    color: $red;
   }
 
   &__learned {
-    margin-left: 16px;
-    font-family: "Fira Code";
+    margin-left: 1.6rem;
     font-style: normal;
     font-weight: 300;
-    font-size: 24px;
-    line-height: 32px;
-    color: #4eed5e;
+    font-size: 2.4rem;
+    line-height: 3.2rem;
+    color: $green;
+  }
+  &__added {
+    margin-left: 1.6rem;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 2.4rem;
+    line-height: 3.2rem;
+    color: $primary;
+  }
+
+  &__content-wrapper{
+    flex-grow: 1;
+  }
+}
+
+.learn{
+  display: flex;
+  gap: 2.5rem;
+  margin-top: auto;
+  &__item{
+    display: flex;
+    align-items: center;
+    color: $text;
+    gap: .3rem;
+  }
+  &__icon{
+    width: 2.5rem;
+    min-width: 2.5rem;
+    height: 2.5rem;
+    font-size: 2.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &__data{
+    font-size: 2.1rem;
+    line-height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &--correct{
+      color: $green-2;
+    }
+    &--error{
+      color: $red;
+    }
   }
 }

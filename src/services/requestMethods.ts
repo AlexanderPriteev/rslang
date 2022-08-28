@@ -1,5 +1,6 @@
 import { User } from '../types/User';
 import request from './request';
+import {DataForUserWord} from "../types/UserWordOptions";
 
 const requestMethods = () => {
   const base = 'http://localhost:8001/'; // здесь должна быть ссылка на ваш локальный сервер.
@@ -72,7 +73,7 @@ const requestMethods = () => {
       'Content-type': 'application/json',
       Authorization: `Berear ${token}`,
     });
-    return res;
+    return res as DataForUserWord;
   };
 
   const updateUserWord = async (id: string, wordId: string, difficulty: string, token: string, optional = {}) => {

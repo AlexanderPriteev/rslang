@@ -8,8 +8,7 @@ import { openAuth } from '../page/header/header-auth';
 import { notFoundRender } from '../page/page-not-found/not-found';
 import { getStore } from '../storage';
 
-export function routing(rout: string, options?: string) {
-  const book = options ? pageRender(textbook, 'book', options) : pageRender(textbook, 'book');
+export function routing(rout: string) {
 
   switch (rout) {
     case '/':
@@ -20,7 +19,7 @@ export function routing(rout: string, options?: string) {
       break;
 
     case '/book':
-      void book;
+      pageRender(textbook, 'book');
       break;
     case '/statistics':
       if (getStore()) pageRender(statisticsRender, 'statistics');
@@ -48,10 +47,10 @@ export function routing(rout: string, options?: string) {
 export function setLocation(rout = '', options?: string) {
   try {
     window.history.pushState(null, '', `${rout}${options || ''}`);
-    if (options) routing(`/${rout}`, options);
+    if (options) routing(`/${rout}`);
     else routing(`/${rout}`);
   } catch (e) {
-    console.log('Ваш браучер не поддерживает данный функционал');
+    console.log('Ваш браузер не поддерживает данный функционал');
   }
 }
 

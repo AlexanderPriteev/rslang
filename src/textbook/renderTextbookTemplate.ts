@@ -1,6 +1,7 @@
 import createElement from '../helpers/createElement';
 import * as chapter1BG from '../assets/images/chapter-1.png';
 import './textbook.scss';
+import {getStore} from "../storage";
 
 const renderTextbookHeading = () => {
   const textbookHeadingContainer = createElement('div', ['textbook__heading-container']);
@@ -18,6 +19,7 @@ const renderTextbookHeading = () => {
 
 const renderTextBookNavPanel = () => {
   const navContainer = createElement('div', ['textbook__nav']);
+  const categoryDifficult = getStore() ? '<option class="textbook__select-option">Сложные слова</option>' : ''
   navContainer.innerHTML = `
   <div class="textbook__nav-wrapper">
       <select class="textbook__select" size="1">
@@ -27,14 +29,14 @@ const renderTextBookNavPanel = () => {
        <option class="textbook__select-option">Раздел 4</option>
        <option class="textbook__select-option">Раздел 5</option>
        <option class="textbook__select-option">Раздел 6</option>
-       <option class="textbook__select-option">Сложные слова</option>
+      ${categoryDifficult}
      </select>
     <div class="textbook__page-changer">
-     <button class="textbook__to-first-page"><span class="icon-to-first"></span></button>
-      <button class="textbook__to-prev-page"><span class="icon-prev"></span></button>
+     <button class="textbook__to-first-page textbook__page"><span class="icon-to-first"></span></button>
+      <button class="textbook__to-prev-page textbook__page"><span class="icon-prev"></span></button>
       <span class="textbook__current-page">1</span>
-      <button class="textbook__to-next-page"><span class="icon-next"></span></button>
-      <button class="textbook__to-last-page"><span class="icon-to-last"></span></button>
+      <button class="textbook__to-next-page textbook__page"><span class="icon-next"></span></button>
+      <button class="textbook__to-last-page textbook__page"><span class="icon-to-last"></span></button>
    </div>
   </div>
   <div class="textbook__nav-wrapper">
