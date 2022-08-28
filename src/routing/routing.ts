@@ -9,7 +9,6 @@ import { notFoundRender } from '../page/page-not-found/not-found';
 import { getStore } from '../storage';
 
 export function routing(rout: string) {
-
   switch (rout) {
     case '/':
       pageRender(mainPage, 'index');
@@ -39,6 +38,10 @@ export function routing(rout: string) {
     case '/auth':
       openAuth();
       break;
+    case '/options':
+      openAuth(true);
+      break;
+
     default:
       notFoundRender();
   }
