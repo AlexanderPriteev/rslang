@@ -12,10 +12,10 @@ function inputPasswordShow(icon: HTMLElement, input: HTMLInputElement) {
   }
 }
 
-export function createInputAuth(type: string, id: string, labelText: string, iconClass?: string) {
+export function createInputAuth(type: string, id: string, labelText: string, iconClass?: string, name?: string) {
   const wrapper = createElement('div', ['auth-input']);
   const input = createInputElement('input', ['auth-input__field'], type, ' ', id);
-
+  if(name) input.value = name;
   const label = createElement('span', ['auth-input__label'], labelText);
   wrapper.append(input, label);
   if (type === 'password') {

@@ -28,8 +28,8 @@ const requestMethods = () => {
     return res;
   };
 
-  const updateUser = async (id: string, email: string, password: string, token: string) => {
-    await request(`${base}users/${id}`, 'PUT', JSON.stringify({ email, password }), {
+  const updateUser = async (id: string, email: string, password: string, token: string, name: string) => {
+    await request(`${base}users/${id}`, 'PUT', JSON.stringify({ email, password, name}), {
       'Content-type': 'application/json',
       Authorization: `Berear ${token}`,
     }); // Поменять логику запроса, когда дело дойдет до реализации функционала

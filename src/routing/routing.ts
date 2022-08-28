@@ -39,6 +39,10 @@ export function routing(rout: string) {
     case '/auth':
       openAuth();
       break;
+    case '/options':
+      openAuth(true);
+      break;
+
     default:
       notFoundRender();
   }
