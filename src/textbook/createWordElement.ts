@@ -27,7 +27,8 @@ async function asyncComplicatedWord(element: HTMLButtonElement, wordId: string) 
 
   const buttonState = (element.childNodes[1] as HTMLElement).innerHTML;
   if (buttonState === 'Удалить из сложное') {
-    await request.updateUserWord(user.id, wordId, 'added', user.token);
+    const addedWord = await request.getUserWordById(user.id, wordId,  user.token) as DataForUserWord;
+    await request.updateUserWord(user.id, wordId, 'added', user.token, addedWord.optional || newWordEmpty);
     element.innerHTML = '<span class="icon-pen"></span><span>В сложное</span>';
     element.parentNode?.parentNode?.childNodes[1].childNodes[0].removeChild(
       element.parentNode?.parentNode?.childNodes[1].childNodes[0].childNodes[1]
@@ -40,7 +41,7 @@ async function asyncComplicatedWord(element: HTMLButtonElement, wordId: string) 
   }
   else {
     await request.createUserWord(user.id, wordId, 'complicated', user.token, newWordEmpty)
-        .catch(() => request.updateUserWord(user.id, wordId, 'complicated', user.token));
+        .catch(async () => await request.updateUserWord(user.id, wordId, 'complicated', user.token));
 
     const userStatisticResponse = await requestMethods().getUserStatistic(user.id, user.token).catch(clearUserStore) as DataForStatistic;
     const userStatistic = userStatisticResponse.optional.statistics;
@@ -71,7 +72,7 @@ async function asyncListenerWord(element: HTMLButtonElement, wordId: string) {
   }
   else {
     await request.createUserWord(user.id, wordId, 'learned', user.token, newWordEmpty)
-        .catch(() => request.updateUserWord(user.id, wordId, 'learned', user.token));
+        .catch( async () => request.updateUserWord(user.id, wordId, 'learned', user.token));
   }
 
   const userStatisticResponse = (await requestMethods().getUserStatistic(user.id, user.token)) as DataForStatistic;
@@ -180,7 +181,7 @@ const wordOptions = async (word: WordInterface, head: HTMLElement, col: HTMLElem
   const user = getStore()
   if(user){
     const data = await request.getUserWordById(user.id, word.id, user.token) as DataForUserWord
-    const optional = data.optional
+    const optional = data.optional || newWordEmpty
     if(optional.count){
       if(optional.count === 1 && data.difficulty === 'added'){
           const newBadge = createElement('span', ['word__added'], 'NEW')
