@@ -1,7 +1,7 @@
 import requestMethods from '../services/requestMethods';
 import { getStore, setStore } from '../storage/index';
 import { SignIn, UserCreateRes } from '../types/index';
-import { User } from '../types/User';
+import {newUser, User} from '../types/User';
 import { defaultStatistics } from '../statistics/defaultValue';
 import { setLocation } from '../routing/routing';
 import { closeWindow } from '../helpers/closeWindow';
@@ -36,14 +36,13 @@ async function setCurrentDateStatistic(userId: string, token: string) {
 
 function getEmailAndPassFromForm(InOrUp: boolean) {
   const str = InOrUp ? 'In' : 'Up';
-
   const inputInEmail = document.querySelector('#email' + str) as HTMLInputElement;
   const inputInPass = document.querySelector('#pass' + str) as HTMLInputElement;
   const email = inputInEmail.value;
   const password = inputInPass.value;
-
   return { email, password, inputInEmail, inputInPass };
 }
+
 
 //создать нового пользователя
 export async function createUser() {
@@ -51,21 +50,21 @@ export async function createUser() {
     const { email, password } = getEmailAndPassFromForm(false);
     const inputName = document.querySelector('input[type="text"]') as HTMLInputElement;
     const name = inputName.value;
-
     const user = new User(name, email, password);
-    const { id } = (await requestMethods().createUser(user)) as UserCreateRes;
+    const  data: newUser = {
+      name: name,
+      email: email,
+      password: password
+    }
+    const { id } = (await requestMethods().createUser(data)) as UserCreateRes;
     user.id = id;
     const { token, refreshToken } = (await requestMethods().userSignIn(user.email, user.password)) as SignIn;
     user.token = token;
     user.refreshToken = refreshToken;
     await requestMethods().updateUserStatistic(id, '1', token, { statistics: defaultStatistics() });
-
     setStore(user);
-    console.log(getStore());
-    closeWindow('.section-authorization');
     setLocation('index');
 
-    //TODO: при окончании регистрации надо поменять вид кнопки авторизации на "выйти"
   } catch (error) {
     console.log(error); //TODO: сделать вывод сообщения в форме об неверном пароле/email
   }
@@ -79,9 +78,7 @@ export async function identityUser(mail: HTMLFormElement, pass: HTMLFormElement)
     const { token, refreshToken, userId, name } = (await requestMethods().userSignIn(email, password)) as SignIn;
     const user = new User(name, email, password, userId, token, refreshToken);
     setStore(user);
-    closeWindow('.section-authorization');
     setLocation('index');
-
     await setCurrentDateStatistic(userId, token);
   } catch {
     addError(mail, 'Логин или/и пароль не корректны');
