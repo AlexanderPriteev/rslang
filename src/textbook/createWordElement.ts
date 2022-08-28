@@ -11,7 +11,7 @@ const request = requestMethods();
 const { SERVER } = constants;
 let audio: HTMLAudioElement = new Audio();
 
-const newWordEmpty: UserWordOptions = {
+export const newWordEmpty: UserWordOptions = {
   count: 0,
   longSeries: 0,
   audioCorrect: 0,
@@ -27,7 +27,7 @@ async function asyncComplicatedWord(element: HTMLButtonElement, wordId: string) 
 
   const buttonState = (element.childNodes[1] as HTMLElement).innerHTML;
   if (buttonState === 'Удалить из сложное') {
-    const addedWord = await request.getUserWordById(user.id, wordId,  user.token) as DataForUserWord;
+    const addedWord = await request.getUserWordById(user.id, wordId,  user.token);
     await request.updateUserWord(user.id, wordId, 'added', user.token, addedWord.optional || newWordEmpty);
     element.innerHTML = '<span class="icon-pen"></span><span>В сложное</span>';
     element.parentNode?.parentNode?.childNodes[1].childNodes[0].removeChild(
@@ -40,9 +40,12 @@ async function asyncComplicatedWord(element: HTMLButtonElement, wordId: string) 
     }
   }
   else {
-    await request.createUserWord(user.id, wordId, 'complicated', user.token, newWordEmpty)
-        .catch(async () => await request.updateUserWord(user.id, wordId, 'complicated', user.token));
-
+    await request.getUserWordById(user.id, wordId,  user.token)
+        .then((e) =>{
+          request.updateUserWord(user.id, wordId, 'complicated', user.token, e.optional)})
+        .catch(() =>{
+          request.createUserWord(user.id, wordId, 'complicated', user.token, newWordEmpty)
+        });
     const userStatisticResponse = await requestMethods().getUserStatistic(user.id, user.token).catch(clearUserStore) as DataForStatistic;
     const userStatistic = userStatisticResponse.optional.statistics;
     userStatistic.today.added = (userStatistic.today.added || 0) + 1;
@@ -68,11 +71,16 @@ async function asyncListenerWord(element: HTMLButtonElement, wordId: string) {
   if(searchPathBook().chapter === 6){
     const parent = document.querySelector(`[data-id='${wordId}']`) as HTMLElement
     parent.remove()
-    await request.updateUserWord(user.id, wordId, 'learned', user.token);
+    const addedWord = await request.getUserWordById(user.id, wordId,  user.token);
+    await request.updateUserWord(user.id, wordId, 'learned', user.token, addedWord);
   }
   else {
-    await request.createUserWord(user.id, wordId, 'learned', user.token, newWordEmpty)
-        .catch( async () => request.updateUserWord(user.id, wordId, 'learned', user.token));
+    await request.getUserWordById(user.id, wordId,  user.token)
+        .then((e) =>{
+          request.updateUserWord(user.id, wordId, 'learned', user.token, e.optional)})
+        .catch(() =>{
+          request.createUserWord(user.id, wordId, 'learned', user.token, newWordEmpty)
+        });
   }
 
   const userStatisticResponse = (await requestMethods().getUserStatistic(user.id, user.token)) as DataForStatistic;
@@ -180,15 +188,19 @@ export const learnProgress = (wordProgress: UserWordOptions) =>{
 const wordOptions = async (word: WordInterface, head: HTMLElement, col: HTMLElement) =>{
   const user = getStore()
   if(user){
-    const data = await request.getUserWordById(user.id, word.id, user.token) as DataForUserWord
+    const data = await request.getUserWordById(user.id, word.id, user.token)
     const optional = data.optional || newWordEmpty
+    //console.log(optional)
+    console.log(optional.count)
     if(optional.count){
+      console.log(word.wordTranslate)
       if(optional.count === 1 && data.difficulty === 'added'){
           const newBadge = createElement('span', ['word__added'], 'NEW')
           head.append(newBadge)
       }
       col.append(learnProgress(optional))
     }
+   // else await request.updateUserWord(user.id, word.id, 'added', user.token, newWordEmpty)
   }
 
 }
@@ -198,9 +210,6 @@ const createWordElement = (word: WordInterface, userWords: UserWordInterface[]) 
   const wordExistsInComplicatedList = wordExistInUserComplicatedList(word.id, userWords);
   const wordExistsInLearnedList = wordExistInUserLearnedList(word.id, userWords);
   const wordExistsInUserAddedList =  wordExistInUserAddedList(word.id, userWords);
-
-
-
 
   const cardContainer = createElement('div', ['word']);
   cardContainer.dataset.id = word.id;

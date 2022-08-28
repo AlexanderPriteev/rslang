@@ -2,6 +2,9 @@ import { SprintResult } from '../../types';
 import { getStore } from '../../storage';
 import requestMethods from '../../services/requestMethods';
 import { DataForStatistic, WordStatistic } from '../../types/Statistic';
+import {DataForUserWord, UserWordOptions} from "../../types/UserWordOptions";
+import {newWordEmpty} from "../../textbook/createWordElement";
+import {User} from "../../types/User";
 
 function updateStatisticGame(stat: WordStatistic, correct: number, error: number, series?: number[]) {
   if (stat.longSeries && series) {
@@ -13,6 +16,46 @@ function updateStatisticGame(stat: WordStatistic, correct: number, error: number
   stat.errors = (stat.errors || 0) + error;
 }
 
+async function updateWordGameStat(user: User, i: SprintResult, gameName: string ) {
+  const isSprint = gameName === 'sprint'
+  await requestMethods().getUserWordById(user.id, i.wordID, user.token)
+      .then((e) => {
+        const wordGameData = e.optional || newWordEmpty
+        wordGameData.count += 1;
+        wordGameData.longSeries = i.result ? wordGameData.longSeries + 1 : 0;
+        wordGameData.audioCorrect += Number(i.result && !isSprint);
+        wordGameData.audioError += Number(!i.result && !isSprint);
+        wordGameData.sprintCorrect += Number(i.result && isSprint);
+        wordGameData.sprintError += Number(!i.result && isSprint);
+
+        let status: string = 'added'
+        if(e.difficulty === 'complicated') status = 'complicated'
+        if(wordGameData.longSeries > 2 && e.difficulty === 'added'
+           || wordGameData.longSeries > 4 && e.difficulty === 'complicated'
+           || i.result && e.difficulty === 'learned') status = 'learned'
+
+        console.log('true')
+        console.log(status)
+        console.log(wordGameData)
+
+        requestMethods().updateUserWord(user.id, i.wordID, status, user.token, wordGameData)
+      })
+      .catch(() =>{
+        const wordGameData: UserWordOptions ={
+          count: 1,
+          longSeries: Number(i.result),
+          audioCorrect: Number(i.result && !isSprint),
+          audioError: Number(!i.result && !isSprint),
+          sprintCorrect: Number(i.result && isSprint),
+          sprintError: Number(!i.result && isSprint),
+        }
+
+        console.log('false')
+        console.log(wordGameData)
+        requestMethods().createUserWord(user.id, i.wordID, 'added', user.token, wordGameData)
+      })
+}
+
 export async function addStatisticGame(resultsSprint: SprintResult[], gameName: string) {
   const user = getStore();
   if (user) {
@@ -21,19 +64,34 @@ export async function addStatisticGame(resultsSprint: SprintResult[], gameName: 
     const correctCount = resultsSprint.reduce((s, c) => s + Number(c.result), 0);
     const errorCount = resultsSprint.reduce((s, c) => s + Number(!c.result), 0);
     for (const i of resultsSprint) {
-      if (i.result) {
-        thisSeries += 1;
-        await requestMethods()
-          .getUserWordById(user.id, i.wordID, user.token)
-          .then(async () => requestMethods().updateUserWord(user.id, i.wordID, 'learned', user.token))
-          .catch(async () => requestMethods().createUserWord(user.id, i.wordID, 'learned', user.token));
-      } else {
+      if (i.result)  thisSeries += 1
+      else {
         allSeries.push(thisSeries);
         thisSeries = 0;
-        await requestMethods()
-          .getUserWordById(user.id, i.wordID, user.token)
-          .catch(async () => requestMethods().createUserWord(user.id, i.wordID, 'complicated', user.token));
       }
+      await updateWordGameStat(user, i, gameName)
+
+
+      //
+      // if (i.result) {
+      //   thisSeries += 1;
+      //   await requestMethods()
+      //     .getUserWordById(user.id, i.wordID, user.token)
+      //     .then((e) => {
+      //       console.log(e)
+      //       requestMethods().updateUserWord(user.id, i.wordID, 'learned', user.token, newWordFirst)})
+      //     .catch(() => requestMethods().createUserWord(user.id, i.wordID, 'learned', user.token, newWordFirst));
+      // }
+      // else {
+      //   allSeries.push(thisSeries);
+      //   thisSeries = 0;
+      //   await requestMethods()
+      //     .getUserWordById(user.id, i.wordID, user.token)
+      //     .then((e) => {
+      //       console.log(e)
+      //       requestMethods().updateUserWord(user.id, i.wordID, 'added', user.token, newWordFirst)})
+      //     .catch(() => requestMethods().createUserWord(user.id, i.wordID, 'added', user.token, newWordFirst));
+      // }
     }
     const userStatisticResponse = (await requestMethods().getUserStatistic(user.id, user.token)) as DataForStatistic;
     const userStatistic = userStatisticResponse.optional.statistics;
