@@ -70,7 +70,7 @@ export const learnedPage = () => {
 
 const getNewContent = async () => {
   const { chapter, page } = searchPathBook();
-  const user = getStore()!; // ???
+  const user = getStore();
   const newContent = (await request.getWords(chapter, page)) as WordInterface[];
   let userWords: UserWordInterface[];
   if (!user) {

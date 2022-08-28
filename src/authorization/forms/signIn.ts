@@ -24,9 +24,6 @@ export function signInForm(container: HTMLFormElement) {
   const valueInput = inputEmail.querySelector('#emailIn') as HTMLFormElement;
   const passInput = inputPass.querySelector('#passIn') as HTMLFormElement;
 
-  // const linkWrapper = createElement('div', ['auth-link-wrapper']);
-  // const link = createElement('span', ['auth-link'], FORGOT_PASS);
-  //linkWrapper.append(link)
   btnPrimary.onclick = () => {
     removeErrors(container);
     if (emptyValidator([valueInput, passInput])) {
@@ -36,6 +33,5 @@ export function signInForm(container: HTMLFormElement) {
     }
   };
   btnSecondary.onclick = () => signUpForm(container);
-  //link.onclick = () => resetPassForm(container);
-  container.append(h2, inputWrapper, btnWrapper /*, linkWrapper*/);
+  container.append(h2, inputWrapper, btnWrapper);
 }
