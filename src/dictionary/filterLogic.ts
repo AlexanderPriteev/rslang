@@ -15,7 +15,7 @@ let currentContent: WordInterface[];
 
 const getNewContent = async (content: WordInterface[]) => {
   const pageNumber = document.querySelector('.dictionary__current-page') as NonNullable<HTMLElement>;
-  const user = getStore()!; // ???
+  const user = getStore();
   let userWords: UserWordInterface[];
   if (!user) {
     userWords = [];

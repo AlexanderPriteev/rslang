@@ -1,7 +1,7 @@
 import constants from '../constants/index';
 const { ERROR_INPUT_EMAIL, ERROR_INPUT_PASSWORD } = constants;
 
-export interface newUser {
+export interface NewUser {
   name: string;
   email: string;
   password: string;

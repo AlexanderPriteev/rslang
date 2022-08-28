@@ -1,7 +1,7 @@
 import createElement from '../helpers/createElement';
 import * as chapter1BG from '../assets/images/chapter-1.png';
 import './textbook.scss';
-import {getStore} from "../storage";
+import { getStore } from '../storage';
 
 const renderTextbookHeading = () => {
   const textbookHeadingContainer = createElement('div', ['textbook__heading-container']);
@@ -19,7 +19,7 @@ const renderTextbookHeading = () => {
 
 const renderTextBookNavPanel = () => {
   const navContainer = createElement('div', ['textbook__nav']);
-  const categoryDifficult = getStore() ? '<option class="textbook__select-option">Сложные слова</option>' : ''
+  const categoryDifficult = getStore() ? '<option class="textbook__select-option">Сложные слова</option>' : '';
   navContainer.innerHTML = `
   <div class="textbook__nav-wrapper">
       <select class="textbook__select" size="1">

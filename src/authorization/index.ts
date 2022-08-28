@@ -1,13 +1,13 @@
 import createElement from '../helpers/createElement';
 import './style.scss';
 import { signInForm } from './forms/signIn';
-import {optionsForm} from "./forms/options";
+import { optionsForm } from './forms/options';
 
 function createAuthorizationForm(classes: string[], id: string, isOptions?: boolean) {
   const container = createElement('div', classes);
   const form = createElement('form', ['auth-form'], undefined, id) as HTMLFormElement;
   form.action = '#';
-  if(isOptions) optionsForm(form)
+  if (isOptions) optionsForm(form);
   else signInForm(form);
   container.appendChild(form);
 

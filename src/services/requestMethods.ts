@@ -1,7 +1,6 @@
-import {newUser} from '../types/User';
+import { NewUser } from '../types/User';
 import request from './request';
-import {DataForUserWord} from "../types/UserWordOptions";
-
+import { DataForUserWord } from '../types/UserWordOptions';
 
 const requestMethods = () => {
   const base = 'http://localhost:8001/'; // здесь должна быть ссылка на ваш локальный сервер.
@@ -16,7 +15,7 @@ const requestMethods = () => {
     return res;
   };
 
-  const createUser = async (user: newUser) => {
+  const createUser = async (user: NewUser) => {
     return request(`${base}users`, 'POST', JSON.stringify(user));
   };
 
@@ -29,7 +28,7 @@ const requestMethods = () => {
   };
 
   const updateUser = async (id: string, email: string, password: string, token: string, name: string) => {
-    await request(`${base}users/${id}`, 'PUT', JSON.stringify({ email, password, name}), {
+    await request(`${base}users/${id}`, 'PUT', JSON.stringify({ email, password, name }), {
       'Content-type': 'application/json',
       Authorization: `Berear ${token}`,
     }); // Поменять логику запроса, когда дело дойдет до реализации функционала

@@ -1,10 +1,9 @@
 import requestMethods from '../services/requestMethods';
-import { getStore, setStore } from '../storage/index';
+import { setStore } from '../storage/index';
 import { SignIn, UserCreateRes } from '../types/index';
-import {newUser, User} from '../types/User';
+import { NewUser, User } from '../types/User';
 import { defaultStatistics } from '../statistics/defaultValue';
 import { setLocation } from '../routing/routing';
-import { closeWindow } from '../helpers/closeWindow';
 import { DataForStatistic } from '../types/Statistic';
 import { addError } from './clientValidators';
 
@@ -43,7 +42,6 @@ function getEmailAndPassFromForm(InOrUp: boolean) {
   return { email, password, inputInEmail, inputInPass };
 }
 
-
 //создать нового пользователя
 export async function createUser() {
   try {
@@ -51,11 +49,11 @@ export async function createUser() {
     const inputName = document.querySelector('input[type="text"]') as HTMLInputElement;
     const name = inputName.value;
     const user = new User(name, email, password);
-    const  data: newUser = {
+    const data: NewUser = {
       name: name,
       email: email,
-      password: password
-    }
+      password: password,
+    };
     const { id } = (await requestMethods().createUser(data)) as UserCreateRes;
     user.id = id;
     const { token, refreshToken } = (await requestMethods().userSignIn(user.email, user.password)) as SignIn;
@@ -64,7 +62,6 @@ export async function createUser() {
     await requestMethods().updateUserStatistic(id, '1', token, { statistics: defaultStatistics() });
     setStore(user);
     setLocation('index');
-
   } catch (error) {
     console.log(error); //TODO: сделать вывод сообщения в форме об неверном пароле/email
   }

@@ -9,7 +9,6 @@ import { notFoundRender } from '../page/page-not-found/not-found';
 import { getStore } from '../storage';
 
 export function routing(rout: string) {
-
   switch (rout) {
     case '/':
       pageRender(mainPage, 'index');

@@ -5,7 +5,7 @@ import { setLocation } from '../../routing/routing';
 import { clearUserStore, getStore } from '../../storage';
 import { footerRender } from '../footer/footer';
 import { pageBaseMarkup } from '../page';
-import requestMethods from "../../services/requestMethods";
+import requestMethods from '../../services/requestMethods';
 
 export function openAuth(isOptions?: boolean) {
   const page = pageBaseMarkup();
@@ -16,7 +16,7 @@ export function openAuth(isOptions?: boolean) {
 
 export function headerAuth() {
   const user = createElement('div', ['user']);
-  const userData = getStore()
+  const userData = getStore();
   if (userData) {
     const userName = userData.name;
     const logoutMenu = createElement('div', ['user__menu']);
@@ -24,13 +24,14 @@ export function headerAuth() {
     const logoutBtn = createElement('div', ['user__item'], logoutText);
     logoutBtn.onclick = () => clearUserStore();
 
-    const optionsText =  '<i class="user__icon icon-options"></i><div class="user__data">НАСТРОЙКИ</div>';
+    const optionsText = '<i class="user__icon icon-options"></i><div class="user__data">НАСТРОЙКИ</div>';
     const optionsBtn = createElement('div', ['user__item'], optionsText);
     optionsBtn.onclick = () => {
-      void requestMethods().getUserById(userData.id, userData.token)
-          .then(() => setLocation('options'))
-          .catch(() => clearUserStore())
-    }
+      void requestMethods()
+        .getUserById(userData.id, userData.token)
+        .then(() => setLocation('options'))
+        .catch(() => clearUserStore());
+    };
 
     logoutMenu.append(optionsBtn, logoutBtn);
 

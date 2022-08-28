@@ -33,5 +33,5 @@ export function signInForm(container: HTMLFormElement) {
     }
   };
   btnSecondary.onclick = () => signUpForm(container);
-  container.append(h2, inputWrapper, btnWrapper );
+  container.append(h2, inputWrapper, btnWrapper);
 }
