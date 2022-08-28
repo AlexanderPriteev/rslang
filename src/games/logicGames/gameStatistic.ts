@@ -33,11 +33,6 @@ async function updateWordGameStat(user: User, i: SprintResult, gameName: string 
         if(wordGameData.longSeries > 2 && e.difficulty === 'added'
            || wordGameData.longSeries > 4 && e.difficulty === 'complicated'
            || i.result && e.difficulty === 'learned') status = 'learned'
-
-        console.log('true')
-        console.log(status)
-        console.log(wordGameData)
-
         requestMethods().updateUserWord(user.id, i.wordID, status, user.token, wordGameData)
       })
       .catch(() =>{
@@ -49,9 +44,6 @@ async function updateWordGameStat(user: User, i: SprintResult, gameName: string 
           sprintCorrect: Number(i.result && isSprint),
           sprintError: Number(!i.result && isSprint),
         }
-
-        console.log('false')
-        console.log(wordGameData)
         requestMethods().createUserWord(user.id, i.wordID, 'added', user.token, wordGameData)
       })
 }
@@ -70,28 +62,6 @@ export async function addStatisticGame(resultsSprint: SprintResult[], gameName: 
         thisSeries = 0;
       }
       await updateWordGameStat(user, i, gameName)
-
-
-      //
-      // if (i.result) {
-      //   thisSeries += 1;
-      //   await requestMethods()
-      //     .getUserWordById(user.id, i.wordID, user.token)
-      //     .then((e) => {
-      //       console.log(e)
-      //       requestMethods().updateUserWord(user.id, i.wordID, 'learned', user.token, newWordFirst)})
-      //     .catch(() => requestMethods().createUserWord(user.id, i.wordID, 'learned', user.token, newWordFirst));
-      // }
-      // else {
-      //   allSeries.push(thisSeries);
-      //   thisSeries = 0;
-      //   await requestMethods()
-      //     .getUserWordById(user.id, i.wordID, user.token)
-      //     .then((e) => {
-      //       console.log(e)
-      //       requestMethods().updateUserWord(user.id, i.wordID, 'added', user.token, newWordFirst)})
-      //     .catch(() => requestMethods().createUserWord(user.id, i.wordID, 'added', user.token, newWordFirst));
-      // }
     }
     const userStatisticResponse = (await requestMethods().getUserStatistic(user.id, user.token)) as DataForStatistic;
     const userStatistic = userStatisticResponse.optional.statistics;

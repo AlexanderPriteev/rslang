@@ -190,17 +190,13 @@ const wordOptions = async (word: WordInterface, head: HTMLElement, col: HTMLElem
   if(user){
     const data = await request.getUserWordById(user.id, word.id, user.token)
     const optional = data.optional || newWordEmpty
-    //console.log(optional)
-    console.log(optional.count)
     if(optional.count){
-      console.log(word.wordTranslate)
       if(optional.count === 1 && data.difficulty === 'added'){
           const newBadge = createElement('span', ['word__added'], 'NEW')
           head.append(newBadge)
       }
       col.append(learnProgress(optional))
     }
-   // else await request.updateUserWord(user.id, word.id, 'added', user.token, newWordEmpty)
   }
 
 }
