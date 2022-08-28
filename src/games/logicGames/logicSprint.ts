@@ -55,15 +55,17 @@ export async function getWordsByCategory(level: number): Promise<WordInterface[]
 
   const words = (await Promise.all(promiseArray)).flat(1);
 
-  const wordsUserId = await getIdLearnedWords();
-  if (wordsUserId && wordsUserId.length > 0) {
-    return words.filter((word: WordInterface) => {
-      const indexWord = wordsUserId.indexOf(word.id);
-      return indexWord === -1;
-    });
-  } else {
-    return words;
-  }
+  // const wordsUserId = await getIdLearnedWords();
+
+  // if (wordsUserId && wordsUserId.length > 0) {
+  //   return words.filter((word: WordInterface) => {
+  //     const indexWord = wordsUserId.indexOf(word.id);
+  //     return indexWord === -1;
+  //   });
+  // } else {
+  //   return words;
+  // }
+  return words;
 }
 
 export function checkSoundOff() {
@@ -77,7 +79,6 @@ function endGame() {
   const totalScore = (document.querySelector('div.quest-header__count-true') as HTMLElement).innerText;
 
   void renderWindowGameResult('body', resultsGameSprint, totalScore, 'spring-result-container', 'sprint');
-  //document.querySelector('div.sprint-game-container')?.classList.add('hidden');
   document.querySelector('div.sprint-game-container')?.remove();
 }
 
@@ -106,6 +107,10 @@ function unActiveBtn(statusBtn: boolean) {
 }
 
 function writeQuest() {
+  if (index >= wordsArray.length) {
+    endGame();
+  }
+
   const wordEn: HTMLElement | null = document.querySelector('div.sprint-quest__en');
   const wordRu: HTMLElement | null = document.querySelector('div.sprint-quest__rus');
 
