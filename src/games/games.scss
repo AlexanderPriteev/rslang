@@ -13,6 +13,9 @@
     background-image: $background-image;
     box-sizing: border-box;
     padding: 4rem;
+    @media (max-width: 767px) {
+      padding: 4rem 1rem;
+    }
   }
 
   &-list {
@@ -20,6 +23,11 @@
     display: flex;
     max-width: 88rem;
     gap: 7.2rem;
+    @media (max-width: 767px) {
+      max-width: 60rem;
+      gap: 3rem;
+      flex-direction: column;
+    }
   }
 }
 

@@ -11,6 +11,15 @@
   background: #ffffff;
   box-shadow: $shadow-2;
   border-radius: 1.2rem;
+  @media (max-width: 767px){
+    max-width: 80rem;
+    flex-direction: column;
+    box-sizing: border-box;
+    margin-top: 6rem;
+    padding: 4rem 3rem 10rem;
+    border-top-left-radius: 12rem;
+    gap: 2rem;
+  }
 
   &__translate-container {
     display: flex;
@@ -45,6 +54,14 @@
       height: 25rem;
       margin-bottom: 1.2rem;
       overflow: hidden;
+      @media (max-width: 767px){
+        margin-bottom: 0;
+        width: 28rem;
+        height: 28rem;
+        border-radius: 50%;
+        border: 1.2rem solid $white;
+        box-shadow: $shadow-4;
+      }
       &:last-child{
         margin-bottom: 0;
       }
@@ -52,6 +69,9 @@
     &-column{
       display: flex;
       flex-direction: column;
+      @media (max-width: 767px){
+        margin: -10rem 0 0 -3rem;;
+      }
     }
 
   }
@@ -97,6 +117,10 @@
     font-weight: 300;
     font-size: 2rem;
     line-height: 2.4rem;
+    @media (max-width: 767px) {
+      font-size: 2.4rem;
+      line-height: 2.8rem;
+    }
   }
 
   &__example-en span,
@@ -114,6 +138,12 @@
     position: absolute;
     top: 5rem;
     right: 5rem;
+    @media (max-width: 767px) {
+      flex-direction: column-reverse;
+      gap: 2.5rem;
+      align-items: flex-end;
+      right: 3rem;
+    }
   }
 
   &__add-complicated,
@@ -128,6 +158,9 @@
     line-height: 2rem;
     color: #422d6d;
     transition: color .2s linear;
+    @media (max-width: 767px) {
+      font-size: 2.4rem;
+    }
     &:hover{
       color: $primary;
     }
@@ -139,6 +172,9 @@
     line-height: 2rem;
     color: #4eed5e;
     transition: color .2s linear;
+    @media (max-width: 767px) {
+      font-size: 2.4rem;
+    }
     &:hover{
       color: $green-2;
     }
@@ -147,6 +183,9 @@
   &__add-complicated .icon-pen,
   &__add-learned .icon-box-with-check {
     font-size: 2rem;
+    @media (max-width: 767px) {
+      font-size: 2.4rem;
+    }
   }
 
   &__difficult {
@@ -185,6 +224,11 @@
   display: flex;
   gap: 2.5rem;
   margin-top: auto;
+  @media (max-width: 767px) {
+    position: absolute;
+    left: 3rem;
+    bottom: 3rem;
+  }
   &__item{
     display: flex;
     align-items: center;
@@ -199,6 +243,12 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    @media (max-width: 767px) {
+      width: 3.5rem;
+      min-width: 3.5rem;
+      height: 3.5rem;
+      font-size: 3.5rem;
+    }
   }
   &__data{
     font-size: 2.1rem;
@@ -206,6 +256,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    @media (max-width: 767px) {
+      font-size: 3.1rem;
+      line-height: 3.5rem;
+    }
     &--correct{
       color: $green-2;
     }
