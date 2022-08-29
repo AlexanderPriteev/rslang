@@ -52,7 +52,7 @@ function renderQuestContainer() {
   const questContainer = createElement('div', ['sprint-quest-container']);
 
   const timeCounter = createElement('div', ['sprint-time-counter']);
-  timeCounter.appendChild(createElement('p', undefined, '00', 'timer'));
+  timeCounter.appendChild(createElement('p', undefined, '60', 'timer'));
   const quest = renderQuestGroup();
 
   appendChildArray(questContainer, [timeCounter, quest]);

@@ -53,17 +53,17 @@ function endGame() {
 
 function createTimer() {
   //при закрытии окна остановить таймер
-  let timer = 0;
+  let timer = 60;
   setTimeout(() => {
     endGame();
   }, 60000);
 
   const refreshId = setInterval(() => {
-    timer = timer += 1;
+    timer = timer -= 1;
     const timerElement = document.querySelector('#timer') as HTMLElement;
     if (timerElement) timerElement.innerText = timer < 10 ? '0' + timer.toString() : timer.toString();
 
-    if (timer >= 60) {
+    if (timer <= 0) {
       clearInterval(refreshId);
     }
   }, 1000);
