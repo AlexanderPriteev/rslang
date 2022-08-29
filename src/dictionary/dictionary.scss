@@ -3,6 +3,10 @@
 .dictionary {
   &__img-bg {
     width: 100%;
+    @media (max-width: 767px){
+      height: 100%;
+      object-fit: cover;
+    }
   }
 
   &__text-container {
@@ -18,7 +22,11 @@
     font-weight: $f-bold;
     font-size: 12.8rem;
     line-height: 12.8rem;
-    color: $white10;
+    color: $white;
+    @media (max-width: 767px){
+      letter-spacing: 0.05rem;
+      font-size: 11rem;
+    }
 
     &-container {
       position: relative;
@@ -42,7 +50,11 @@
 
   &__content-wrapper {
     max-width: 129.8rem;
-    margin: 8.2rem auto 0 auto;
+    margin: 8.2rem auto 0;
+    @media (max-width: 767px) {
+      max-width: 100%;
+      margin-top: 0;
+    }
   }
 
   &__nav {
@@ -54,6 +66,9 @@
     padding: 2.8rem 4rem;
     box-shadow: $shadow-header;
     border-radius: .6rem;
+    position: sticky;
+    top: 8rem;
+    z-index: 3;
     &-wrapper {
       display: flex;
       justify-content: space-between;
@@ -64,6 +79,13 @@
         font-size: 2rem;
         line-height: 2.4rem;
         color: $text;
+        @media (max-width: 767px) {
+          flex-direction: column;
+          gap: 1.6rem;
+        }
+      }
+      @media (max-width: 767px) {
+        flex-direction: column;
       }
     }
   }
@@ -83,6 +105,9 @@
     &::-webkit-search-results-button,
     &::-webkit-search-results-decoration {
       display: none;
+    }
+    @media (max-width: 767px) {
+      flex-grow: 1;
     }
   }
 
@@ -110,6 +135,9 @@
 
     @media (max-width: 767px) {
       gap: 2rem;
+      position: absolute;
+      right: 4rem;
+      top: 3.5rem;
     }
   }
 
@@ -125,6 +153,14 @@
       font-weight: $f-bold;
       font-size: 2rem;
       line-height: 2.4rem;
+      @media (max-width: 767px) {
+        order: -1;
+      }
+    }
+    &-name{
+      @media (max-width: 389px) {
+        display: none;
+      }
     }
     &-btn {
       display: flex;
@@ -155,11 +191,20 @@
     margin-top: 4rem;
     margin-bottom: 15rem;
     box-sizing: border-box;
+    @media (max-width: 767px) {
+      overflow: hidden;
+      width: 100%;
+      padding: 0 2rem;
+      align-items: center;
+    }
   }
 
   &__alphabet-search {
     display: flex;
     gap: 2rem;
+    @media (max-width: 767px) {
+      flex-wrap: wrap;
+    }
   }
 
   &__alphabet-btn {

@@ -42,8 +42,6 @@ const addListeners = (listOfWords: WordInterface[]) => {
         filteredWords = filteredWords.filter((wordItem) => wordItem.word[0].toUpperCase() === targetText);
       }
 
-
-
       alphabetBtns.forEach((btn) => {
         if (btn.innerHTML === target.innerHTML) {
           btn.classList.add('alphabet-active');
@@ -97,7 +95,10 @@ const addListeners = (listOfWords: WordInterface[]) => {
 };
 
 const filterLogic = async () => {
-  const listOfWords = await getFullListOfWords();
+  const listOfWords = await getFullListOfWords().finally(()=>{
+          const page = document.querySelector('.dictionary') as HTMLFormElement;
+          if(page.classList.contains('preloader')) page.classList.remove('preloader')
+      });
   addListeners(listOfWords);
   (document.querySelector('.dictionary__alphabet-btn') as NonNullable<HTMLButtonElement>).click();
 };

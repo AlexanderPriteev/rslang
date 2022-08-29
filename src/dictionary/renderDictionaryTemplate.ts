@@ -1,6 +1,7 @@
 import createElement from '../helpers/createElement';
 import * as dictionaryBg from '../assets/images/dictionary-bg.jpg';
 import './dictionary.scss';
+import {setLocation} from "../routing/routing";
 
 const renderdictionaryHeading = () => {
   const dictionaryHeadingContainer = createElement('div', ['dictionary__heading-container']);
@@ -25,11 +26,11 @@ const renderdictionaryNavPanel = () => {
   <div class="dictionary__game-list">
     <button class="dictionary__game-btn">
       <span class="icon-music-box dictionary__game-icon"></span>
-      <span class="dictionary__game-name">Аудиовызов</span>
+      <span class="dictionary__game-name" id="audioCall">Аудиовызов</span>
     </button>
     <button class="dictionary__game-btn">
       <span class="icon-run-fast dictionary__game-icon"></span>
-      <span class="dictionary__game-name">Спринт</span>
+      <span class="dictionary__game-name" id="sprint">Спринт</span>
     </button>
   </div>
 </div>
@@ -76,13 +77,21 @@ const renderdictionaryNavPanel = () => {
 };
 
 const renderDictionaryTemplate = (root: string) => {
-  const dictionaryPage = createElement('div', ['dictionary']);
+  const dictionaryPage = createElement('div', ['dictionary', 'preloader']);
   dictionaryPage.appendChild(renderdictionaryHeading());
+
   const mainContentWrapper = createElement('div', ['dictionary__content-wrapper']);
   mainContentWrapper.appendChild(renderdictionaryNavPanel());
+  const sprint = mainContentWrapper.querySelector('#sprint') as HTMLFormElement
+  const audioCall = mainContentWrapper.querySelector('#audioCall') as HTMLFormElement
+  sprint.onclick = () => setLocation('sprint');
+  audioCall.onclick = () => setLocation('audio-call');
+
   const wordList = createElement('div', ['dictionary__word-list']);
   mainContentWrapper.appendChild(wordList);
   dictionaryPage.appendChild(mainContentWrapper);
+
+
 
   const thisRoot: HTMLElement | null = document.querySelector(root);
   if (thisRoot) {
