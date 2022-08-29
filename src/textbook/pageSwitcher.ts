@@ -11,6 +11,7 @@ import * as chapter5BG from '../assets/images/chapter-5.png';
 import * as chapter6BG from '../assets/images/chapter-6.png';
 import * as chapterComplicatedBG from '../assets/images/chapter-complicated.png';
 import createElement from '../helpers/createElement';
+import { addListenerForStartGame } from './startGame';
 
 const request = requestMethods();
 const chapterBackground = [
@@ -159,6 +160,8 @@ const addListeners = () => {
     page = 0;
     updatePageContent(chapter, page);
   });
+
+  addListenerForStartGame();
 };
 
 const pageSwitcher = () => {

@@ -5,11 +5,9 @@ import { renderColumnWinner, renderWindowGameResult } from '../renderGames/rende
 import requestMethods from '../../services/requestMethods';
 import constants from '../../constants/index';
 import { getStoreGame, setStoreGame } from '../../storage/index';
-import { UserWordInterface, WordInterface } from '../../types/wordInterface';
+import { WordInterface } from '../../types/wordInterface';
 import { checkAudioCallAnswer, onSound } from './logicAudioCall';
-import { User } from '../../types/User';
 const { SERVER } = constants;
-import { getStore } from '../../storage';
 
 export const resultsGameSprint: SprintResult[] = [];
 
@@ -26,44 +24,17 @@ function randomBoolean() {
   return Math.random() < 0.5;
 }
 
-//получение ID слов 'learned' для авторизованного пользователя или undefined при отсутствии авторизации
-export async function getIdLearnedWords() {
-  const user: User | undefined = getStore();
-
-  if (user) {
-    const userWord = (await requestMethods().getAllUserWords(user.id, user.token)) as UserWordInterface[];
-    //TODO: сделать логику при протухшем токене
-
-    const arr: string[] = [];
-    for (let i = 0; i < userWord.length; i++) {
-      if (userWord[i].difficulty === 'learned') arr.push(userWord[i].wordId);
-    }
-
-    return arr;
-  }
-
-  return;
-}
-
 //получить массив слов указанной категории со всех 30 страниц c учетом выученных слов пользователя
-export async function getWordsByCategory(level: number): Promise<WordInterface[]> {
+export async function getWordsByCategory(level: number, page = 30): Promise<WordInterface[]> {
   const promiseArray: Promise<WordInterface[]>[] = [];
 
-  for (let i = 0; i < 30; i++) {
-    promiseArray.push(requestMethods().getWords(level, i) as Promise<WordInterface[]>);
+  for (let i = 0; i < page; i++) {
+    promiseArray.push(requestMethods().getWords(level - 1, i) as Promise<WordInterface[]>);
   }
 
   const words = (await Promise.all(promiseArray)).flat(1);
 
-  const wordsUserId = await getIdLearnedWords();
-  if (wordsUserId && wordsUserId.length > 0) {
-    return words.filter((word: WordInterface) => {
-      const indexWord = wordsUserId.indexOf(word.id);
-      return indexWord === -1;
-    });
-  } else {
-    return words;
-  }
+  return words;
 }
 
 export function checkSoundOff() {
@@ -77,7 +48,6 @@ function endGame() {
   const totalScore = (document.querySelector('div.quest-header__count-true') as HTMLElement).innerText;
 
   void renderWindowGameResult('body', resultsGameSprint, totalScore, 'spring-result-container', 'sprint');
-  //document.querySelector('div.sprint-game-container')?.classList.add('hidden');
   document.querySelector('div.sprint-game-container')?.remove();
 }
 
@@ -106,6 +76,10 @@ function unActiveBtn(statusBtn: boolean) {
 }
 
 function writeQuest() {
+  if (index >= wordsArray.length) {
+    endGame();
+  }
+
   const wordEn: HTMLElement | null = document.querySelector('div.sprint-quest__en');
   const wordRu: HTMLElement | null = document.querySelector('div.sprint-quest__rus');
 
