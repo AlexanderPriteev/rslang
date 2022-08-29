@@ -36,7 +36,14 @@ const addListeners = (listOfWords: WordInterface[]) => {
       searchInput.value = '';
       (document.querySelector('.dictionary__word-list') as NonNullable<HTMLElement>).innerHTML = '';
       const target = e.target as HTMLButtonElement;
-      const filteredWords = listOfWords.filter((wordItem) => wordItem.word[0].toUpperCase() === target.innerHTML);
+      const targetText = target.innerHTML
+      let filteredWords = listOfWords
+      if(targetText !== 'All'){
+        filteredWords = filteredWords.filter((wordItem) => wordItem.word[0].toUpperCase() === targetText);
+      }
+
+
+
       alphabetBtns.forEach((btn) => {
         if (btn.innerHTML === target.innerHTML) {
           btn.classList.add('alphabet-active');

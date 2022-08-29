@@ -1,5 +1,5 @@
 import createElement from '../helpers/createElement';
-import * as dictionaryBg from '../assets/images/dictionary-bg.png';
+import * as dictionaryBg from '../assets/images/dictionary-bg.jpg';
 import './dictionary.scss';
 
 const renderdictionaryHeading = () => {
@@ -19,7 +19,7 @@ const renderdictionaryNavPanel = () => {
   navContainer.innerHTML = `
 <div class="dictionary__nav-wrapper">
   <div class="dictionary__search-wrapper">
-    <input type="search" class="dictionary__search">
+    <input type="search" class="dictionary__search" placeholder="Поиск">
     <button class="dictionary__search-btn"><span class="icon-search"></span>Искать</button>
   </div>
   <div class="dictionary__game-list">
@@ -35,7 +35,8 @@ const renderdictionaryNavPanel = () => {
 </div>
 <div class="dictionary__nav-wrapper">
   <div class="dictionary__alphabet-search">
-    <button class="dictionary__alphabet-btn alphabet-active">A</button>
+    <button class="dictionary__alphabet-btn normal alphabet-active">All</button>
+    <button class="dictionary__alphabet-btn">A</button>
     <button class="dictionary__alphabet-btn">B</button>
     <button class="dictionary__alphabet-btn">C</button>
     <button class="dictionary__alphabet-btn">D</button>
@@ -63,11 +64,11 @@ const renderdictionaryNavPanel = () => {
     <button class="dictionary__alphabet-btn">Z</button>
   </div>
   <div class="dictionary__page-changer">
-    <button class="dictionary__to-first-page"><span class="icon-to-first"></span></button>
-    <button class="dictionary__to-prev-page"><span class="icon-prev"></span></button>
+    <button class="dictionary__to-first-page textbook__page"><span class="icon-to-first"></span></button>
+    <button class="dictionary__to-prev-page textbook__page"><span class="icon-prev"></span></button>
     <span class="dictionary__current-page">1</span>
-    <button class="dictionary__to-next-page"><span class="icon-next"></span></button>
-    <button class="dictionary__to-last-page"><span class="icon-to-last"></span></button>
+    <button class="dictionary__to-next-page textbook__page"><span class="icon-next"></span></button>
+    <button class="dictionary__to-last-page textbook__page"><span class="icon-to-last"></span></button>
   </div>
 </div>
   `;

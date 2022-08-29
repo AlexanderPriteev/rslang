@@ -1,8 +1,6 @@
 @import "../assets/styles/variables.scss";
 
 .dictionary {
-  background: $background-image;
-
   &__img-bg {
     width: 100%;
   }
@@ -24,6 +22,14 @@
 
     &-container {
       position: relative;
+      box-sizing: border-box;
+      border-bottom: .5rem solid $primary;
+      line-height: 0;
+      background-color: $primary;
+      @media (max-width: 767px){
+        height: 36rem;
+        border: none;
+      }
     }
   }
 
@@ -43,11 +49,11 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: 28px;
+    gap: 2.8rem;
     background-color: $bg-dark;
     padding: 2.8rem 4rem;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
-    border-radius: 6px;
+    box-shadow: $shadow-header;
+    border-radius: .6rem;
     &-wrapper {
       display: flex;
       justify-content: space-between;
@@ -67,36 +73,49 @@
   }
 
   &__search {
-    width: 673px;
-    text-indent: 15px;
+    width: 67.4rem;
+    text-indent: 1.5rem;
+    outline: none;
+    border: 0.1rem solid#A588E2;
+    border-radius: 1.6rem 0 0 1.6rem;
+    &::-webkit-search-decoration,
+    &::-webkit-search-cancel-button,
+    &::-webkit-search-results-button,
+    &::-webkit-search-results-decoration {
+      display: none;
+    }
   }
 
   &__search-btn {
-    background: #a588e2;
-    border-radius: 0px 16px 16px 0px;
-    padding: 15px 38px;
+    background-color: $primary;
+    border-radius: 0 1.6rem 1.6rem 0;
+    padding: 1.5rem 3.8rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 14px;
-    color: white;
+    gap: 1.4rem;
+    color: $white;
+    transition: background-color .3s linear;
+    &:hover{
+      background-color: $primary-dark;
+    }
   }
 
   &__page-changer {
-    font-family: "Fira Code";
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 24px;
-    color: #422d6d;
-    width: 100px;
     display: flex;
     gap: 1.2rem;
+    font-size: 2rem;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+
+    @media (max-width: 767px) {
+      gap: 2rem;
+    }
   }
 
-  &__current-page {
-    margin-bottom: 3px;
+  &__current-page{
+    font-size: 2.4rem;
+    font-weight: $f-bold;
   }
 
   &__game {
@@ -106,17 +125,26 @@
       font-weight: $f-bold;
       font-size: 2rem;
       line-height: 2.4rem;
-      color: $text;
     }
     &-btn {
       display: flex;
       justify-content: center;
       align-items: center;
       gap: 1.2rem;
+      color: $text;
+      transition: color .2s linear;
+      &:hover{
+        color: $primary;
+      }
+      @media (max-width: 767px) {
+        font-size: 3rem;
+      }
     }
     &-icon {
-      color: #422d6d;
       font-size: 3.4rem;
+      @media (max-width: 767px) {
+        font-size: 4.8rem;
+      }
     }
   }
 
@@ -125,19 +153,24 @@
     flex-direction: column;
     gap: 4rem;
     margin-top: 4rem;
+    margin-bottom: 15rem;
+    box-sizing: border-box;
   }
 
   &__alphabet-search {
     display: flex;
-    gap: 16px;
+    gap: 2rem;
   }
 
   &__alphabet-btn {
-    font-family: "Fira Code";
-    font-weight: 500;
-    font-size: 30px;
-    line-height: 24px;
-    color: #422d6d;
+    font-weight: $f-bold;
+    font-size: 3rem;
+    line-height: 2.4rem;
+    color: $text;
+    transition: color .2s linear;
+    &:hover{
+      color: $primary
+    }
   }
 }
 
@@ -146,5 +179,5 @@
 }
 
 .alphabet-active {
-  color: #a588e2;
+  color: $primary;
 }
