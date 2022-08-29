@@ -19,7 +19,7 @@ export function onSound() {
 }
 
 function unActiveBtn(statusBtn: boolean) {
-  const btnArray = document.querySelectorAll('#btn-audio-call');
+  const btnArray = document.querySelectorAll('.btn-audio-call');
   btnArray.forEach((el) => {
     (el as HTMLButtonElement).disabled = statusBtn ? false : true;
   });
@@ -50,9 +50,9 @@ function renderQuest() {
 
   for (let i = 0; i < buttons.length; i++) {
     if (numberTrueAnswer === i) {
-      (buttons[i] as HTMLButtonElement).innerText = `${i + 1}. ${wordsArrayCall[ind].wordTranslate}`;
+      (buttons[i] as HTMLButtonElement).innerText = `${wordsArrayCall[ind].wordTranslate}`;
     } else {
-      (buttons[i] as HTMLButtonElement).innerText = `${i + 1}. ${wordsArrayCall[randomeArray[i]].wordTranslate}`;
+      (buttons[i] as HTMLButtonElement).innerText = `${wordsArrayCall[randomeArray[i]].wordTranslate}`;
     }
   }
 
@@ -77,10 +77,9 @@ function redrawNumberLives() {
   const lives = document.querySelectorAll('div.audio-call-quest__status > *');
 
   for (let i = 0; i < lives.length; i++) {
-    if (numberErrorAnswer <= i) {
-      (lives[i] as HTMLDivElement).style.backgroundImage = 'url("../../assets/images/audio-call-status.png")';
-    } else {
-      (lives[i] as HTMLDivElement).style.backgroundImage = 'url("../../assets/images/audio-call-status-white.png")';
+    if (!(numberErrorAnswer <= i)) {
+      const heart = lives[i] as HTMLDivElement
+      if(!heart.classList.contains('outline')) heart.classList.add('outline')
     }
   }
 }
@@ -99,7 +98,7 @@ function endGame() {
 }
 
 export function checkAudioCallAnswer(btn: HTMLButtonElement | string) {
-  const button = typeof btn === 'string' ? document.querySelectorAll('#btn-audio-call')[+btn - 1] : btn;
+  const button = typeof btn === 'string' ? document.querySelectorAll('.btn-audio-call')[+btn - 1] : btn;
 
   const title = (button as HTMLButtonElement).innerText.slice(3).toLowerCase();
 

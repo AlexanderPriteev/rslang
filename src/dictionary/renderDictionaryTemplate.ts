@@ -1,6 +1,7 @@
 import createElement from '../helpers/createElement';
-import * as dictionaryBg from '../assets/images/dictionary-bg.png';
+import * as dictionaryBg from '../assets/images/dictionary-bg.jpg';
 import './dictionary.scss';
+import {setLocation} from "../routing/routing";
 
 const renderdictionaryHeading = () => {
   const dictionaryHeadingContainer = createElement('div', ['dictionary__heading-container']);
@@ -19,23 +20,24 @@ const renderdictionaryNavPanel = () => {
   navContainer.innerHTML = `
 <div class="dictionary__nav-wrapper">
   <div class="dictionary__search-wrapper">
-    <input type="search" class="dictionary__search">
+    <input type="search" class="dictionary__search" placeholder="Поиск">
     <button class="dictionary__search-btn"><span class="icon-search"></span>Искать</button>
   </div>
   <div class="dictionary__game-list">
     <button class="dictionary__game-btn">
       <span class="icon-music-box dictionary__game-icon"></span>
-      <span class="dictionary__game-name">Аудиовызов</span>
+      <span class="dictionary__game-name" id="audioCall">Аудиовызов</span>
     </button>
     <button class="dictionary__game-btn">
       <span class="icon-run-fast dictionary__game-icon"></span>
-      <span class="dictionary__game-name">Спринт</span>
+      <span class="dictionary__game-name" id="sprint">Спринт</span>
     </button>
   </div>
 </div>
 <div class="dictionary__nav-wrapper">
   <div class="dictionary__alphabet-search">
-    <button class="dictionary__alphabet-btn alphabet-active">A</button>
+    <button class="dictionary__alphabet-btn normal alphabet-active">All</button>
+    <button class="dictionary__alphabet-btn">A</button>
     <button class="dictionary__alphabet-btn">B</button>
     <button class="dictionary__alphabet-btn">C</button>
     <button class="dictionary__alphabet-btn">D</button>
@@ -63,11 +65,11 @@ const renderdictionaryNavPanel = () => {
     <button class="dictionary__alphabet-btn">Z</button>
   </div>
   <div class="dictionary__page-changer">
-    <button class="dictionary__to-first-page"><span class="icon-to-first"></span></button>
-    <button class="dictionary__to-prev-page"><span class="icon-prev"></span></button>
+    <button class="dictionary__to-first-page textbook__page"><span class="icon-to-first"></span></button>
+    <button class="dictionary__to-prev-page textbook__page"><span class="icon-prev"></span></button>
     <span class="dictionary__current-page">1</span>
-    <button class="dictionary__to-next-page"><span class="icon-next"></span></button>
-    <button class="dictionary__to-last-page"><span class="icon-to-last"></span></button>
+    <button class="dictionary__to-next-page textbook__page"><span class="icon-next"></span></button>
+    <button class="dictionary__to-last-page textbook__page"><span class="icon-to-last"></span></button>
   </div>
 </div>
   `;
@@ -75,13 +77,21 @@ const renderdictionaryNavPanel = () => {
 };
 
 const renderDictionaryTemplate = (root: string) => {
-  const dictionaryPage = createElement('div', ['dictionary']);
+  const dictionaryPage = createElement('div', ['dictionary', 'preloader']);
   dictionaryPage.appendChild(renderdictionaryHeading());
+
   const mainContentWrapper = createElement('div', ['dictionary__content-wrapper']);
   mainContentWrapper.appendChild(renderdictionaryNavPanel());
+  const sprint = mainContentWrapper.querySelector('#sprint') as HTMLFormElement
+  const audioCall = mainContentWrapper.querySelector('#audioCall') as HTMLFormElement
+  sprint.onclick = () => setLocation('sprint');
+  audioCall.onclick = () => setLocation('audio-call');
+
   const wordList = createElement('div', ['dictionary__word-list']);
   mainContentWrapper.appendChild(wordList);
   dictionaryPage.appendChild(mainContentWrapper);
+
+
 
   const thisRoot: HTMLElement | null = document.querySelector(root);
   if (thisRoot) {

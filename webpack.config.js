@@ -31,7 +31,7 @@ const baseConfig = {
                 ],
             },
             {
-                test: /\.(png|jpe?g|gif|eot|ttf|woff(2)?)$/i,
+                test: /\.(png|jpg|jepg|gif|eot|ttf|woff(2)?)$/i,
                 use: [
                     {
                         loader: 'file-loader',

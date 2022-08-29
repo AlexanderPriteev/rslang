@@ -22,7 +22,8 @@ export function renderWindowStartGame(target: HTMLElement | string, classes = 'b
 
   const arraySections: HTMLElement[] = [];
   for (let i = 0; i < COUNT_GAME_SECTIONS; i++) {
-    const section = createElement('div', ['game-category__section', `section${i + 1}`]);
+    const sectionText = `<span class="game-category__section-text">Раздел ${i + 1}</span>`
+    const section = createElement('div', ['game-category__section', `section${i + 1}`], sectionText);
     section.addEventListener('click', (e) => {
       const level = +(e.target as HTMLElement).className.slice(-1);
 

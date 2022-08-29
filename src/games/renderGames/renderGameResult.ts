@@ -13,16 +13,13 @@ export function renderColumnWinner(target: HTMLElement | string, resultSprint: S
   const { wordEn, wordRu, result, audio } = resultSprint;
 
   const column = createElement('div', ['spring-result__column']);
-  const sound = createElement('div', ['sound-result']) as HTMLDivElement;
-  sound.style.backgroundImage = "url('../../assets/images/sound.png')";
+  const sound = createElement('div', ['spring-result__sound']) as HTMLDivElement;
   sound.onclick = () => {
     void new Audio(`${SERVER}${audio}`).play();
   };
-  const columnText = createElement('div', undefined, `${wordEn} - ${wordRu}`);
-  const columnResult = createElement('div') as HTMLDivElement;
-  columnResult.style.backgroundImage = result
-    ? "url('../assets/images/icons_check.png')"
-    : "url('../assets/images/icons_close.png')";
+  const columnText = createElement('div', ['spring-result__text'], `${wordEn} - ${wordRu}`);
+  const columnResult = createElement('div', ['spring-result__icon']) as HTMLDivElement;
+  columnResult.classList.add(result ? 'correct': 'error');
 
   appendChildArray(column, [sound, columnText, columnResult]);
 
