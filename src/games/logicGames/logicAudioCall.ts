@@ -50,9 +50,9 @@ function renderQuest() {
 
   for (let i = 0; i < buttons.length; i++) {
     if (numberTrueAnswer === i) {
-      (buttons[i] as HTMLButtonElement).innerText = `${wordsArrayCall[ind].wordTranslate}`;
+      (buttons[i] as HTMLButtonElement).innerText = `${i + 1}. ${wordsArrayCall[ind].wordTranslate}`;
     } else {
-      (buttons[i] as HTMLButtonElement).innerText = `${wordsArrayCall[randomeArray[i]].wordTranslate}`;
+      (buttons[i] as HTMLButtonElement).innerText = `${i + 1}. ${wordsArrayCall[randomeArray[i]].wordTranslate}`;
     }
   }
 
@@ -78,8 +78,8 @@ function redrawNumberLives() {
 
   for (let i = 0; i < lives.length; i++) {
     if (!(numberErrorAnswer <= i)) {
-      const heart = lives[i] as HTMLDivElement
-      if(!heart.classList.contains('outline')) heart.classList.add('outline')
+      const heart = lives[i] as HTMLDivElement;
+      if (!heart.classList.contains('outline')) heart.classList.add('outline');
     }
   }
 }

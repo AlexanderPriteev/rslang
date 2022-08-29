@@ -60,12 +60,12 @@ export function addListenerForStartGame() {
   const btnGameBook = document.querySelectorAll('div.textbook__game-list > *');
 
   btnGameBook[0].addEventListener('click', () => {
-    setLocation('audio-call');
     void startGame(false);
+    setLocation('audio-call');
   });
 
   btnGameBook[1].addEventListener('click', () => {
-    setLocation('sprint');
     void startGame(true);
+    setLocation('sprint');
   });
 }
