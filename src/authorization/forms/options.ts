@@ -50,7 +50,7 @@ export function optionsForm(container: HTMLFormElement) {
                 else return;
               }
               const valueEmail = valueInput.value as string;
-              const valueName = valueInput.value as string;
+              const valueName = nameInput.value as string;
               requestMethods()
                 .updateUser(user.id, valueEmail, thisPass, user.token, valueName)
                 .then(() => {

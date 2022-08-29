@@ -52,7 +52,7 @@ function renderQuestContainer() {
   const questContainer = createElement('div', ['sprint-quest-container']);
 
   const timeCounter = createElement('div', ['sprint-time-counter']);
-  timeCounter.appendChild(createElement('p', undefined, '00', 'timer'));
+  timeCounter.appendChild(createElement('p', undefined, '60', 'timer'));
   const quest = renderQuestGroup();
 
   appendChildArray(questContainer, [timeCounter, quest]);
@@ -63,11 +63,8 @@ function renderQuestContainer() {
 export function renderWindowGame(target: HTMLElement | string) {
   const container = createElement('div', ['game-container', 'sprint-game-container']);
 
-  const btnSound = createElement('div', ['sprint-sound']);
-  const soundIcon = createElement('img', undefined, undefined, 'sprint-sound') as HTMLImageElement;
-  soundIcon.src = '../assets/images/sound.png';
-  soundIcon.dataset.sound = 'on';
-  btnSound.appendChild(soundIcon);
+  const btnSound = createElement('div', ['sprint-sound'], '', 'sprint-sound');
+  btnSound.dataset.sound = 'on';
 
   const btnClose = createElement('div', ['btn-close']);
   btnClose.onclick = () => {

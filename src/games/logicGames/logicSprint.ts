@@ -38,7 +38,7 @@ export async function getWordsByCategory(level: number, page = 30): Promise<Word
 }
 
 export function checkSoundOff() {
-  const btnImg = document.querySelector('div.sprint-sound > img') as HTMLImageElement;
+  const btnImg = document.querySelector('#sprint-sound') as HTMLElement;
 
   return btnImg.dataset.sound === 'on';
 }
@@ -53,17 +53,17 @@ function endGame() {
 
 function createTimer() {
   //при закрытии окна остановить таймер
-  let timer = 0;
+  let timer = 60;
   setTimeout(() => {
     endGame();
   }, 60000);
 
   const refreshId = setInterval(() => {
-    timer = timer += 1;
+    timer = timer -= 1;
     const timerElement = document.querySelector('#timer') as HTMLElement;
     if (timerElement) timerElement.innerText = timer < 10 ? '0' + timer.toString() : timer.toString();
 
-    if (timer >= 60) {
+    if (timer <= 0) {
       clearInterval(refreshId);
     }
   }, 1000);
@@ -209,15 +209,15 @@ export function getResultString(resultPoints: string) {
 }
 
 function offSound() {
-  const btnImg = document.querySelector('div.sprint-sound > img') as HTMLImageElement;
+  const btnImg = document.querySelector('#sprint-sound') as HTMLElement;
 
   btnImg.dataset.sound = btnImg.dataset.sound === 'on' ? 'off' : 'on';
-
-  if (btnImg.dataset.sound === 'off') {
-    btnImg.src = '../assets/images/sound-off.png';
-  } else {
-    btnImg.src = '../assets/images/sound.png';
-  }
+  btnImg.classList.toggle('mute')
+  // if (btnImg.dataset.sound === 'off') {
+  //   btnImg.src = '../assets/images/sound-off.png';
+  // } else {
+  //   btnImg.src = '../assets/images/sound.png';
+  // }
 }
 
 export function eventListener(classes: string) {
@@ -251,15 +251,20 @@ export function eventListener(classes: string) {
         break;
 
       case 'btn-audio-call':
-        if (timerOff) checkAudioCallAnswer(event.target as HTMLButtonElement);
-        timerOff = false;
-        setTimeout(() => {
-          timerOff = true;
-        }, 1000);
+
         break;
 
       default:
         break;
+    }
+
+    const bntClass = event.target as HTMLElement
+    if(bntClass.classList.contains('btn-audio-call')){
+      if (timerOff) checkAudioCallAnswer(event.target as HTMLButtonElement);
+      timerOff = false;
+      setTimeout(() => {
+        timerOff = true;
+      }, 1000);
     }
   });
 }

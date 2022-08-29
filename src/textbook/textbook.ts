@@ -5,11 +5,20 @@ import './word.scss';
 import requestMethods from '../services/requestMethods';
 import { clearUserStore, getStore } from '../storage';
 
-const textbook = async () => {
+const textbook = () => {
   const user = getStore();
-  if (user) await requestMethods().getAllUserWords(user.id, user.token).catch(clearUserStore);
-  renderTextbookTemplate('.content-wrapper');
-  pageSwitcher();
+  if (user)
+    void requestMethods()
+      .getAllUserWords(user.id, user.token)
+      .then(() => {
+        renderTextbookTemplate('.content-wrapper');
+        pageSwitcher();
+      })
+      .catch(clearUserStore);
+  else {
+    renderTextbookTemplate('.content-wrapper');
+    pageSwitcher();
+  }
 };
 
 export default textbook;
