@@ -22,6 +22,7 @@ export const newWordEmpty: UserWordOptions = {
 
 // добавление в список сложных слов
 async function asyncComplicatedWord(element: HTMLButtonElement, wordId: string) {
+  const parent = document.querySelector(`[data-id='${wordId}']`) as HTMLElement;
   const user = getStore();
   if (!user) return;
 
@@ -35,7 +36,6 @@ async function asyncComplicatedWord(element: HTMLButtonElement, wordId: string) 
     );
 
     if (searchPathBook().chapter === 6) {
-      const parent = document.querySelector(`[data-id='${wordId}']`) as HTMLElement;
       parent.remove();
     }
   } else {
@@ -53,7 +53,8 @@ async function asyncComplicatedWord(element: HTMLButtonElement, wordId: string) 
     const userStatistic = userStatisticResponse.optional.statistics;
     userStatistic.today.added = (userStatistic.today.added || 0) + 1;
     await requestMethods().updateUserStatistic(user.id, '1', user.token, { statistics: userStatistic });
-
+    const hasOtherBadge = parent.querySelector('.word__heading span');
+    if (hasOtherBadge) hasOtherBadge.remove();
     element.innerHTML = '<span class="icon-pen"></span><span>Удалить из сложное</span>';
     element.parentNode?.parentNode?.childNodes[1].childNodes[0].appendChild(
       createElement('span', ['word__difficult'], 'СЛОЖНОЕ')
@@ -69,10 +70,10 @@ const addComplicatedWordListener = (element: HTMLButtonElement, wordId: string) 
 };
 
 async function asyncListenerWord(element: HTMLButtonElement, wordId: string) {
+  const parent = document.querySelector(`[data-id='${wordId}']`) as HTMLElement;
   const user = getStore();
   if (!user) return;
   if (searchPathBook().chapter === 6) {
-    const parent = document.querySelector(`[data-id='${wordId}']`) as HTMLElement;
     parent.remove();
     const addedWord = await request.getUserWordById(user.id, wordId, user.token);
     await request.updateUserWord(user.id, wordId, 'learned', user.token, addedWord);
@@ -93,6 +94,8 @@ async function asyncListenerWord(element: HTMLButtonElement, wordId: string) {
   await requestMethods().updateUserStatistic(user.id, '1', user.token, { statistics: userStatistic });
 
   (element.parentNode as HTMLElement).classList.add('hide');
+  const hasOtherBadge = parent.querySelector('.word__heading span');
+  if (hasOtherBadge) hasOtherBadge.remove();
   element.parentNode?.parentNode?.childNodes[1].childNodes[0].appendChild(
     createElement('span', ['word__learned'], 'ИЗУЧЕНО')
   );

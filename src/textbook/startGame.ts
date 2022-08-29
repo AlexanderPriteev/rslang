@@ -1,6 +1,6 @@
 import { startAudioCall } from '../games/logicGames/logicAudioCall';
 import { getWordsByCategory, startSprint } from '../games/logicGames/logicSprint';
-import { routing } from '../routing/routing';
+import { setLocation } from '../routing/routing';
 import requestMethods from '../services/requestMethods';
 import { getStore } from '../storage';
 import { User } from '../types/User';
@@ -18,7 +18,6 @@ async function getIdLearnedWords() {
     for (let i = 0; i < userWord.length; i++) {
       if (userWord[i].difficulty === 'learned') arr.push(userWord[i].wordId);
     }
-    console.log(arr);
 
     return arr;
   }
@@ -51,9 +50,9 @@ async function startGame(sprintOrAudioCall: boolean) {
   console.log(words.length);
 
   if (sprintOrAudioCall) {
-    void startSprint(wordsFromEnd);
+    await startSprint(wordsFromEnd);
   } else {
-    void startAudioCall(wordsFromEnd);
+    await startAudioCall(wordsFromEnd);
   }
 }
 
@@ -61,12 +60,12 @@ export function addListenerForStartGame() {
   const btnGameBook = document.querySelectorAll('div.textbook__game-list > *');
 
   btnGameBook[0].addEventListener('click', () => {
+    setLocation('audio-call');
     void startGame(false);
-    routing('/audio-call');
   });
 
   btnGameBook[1].addEventListener('click', () => {
+    setLocation('sprint');
     void startGame(true);
-    routing('/sprint');
   });
 }
