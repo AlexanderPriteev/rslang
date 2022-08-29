@@ -1,6 +1,7 @@
 @import "../assets/styles/variables.scss";
-.games{
-  &-container{
+
+.games {
+  &-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -13,7 +14,8 @@
     box-sizing: border-box;
     padding: 4rem;
   }
-  &-list{
+
+  &-list {
     width: 100%;
     display: flex;
     max-width: 88rem;
@@ -21,16 +23,14 @@
   }
 }
 
-@import "../assets/styles/variables.scss";
-
-.game-container {  
+.game-container {
   position: relative;
   margin: 0 auto;
   background-position: center;
-	background-repeat: no-repeat;
-  max-width: $sprint-max-width;
+  background-size: cover;
   width: 100%;
-  height: $sprint-height;
+  min-height: 100vh;
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -48,47 +48,40 @@
   position: absolute;
   width: 7.2rem;
   height: 7.2rem;
-  //left: 7.5rem;
-  top: 3.9rem;
-  right: 7.5em;
-  //right: 2.1rem;
-  //top: 2.1rem;
+  top: 3rem;
+  right: 4rem;
   background: rgba(255, 255, 255, 0.4);
   border: 0.2rem solid #FFFFFF;
+  color: $white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 5.4rem;
+  font-family: icomoon;
   backdrop-filter: blur(0.4rem);
   border-radius: 3.6rem;
   cursor: pointer;
   opacity: 0.7;
+  transition: opacity .2s linear;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &:before {
+    content: '\e912';
+  }
+
 }
-.btn-close:hover {
-	opacity: 1;
-}
-.btn-close:before,
-.btn-close:after {
-	position: absolute;
-	left: 47%;
-  top: 1.3rem;
-	content: "";
-	height: 5rem;
-	width: 0.7rem;
-	background-color: $white;
-}
-.btn-close:before {
-  border-radius: 0.5rem;
-	transform: rotate(45deg);
-}
-.btn-close:after {
-  border-radius: 0.5rem;
-	transform: rotate(-45deg);
-}
+
 
 .game-category {
   box-sizing: border-box;
   max-width: 63.8rem;
-  height: 52.5rem; 
-  background: rgba(255, 255, 255, 0.3);
+  min-height: 52.5rem;
+  background: rgba($bg-dark, .4);
   border: 0.5rem solid $white;
-  backdrop-filter: blur(2.4rem);
+  backdrop-filter: blur(10px);
   border-radius: 2.4rem;
   display: flex;
   justify-content: center;
@@ -97,43 +90,90 @@
   gap: 2.4rem;
   padding: 10.5rem 0 7.6rem 0;
 
-  .game-category__text {
+  &__text {
     position: absolute;
     top: 4.1rem;
-    height: 3.2rem;  
+    height: 3.2rem;
     font-weight: $f-normal;
     font-size: 4rem;
     line-height: 3.2rem;
     letter-spacing: -0.03em;
-    color: $white;    
+    color: $white;
   }
 
-  .game-category__section {
+  &__section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 15rem;
     height: 15rem;
-    border-radius: 7.5rem;
-    cursor: pointer; 
+    border-radius: 50%;
+    box-sizing: border-box;
+    border: .3rem solid $white;
+    position: relative;
+    cursor: pointer;
     background-size: cover;
+    overflow: hidden;
+    color: $white;
+    transition: border-color .2s linear, color .2s linear;
+
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba($primary-dark, .25);
+      transition: filter .2s linear, background-color .2s linear;
+    }
+
+    &:hover {
+      color: $primary-dark;
+      border-color: $primary-dark;
+
+      &:after {
+        background-color: rgba($white, .4);
+        backdrop-filter: blur(5px);
+      }
+    }
+
+    &-text {
+      display: inline-block;
+      line-height: 1;
+      font-size: 2.4rem;
+      letter-spacing: .03em;
+      font-weight: $f-bold;
+      white-space: nowrap;
+      position: relative;
+      z-index: 1;
+    }
   }
 }
 
 .section1 {
-  background-image: url("../assets/images/sprint-section1.png");
+  background-image: url("../assets/images/sprint-section1.jpg");
 }
+
 .section2 {
-  background-image: url("../assets/images/sprint-section2.png");
+  background-image: url("../assets/images/sprint-section2.jpg");
 }
+
 .section3 {
-  background-image: url("../assets/images/sprint-section3.png");
+  background-image: url("../assets/images/sprint-section3.jpg");
 }
+
 .section4 {
-  background-image: url("../assets/images/sprint-section4.png");
+  background-image: url("../assets/images/sprint-section4.jpg");
 }
+
 .section5 {
-  background-image: url("../assets/images/sprint-section5.png");
+  background-image: url("../assets/images/sprint-section5.jpg");
 }
+
 .section6 {
-  background-image: url("../assets/images/sprint-section6.png");
+  background-image: url("../assets/images/sprint-section6.jpg");
 }
 
 .sprint-game-container {
@@ -145,27 +185,33 @@
 }
 
 .sprint-sound {
-  cursor: pointer; 
+  cursor: pointer;
   position: absolute;
   width: 7.2rem;
   height: 7.2rem;
-  left: 7.5rem;
-  top: 3.9rem;
+  left: 4rem;
+  top: 3rem;
   background: rgba(255, 255, 255, 0.4);
   border: 0.2rem solid $white;
   backdrop-filter: blur(0.4rem);
-  border-radius: 50%;  
+  border-radius: 50%;
   opacity: 0.7;
   display: flex;
   justify-content: center;
   align-items: center;
+  color: $white;
+  font-size: 4.8rem;
+  line-height: 1;
+  font-family: icomoon;
 
-  img {
-    width: 5rem;
-    height: 5rem;
+  &:before {
+    content: '\e930';
+  }
+
+  &.mute:before {
+    content: '\e934';
   }
 }
-
 
 
 .sprint-sound:hover {
@@ -174,16 +220,15 @@
 
 .sprint-quest-container {
   width: 63.8rem;
-  height: 58rem;  
-  
+  height: 58rem;
+
   .sprint-time-counter {
     width: 12.9rem;
-    height: 7.5rem;  
+    height: 7.5rem;
     background: rgba(255, 255, 255, 0.3);
     border: 0.5rem solid $white;
-    backdrop-filter: blur(0.4rem);  
+    backdrop-filter: blur(0.4rem);
     border-radius: 1.2rem;
-    font-family: 'Fira Code';
     font-style: normal;
     font-weight: 500;
     font-size: 6.4rem;
@@ -197,27 +242,25 @@
 
   .sprint-quest {
     width: 63.8rem;
-    min-height: 49rem;  
     background: rgba(255, 255, 255, 0.3);
     border: 0.5rem solid $white;
-    backdrop-filter: blur(2.4rem);  
+    backdrop-filter: blur(12px);
     border-radius: 2.4rem;
 
     .sprint-quest-header {
       height: 9rem;
       display: flex;
       justify-content: space-around;
-      align-items: center;      
+      align-items: center;
 
       .quest-header__coefficient {
         width: 5.6rem;
         height: 5.2rem;
-        font-family: 'Fira Code';
         font-style: normal;
         font-weight: 500;
-        font-size: 46px;
-        line-height: 52px;   
-        color: $white;   
+        font-size: 4.6rem;
+        line-height: 5.2rem;
+        color: $white;
       }
 
       .quest-header__status {
@@ -230,7 +273,7 @@
 
         div {
           width: 2.6rem;
-          height: 2.6rem;    
+          height: 2.6rem;
           background: $white;
           border-radius: 50%;
         }
@@ -238,13 +281,12 @@
 
       .quest-header__count-true {
         width: 5.6rem;
-        height: 5.2rem; 
-        font-family: 'Fira Code';
+        height: 5.2rem;
         font-style: normal;
         font-weight: 500;
-        font-size: 46px;
-        line-height: 52px;
-        color: $white;     
+        font-size: 4.6rem;
+        line-height: 5.2rem;
+        color: $white;
       }
     }
   }
@@ -258,43 +300,41 @@
   display: flex;
   justify-content: center;
   align-items: start;
-  height: 52px;
-  padding-top: 70px;
+  height: 5.2rem;
+  padding-top: 7rem;
 
-  .sprint-quest__en {    
-    height: 52px;    
-    font-family: 'Fira Code';
+  .sprint-quest__en {
+    height: 5.2rem;
     font-style: normal;
     font-weight: 500;
-    font-size: 52px;
-    line-height: 52px;
-    letter-spacing: -0.03em;    
+    font-size: 5.2rem;
+    line-height: 5.2rem;
+    letter-spacing: -0.03em;
     color: $white;
-    margin-right: 16px;
+    margin-right: 1.6rem;
   }
+
   .sprint-quest__sound {
-    width: 46px;
-    height: 46px;   
-    cursor: pointer; 
+    width: 4.6rem;
+    height: 4.6rem;
+    cursor: pointer;
     background-image: url('../assets/images/volume.png');
     background-size: cover;
-    opacity: 0.7;  
+    opacity: 0.7;
 
     &:hover {
       opacity: 1;
-    } 
-  }  
+    }
+  }
 }
 
 .sprint-quest__rus {
-  padding: 40px 0 63px 0;
-  height: 52px;  
-  font-family: 'Fira Code';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 42px;
-  line-height: 52px;
-  color: #FFFFFF;
+  padding: 4rem 0 6.3rem;
+  height: 5.2rem;
+  font-weight: $f-normal;
+  font-size: 4.2rem;
+  line-height: 5.2rem;
+  color: $white;
   text-align: center;
 }
 
@@ -307,15 +347,14 @@
 
   button {
     width: 26.4rem;
-    height: 50px;
-    left: 0px;
-    top: 0px;    
-    border-radius: 10px;
-    font-family: 'Fira Code';
+    height: 5rem;
+    left: 0;
+    top: 0;
+    border-radius: 1rem;
     font-style: normal;
     font-weight: 400;
-    font-size: 24px;
-    line-height: 31px;    
+    font-size: 2.4rem;
+    line-height: 3rem;
     letter-spacing: 0.02em;
     color: #FFFFFF;
   }
@@ -323,9 +362,10 @@
   button:nth-child(1) {
     background: #DA3030;
   }
-  button:nth-child(2) {    
+
+  button:nth-child(2) {
     background: #4EED5E;
-  }  
+  }
 }
 
 .spring-result-container {
@@ -337,66 +377,93 @@
 }
 
 .spring-result {
-  width: 638px;
-  height: 745px;
-  background: rgba(255, 255, 255, 0.3);
-  border: 5px solid $white;
-  backdrop-filter: blur(24px);
-  border-radius: 24px;
+  width: 100%;
+  max-width: 64rem;
+  max-height: 74.5rem;
+  background: rgba($white, .3);
+  border: .5rem solid $white;
+  backdrop-filter: blur(12px);
+  border-radius: 2.4rem;
   display: flex;
   justify-content: start;
-  align-items: center;
   flex-direction: column;
-  overflow: auto;  
+  overflow: auto;
+  box-sizing: border-box;
+  padding: 4rem;
 }
 
 .spring-result__title {
-  padding-top: 41px;
   width: 100%;
-  height: 48px;
-  font-family: 'Fira Code';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 40px;
-  line-height: 48px;
-  letter-spacing: -0.03em;
+  height: 4.8rem;
+  font-weight: $f-normal;
+  font-size: 4rem;
+  line-height: 4.8rem;
+  letter-spacing: -0.07em;
   color: $white;
-  position:sticky;
-  top: 0;
-  z-index: 10;
-  background-color: #83947d;
-  text-align: center;
+   text-align: center;
+  margin-bottom: 1.2rem;
 }
 
-.spring-result__column {
-  padding-top: 12px;
-  width: 527px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.6);
+.spring-result {
+  &__column {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    border-bottom: .2rem solid rgba($white, .6);
+  }
 
-  div:nth-child(1) {
-    width: 40px;
-    height: 32px;
+  &__sound {
+    width: 3.2rem;
+    min-width: 3.2rem;
+    height: 3.2rem;
+    font-size: 3.2rem;
     cursor: pointer;
-    background-size: cover;
+    font-family: icomoon;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1.2rem;
+
+    &:before {
+      content: '\e930';
+    }
   }
 
-  div:nth-child(2) {
-    //height: 52px;
-    font-family: 'Fira Code';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 28px;
-    line-height: 52px;
-    letter-spacing: -0.03em;
-    color: #FFFFFF;
+  &__text {
+    font-weight: $f-normal;
+    font-size: 2.8rem;
+    line-height: 5.2rem;
+    letter-spacing: -.03em;
+    color: $white;
+    margin-right: 1rem;
   }
-  div:nth-child(3) {
-    width: 32px;
-    height: 32px;
+
+  &__icon {
+    margin-left: auto;
+    width: 3.2rem;
+    height: 3.2rem;
+    min-width: 3.2rem;
+    font-size: 3.2rem;
+    font-family: icomoon;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    &.correct:before {
+      content: '\e931';
+      color: $green;
+    }
+
+    &.error:before {
+      content: '\e912';
+      color: $red;
+    }
   }
+
 }
 
 //------------------------------------------------------------
@@ -406,29 +473,42 @@
   justify-content: start;
   align-items: center;
   flex-direction: column;
-  width: 638px;
-  min-height: 578px;
-  background: rgba(255, 255, 255, 0.3);
-  border: 5px solid #FFFFFF;
-  backdrop-filter: blur(24px);
-  border-radius: 24px;
-  margin: 0 10px;
+  width: 100%;
+  max-width: 64rem;
+  background: rgba($bg-dark, .3);
+  border: .5rem solid $white;
+  backdrop-filter: blur(10px);
+  border-radius: 2.4rem;
+  margin: 0 1rem;
+  padding: 5rem 3.5rem;
 
   &__status {
-    padding-top: 51px;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 12px;
-    width: 215px;
-    height: 32px;
+    flex-direction: row-reverse;
+    gap: 1.2rem;
+    width: 21.5rem;
+    height: 3.2rem;
+
     div {
-      width: 34px;
-      height: 32px;
-      bottom: 12.21%;
-      //border: 2px solid #FFFFFF;
-      background-image: url('../assets/images/audio-call-status.png');
-      background-size: cover;
+      width: 3.2rem;
+      height: 3.2rem;
+      min-width: 3.2rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: $white;
+      font-size: 3.2rem;
+      font-family: icomoon;
+
+      &:before {
+        content: '\e933';
+      }
+
+      &.outline:before {
+        content: '\e932';
+      }
     }
   }
 
@@ -436,16 +516,18 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 57px 0;
-    width: 120px;
-    height: 120px;
-    border: 5px solid #FFFFFF;
+    margin: 5.7rem 0;
+    width: 12rem;
+    height: 12rem;
+    border: .5rem solid $white;
     border-radius: 50%;
     cursor: pointer;
-    img {
-      background-size: cover;  
-      width: 100px;
-      //height: 100px;
+    font-size: 8.6rem;
+    color: $white;
+    font-family: icomoon;
+
+    &:after {
+      content: '\e930'
     }
   }
 
@@ -454,26 +536,24 @@
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    gap: 33px;
-    padding-bottom: 20px;
+    gap: 1.5rem 3.2rem;
+    padding-bottom: 2rem;
 
-    button {    
-      width: 264px;
-      min-height: 50px;
-      border: 4px solid #FFFFFF;
-      border-radius: 10px;      
-
-      font-family: 'Fira Code';
+    button {
+      width: calc(50% - 1.6rem);
+      min-height: 5rem;
+      border: .4rem solid $white;
+      border-radius: 1rem;
       font-style: normal;
       font-weight: 500;
-      font-size: 24px;
-      line-height: 31px;
+      font-size: 2.4rem;
+      line-height: 3rem;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      letter-spacing: 0.02em;
-      color: #FFFFFF;
+      letter-spacing: .02em;
+      color: $white;
       text-transform: uppercase;
     }
   }

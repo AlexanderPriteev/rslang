@@ -1,5 +1,5 @@
 import createElement from '../helpers/createElement';
-import * as chapter1BG from '../assets/images/chapter-1.png';
+import * as chapter1BG from '../assets/images/chapter-1.jpg';
 import './textbook.scss';
 import { getStore } from '../storage';
 

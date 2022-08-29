@@ -3,13 +3,13 @@ import { getStore } from '../storage/index';
 import { TextbookSessionInterface } from '../types/sessionStorage';
 import { UserWordInterface, WordInterface } from '../types/wordInterface';
 import renderWordList from './renderWordList';
-import * as chapter1BG from '../assets/images/chapter-1.png';
-import * as chapter2BG from '../assets/images/chapter-2.png';
-import * as chapter3BG from '../assets/images/chapter-3.png';
-import * as chapter4BG from '../assets/images/chapter-4.png';
-import * as chapter5BG from '../assets/images/chapter-5.png';
-import * as chapter6BG from '../assets/images/chapter-6.png';
-import * as chapterComplicatedBG from '../assets/images/chapter-complicated.png';
+import * as chapter1BG from '../assets/images/chapter-1.jpg';
+import * as chapter2BG from '../assets/images/chapter-2.jpg';
+import * as chapter3BG from '../assets/images/chapter-3.jpg';
+import * as chapter4BG from '../assets/images/chapter-4.jpg';
+import * as chapter5BG from '../assets/images/chapter-5.jpg';
+import * as chapter6BG from '../assets/images/chapter-6.jpg';
+import * as chapterComplicatedBG from '../assets/images/chapter-complicated.jpg';
 import createElement from '../helpers/createElement';
 import { addListenerForStartGame } from './startGame';
 
@@ -59,7 +59,7 @@ export const learnedPage = () => {
   if (count.length === 20) {
     const page = searchPathBook().page;
     const container = document.querySelector('.textbook__text-container') as HTMLElement;
-    const text = `СТРАНИЦА ${page} - Все слова изучены`;
+    const text = `СТРАНИЦА ${page + 1} - Все слова изучены`;
     const subtitle = createElement('p', ['textbook__subtitle'], text);
     container.prepend(subtitle);
   } else {
