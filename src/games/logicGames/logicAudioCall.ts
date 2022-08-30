@@ -50,9 +50,14 @@ function renderQuest() {
 
   for (let i = 0; i < buttons.length; i++) {
     if (numberTrueAnswer === i) {
-      (buttons[i] as HTMLButtonElement).innerText = `${i + 1}. ${wordsArrayCall[ind].wordTranslate}`;
+      (buttons[i] as HTMLButtonElement).innerHTML = `
+        <span class="audio-call-quest__number"> ${i + 1}</span> 
+        <span class="audio-call-quest__value">${wordsArrayCall[ind].wordTranslate}</span>`;
+
     } else {
-      (buttons[i] as HTMLButtonElement).innerText = `${i + 1}. ${wordsArrayCall[randomeArray[i]].wordTranslate}`;
+      (buttons[i] as HTMLButtonElement).innerHTML = `
+         <span class="audio-call-quest__number">${i + 1}</span> 
+         <span class="audio-call-quest__value">${wordsArrayCall[randomeArray[i]].wordTranslate}</span>`;
     }
   }
 
