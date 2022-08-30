@@ -36,9 +36,9 @@ const addListeners = (listOfWords: WordInterface[]) => {
       searchInput.value = '';
       (document.querySelector('.dictionary__word-list') as NonNullable<HTMLElement>).innerHTML = '';
       const target = e.target as HTMLButtonElement;
-      const targetText = target.innerHTML
-      let filteredWords = listOfWords
-      if(targetText !== 'All'){
+      const targetText = target.innerHTML;
+      let filteredWords = listOfWords;
+      if (targetText !== 'All') {
         filteredWords = filteredWords.filter((wordItem) => wordItem.word[0].toUpperCase() === targetText);
       }
 
@@ -95,10 +95,10 @@ const addListeners = (listOfWords: WordInterface[]) => {
 };
 
 const filterLogic = async () => {
-  const listOfWords = await getFullListOfWords().finally(()=>{
-          const page = document.querySelector('.dictionary') as HTMLFormElement;
-          if(page.classList.contains('preloader')) page.classList.remove('preloader')
-      });
+  const listOfWords = await getFullListOfWords().finally(() => {
+    const page = document.querySelector('.dictionary') as HTMLFormElement;
+    if (page.classList.contains('preloader')) page.classList.remove('preloader');
+  });
   addListeners(listOfWords);
   (document.querySelector('.dictionary__alphabet-btn') as NonNullable<HTMLButtonElement>).click();
 };

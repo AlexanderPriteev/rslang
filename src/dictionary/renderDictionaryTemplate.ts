@@ -1,11 +1,12 @@
 import createElement from '../helpers/createElement';
 import * as dictionaryBg from '../assets/images/dictionary-bg.jpg';
 import './dictionary.scss';
-import {setLocation} from "../routing/routing";
+import { setLocation } from '../routing/routing';
 
 const renderdictionaryHeading = () => {
   const dictionaryHeadingContainer = createElement('div', ['dictionary__heading-container']);
   const bgImageContainer = createElement('img', ['dictionary__img-bg']) as HTMLImageElement;
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   bgImageContainer.src = dictionaryBg.default as string;
   const dictionaryTextContainer = createElement('div', ['dictionary__text-container']);
   const dictionaryHeading = createElement('span', ['dictionary__heading'], 'СЛОВАРЬ');
@@ -82,16 +83,14 @@ const renderDictionaryTemplate = (root: string) => {
 
   const mainContentWrapper = createElement('div', ['dictionary__content-wrapper']);
   mainContentWrapper.appendChild(renderdictionaryNavPanel());
-  const sprint = mainContentWrapper.querySelector('#sprint') as HTMLFormElement
-  const audioCall = mainContentWrapper.querySelector('#audioCall') as HTMLFormElement
+  const sprint = mainContentWrapper.querySelector('#sprint') as HTMLFormElement;
+  const audioCall = mainContentWrapper.querySelector('#audioCall') as HTMLFormElement;
   sprint.onclick = () => setLocation('sprint');
   audioCall.onclick = () => setLocation('audio-call');
 
   const wordList = createElement('div', ['dictionary__word-list']);
   mainContentWrapper.appendChild(wordList);
   dictionaryPage.appendChild(mainContentWrapper);
-
-
 
   const thisRoot: HTMLElement | null = document.querySelector(root);
   if (thisRoot) {

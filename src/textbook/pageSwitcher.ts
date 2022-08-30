@@ -125,7 +125,7 @@ const addListeners = () => {
   const chapterBg = document.querySelector('.textbook__img-bg') as HTMLImageElement;
 
   updatePageContent(chapter, page); // инициализация слов при открытии страницы
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
   chapterBg.src = chapterBackground[chapter].default; // инициализация картинки раздела
 
   toFirstBtn?.addEventListener('click', () => {
@@ -155,7 +155,7 @@ const addListeners = () => {
   chapterSelection?.addEventListener('change', (e) => {
     const target = e.target as HTMLInputElement;
     chapter = target.value === 'Сложные слова' ? 6 : +target.value.slice(-1) - 1;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
     chapterBg.src = chapterBackground[chapter].default;
     page = 0;
     updatePageContent(chapter, page);

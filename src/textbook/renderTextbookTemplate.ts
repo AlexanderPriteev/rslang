@@ -6,6 +6,7 @@ import { getStore } from '../storage';
 const renderTextbookHeading = () => {
   const textbookHeadingContainer = createElement('div', ['textbook__heading-container']);
   const bgImageContainer = createElement('img', ['textbook__img-bg']) as HTMLImageElement;
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   bgImageContainer.src = chapter1BG.default as string;
   const textbookTextContainer = createElement('div', ['textbook__text-container']);
   const textbookHeading = createElement('span', ['textbook__heading'], 'УЧЕБНИК');

@@ -19,7 +19,7 @@ export function renderColumnWinner(target: HTMLElement | string, resultSprint: S
   };
   const columnText = createElement('div', ['spring-result__text'], `${wordEn} - ${wordRu}`);
   const columnResult = createElement('div', ['spring-result__icon']) as HTMLDivElement;
-  columnResult.classList.add(result ? 'correct': 'error');
+  columnResult.classList.add(result ? 'correct' : 'error');
 
   appendChildArray(column, [sound, columnText, columnResult]);
 
