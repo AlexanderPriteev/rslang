@@ -42,7 +42,7 @@ function getRandomeArr(lenghtArr = 6) {
 function renderQuest() {
   onSound();
 
-  const numberTrueAnswer = Math.round(Math.random() * 6);
+  const numberTrueAnswer = Math.round(Math.random() * 5);
 
   const randomeArray = getRandomeArr();
 
@@ -59,10 +59,16 @@ function renderQuest() {
   unActiveBtn(true);
 }
 
-//старт игры
-export async function startAudioCall(levelOrWords: number | WordInterface[]) {
+function resetSettings() {
+  wordsArrayCall = [];
+  resultsGameAudioCall.length = 0;
   ind = 0;
   numberErrorAnswer = 0;
+}
+
+//старт игры
+export async function startAudioCall(levelOrWords: number | WordInterface[]) {
+  resetSettings();
 
   wordsArrayCall = typeof levelOrWords === 'number' ? await getWordsByCategory(levelOrWords) : levelOrWords;
 

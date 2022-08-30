@@ -228,19 +228,14 @@ function offSound() {
 
   btnImg.dataset.sound = btnImg.dataset.sound === 'on' ? 'off' : 'on';
   btnImg.classList.toggle('mute');
-  // if (btnImg.dataset.sound === 'off') {
-  //   btnImg.src = '../assets/images/sound-off.png';
-  // } else {
-  //   btnImg.src = '../assets/images/sound.png';
-  // }
 }
 
 export function eventListener(classes: string) {
   const container = document.querySelector(classes);
+  let timerOff = true;
 
   container?.addEventListener('click', (event) => {
     const classId = (event.target as HTMLElement).id;
-    let timerOff = true;
 
     switch (classId) {
       case 'btn-sprint-false':
@@ -265,9 +260,6 @@ export function eventListener(classes: string) {
         onSound();
         break;
 
-      case 'btn-audio-call':
-        break;
-
       default:
         break;
     }
@@ -275,6 +267,7 @@ export function eventListener(classes: string) {
     const bntClass = event.target as HTMLElement;
     if (bntClass.classList.contains('btn-audio-call')) {
       if (timerOff) checkAudioCallAnswer(event.target as HTMLButtonElement);
+
       timerOff = false;
       setTimeout(() => {
         timerOff = true;

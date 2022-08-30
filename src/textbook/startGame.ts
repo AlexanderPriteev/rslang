@@ -47,7 +47,6 @@ async function startGame(sprintOrAudioCall: boolean) {
 
   const words = await getWordsForGame(+level, +page);
   const wordsFromEnd = words.reverse();
-  console.log(words.length);
 
   if (sprintOrAudioCall) {
     await startSprint(wordsFromEnd);
