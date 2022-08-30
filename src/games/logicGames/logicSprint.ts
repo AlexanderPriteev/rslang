@@ -11,6 +11,10 @@ const { SERVER } = constants;
 
 export const resultsGameSprint: SprintResult[] = [];
 
+let refreshId: string | number | NodeJS.Timeout | undefined;
+
+let timerId: string | number | NodeJS.Timeout | undefined;
+
 let index = 0;
 
 let wordsArray: WordInterface[] = [];
@@ -54,11 +58,11 @@ function endGame() {
 function createTimer() {
   //при закрытии окна остановить таймер
   let timer = 60;
-  setTimeout(() => {
+  timerId = setTimeout(() => {
     endGame();
   }, 60000);
 
-  const refreshId = setInterval(() => {
+  refreshId = setInterval(() => {
     timer = timer -= 1;
     const timerElement = document.querySelector('#timer') as HTMLElement;
     if (timerElement) timerElement.innerText = timer < 10 ? '0' + timer.toString() : timer.toString();
@@ -99,9 +103,20 @@ function writeQuest() {
   if (checkSoundOff()) void new Audio(`${SERVER}${wordsArray[index].audio}`).play();
 }
 
+function resetSettings() {
+  index = 0;
+  wordsArray = [];
+  resultsGameSprint.length = 0;
+  seriesCorrectAnswers = 0;
+  pointsForAnswer = 10;
+
+  clearInterval(refreshId);
+  clearTimeout(timerId);
+}
+
 //старт игры
 export async function startSprint(levelOrWords: number | WordInterface[]) {
-  index = 0;
+  resetSettings();
 
   wordsArray = typeof levelOrWords === 'number' ? await getWordsByCategory(levelOrWords) : levelOrWords;
 
@@ -212,20 +227,15 @@ function offSound() {
   const btnImg = document.querySelector('#sprint-sound') as HTMLElement;
 
   btnImg.dataset.sound = btnImg.dataset.sound === 'on' ? 'off' : 'on';
-  btnImg.classList.toggle('mute')
-  // if (btnImg.dataset.sound === 'off') {
-  //   btnImg.src = '../assets/images/sound-off.png';
-  // } else {
-  //   btnImg.src = '../assets/images/sound.png';
-  // }
+  btnImg.classList.toggle('mute');
 }
 
 export function eventListener(classes: string) {
   const container = document.querySelector(classes);
+  let timerOff = true;
 
   container?.addEventListener('click', (event) => {
     const classId = (event.target as HTMLElement).id;
-    let timerOff = true;
 
     switch (classId) {
       case 'btn-sprint-false':
@@ -250,17 +260,14 @@ export function eventListener(classes: string) {
         onSound();
         break;
 
-      case 'btn-audio-call':
-
-        break;
-
       default:
         break;
     }
 
-    const bntClass = event.target as HTMLElement
-    if(bntClass.classList.contains('btn-audio-call')){
+    const bntClass = event.target as HTMLElement;
+    if (bntClass.classList.contains('btn-audio-call')) {
       if (timerOff) checkAudioCallAnswer(event.target as HTMLButtonElement);
+
       timerOff = false;
       setTimeout(() => {
         timerOff = true;
