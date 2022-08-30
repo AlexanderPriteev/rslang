@@ -42,7 +42,7 @@ function getRandomeArr(lenghtArr = 6) {
 function renderQuest() {
   onSound();
 
-  const numberTrueAnswer = Math.round(Math.random() * 6);
+  const numberTrueAnswer = Math.round(Math.random() * 5);
 
   const randomeArray = getRandomeArr();
 
@@ -50,19 +50,25 @@ function renderQuest() {
 
   for (let i = 0; i < buttons.length; i++) {
     if (numberTrueAnswer === i) {
-      (buttons[i] as HTMLButtonElement).innerText = `${wordsArrayCall[ind].wordTranslate}`;
+      (buttons[i] as HTMLButtonElement).innerText = `${i + 1}. ${wordsArrayCall[ind].wordTranslate}`;
     } else {
-      (buttons[i] as HTMLButtonElement).innerText = `${wordsArrayCall[randomeArray[i]].wordTranslate}`;
+      (buttons[i] as HTMLButtonElement).innerText = `${i + 1}. ${wordsArrayCall[randomeArray[i]].wordTranslate}`;
     }
   }
 
   unActiveBtn(true);
 }
 
-//старт игры
-export async function startAudioCall(levelOrWords: number | WordInterface[]) {
+function resetSettings() {
+  wordsArrayCall = [];
+  resultsGameAudioCall.length = 0;
   ind = 0;
   numberErrorAnswer = 0;
+}
+
+//старт игры
+export async function startAudioCall(levelOrWords: number | WordInterface[]) {
+  resetSettings();
 
   wordsArrayCall = typeof levelOrWords === 'number' ? await getWordsByCategory(levelOrWords) : levelOrWords;
 
@@ -78,8 +84,8 @@ function redrawNumberLives() {
 
   for (let i = 0; i < lives.length; i++) {
     if (!(numberErrorAnswer <= i)) {
-      const heart = lives[i] as HTMLDivElement
-      if(!heart.classList.contains('outline')) heart.classList.add('outline')
+      const heart = lives[i] as HTMLDivElement;
+      if (!heart.classList.contains('outline')) heart.classList.add('outline');
     }
   }
 }

@@ -8,22 +8,13 @@ import { eventKeyUpAudioCall } from '../logicGames/logicAudioCall';
 
 function renderButtonGroup() {
   const questBtn = createElement('div', ['audio-call-quest__btn']);
-  // const questBtn1 = createElement('button', undefined, undefined, 'btn-audio-call');
-  // const questBtn2 = createElement('button', undefined, undefined, 'btn-audio-call');
-  // const questBtn3 = createElement('button', undefined, undefined, 'btn-audio-call');
-  // const questBtn4 = createElement('button', undefined, undefined, 'btn-audio-call');
-  // const questBtn5 = createElement('button', undefined, undefined, 'btn-audio-call');
-  // const questBtn6 = createElement('button', undefined, undefined, 'btn-audio-call');
 
+  for (let i = 0; i < 6; i++) {
+    //const questBtnNum = createElement('button', ['btn-audio-call']);
+    const questBtnNum = createElement('button', ['btn-audio-call']);
 
-  const questBtn1 = createElement('button', ['btn-audio-call']);
-  const questBtn2 = createElement('button', ['btn-audio-call']);
-  const questBtn3 = createElement('button', ['btn-audio-call']);
-  const questBtn4 = createElement('button', ['btn-audio-call']);
-  const questBtn5 = createElement('button', ['btn-audio-call']);
-  const questBtn6 = createElement('button', ['btn-audio-call']);
-
-  appendChildArray(questBtn, [questBtn1, questBtn2, questBtn3, questBtn4, questBtn5, questBtn6]);
+    questBtn.appendChild(questBtnNum);
+  }
 
   return questBtn;
 }
@@ -53,11 +44,11 @@ function renderQuestGroup() {
 export function renderAudioCallGame(target: HTMLElement | string) {
   const container = createElement('div', ['game-container', 'audio-call-game-container']);
 
-  const btnSound = createElement('div', ['sprint-sound'], '','sprint-sound');
- // const soundIcon = createElement('img', undefined, undefined, 'sprint-sound') as HTMLImageElement;
- /// soundIcon.src = '../assets/images/sound.png';
+  const btnSound = createElement('div', ['sprint-sound'], '', 'sprint-sound');
+  // const soundIcon = createElement('img', undefined, undefined, 'sprint-sound') as HTMLImageElement;
+  /// soundIcon.src = '../assets/images/sound.png';
   btnSound.dataset.sound = 'on';
- // btnSound.appendChild(soundIcon);
+  // btnSound.appendChild(soundIcon);
 
   const btnClose = createElement('div', ['btn-close']);
   btnClose.onclick = () => {
