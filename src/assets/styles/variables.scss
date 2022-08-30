@@ -19,6 +19,7 @@ $red-light: #FC9F99;
 $green: #70FF8F;
 $green-2: #0AFF41;
 $green-3: #4eed5e;
+$yellow: #F1DC21;
 
 //dark-theme colors
 $dt-text: #F7F3FF;
@@ -35,7 +36,8 @@ $shadow-header: 0 .4rem 1.2rem rgba($black, .10);
 $shadow-1: .4rem .4rem 2rem rgba($black, .1);
 $shadow-2: .4rem .4rem 1.2rem rgba($primary-dark, .25);
 $shadow-3: .8rem .8rem 3rem rgba($black, .16);
-$shadow-4: .0 0 1.5rem rgba($primary-dark, .2);
+$shadow-4: 0 0 1.5rem rgba($primary-dark, .2);
+$shadow-5: 0 .4rem 1.2rem rgba($black, .3);
 
 //fonts
 $font-primary: "Fira Code",  sans-serif;

@@ -231,6 +231,7 @@
   .dictionary {
     &__nav {
       background-color: $primary-dark;
+      box-shadow: $shadow-5;
       &-wrapper {
         color: $dt-primary-light;
       }
