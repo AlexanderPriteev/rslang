@@ -53,7 +53,6 @@ function renderQuest() {
       (buttons[i] as HTMLButtonElement).innerHTML = `
         <span class="audio-call-quest__number"> ${i + 1}</span> 
         <span class="audio-call-quest__value">${wordsArrayCall[ind].wordTranslate}</span>`;
-
     } else {
       (buttons[i] as HTMLButtonElement).innerHTML = `
          <span class="audio-call-quest__number">${i + 1}</span> 

@@ -3,27 +3,19 @@ import { getStore } from '../storage/index';
 import { TextbookSessionInterface } from '../types/sessionStorage';
 import { UserWordInterface, WordInterface } from '../types/wordInterface';
 import renderWordList from './renderWordList';
-import * as chapter1BG from '../assets/images/chapter-1.jpg';
-import * as chapter2BG from '../assets/images/chapter-2.jpg';
-import * as chapter3BG from '../assets/images/chapter-3.jpg';
-import * as chapter4BG from '../assets/images/chapter-4.jpg';
-import * as chapter5BG from '../assets/images/chapter-5.jpg';
-import * as chapter6BG from '../assets/images/chapter-6.jpg';
-import * as chapterComplicatedBG from '../assets/images/chapter-complicated.jpg';
 import createElement from '../helpers/createElement';
 import { addListenerForStartGame } from './startGame';
 
 const request = requestMethods();
 const chapterBackground = [
-  chapter1BG,
-  chapter2BG,
-  chapter3BG,
-  chapter4BG,
-  chapter5BG,
-  chapter6BG,
-  chapterComplicatedBG,
+  './assets/images/chapter-1.jpg',
+  './assets/images/chapter-2.jpg',
+  './assets/images/chapter-3.jpg',
+  './assets/images/chapter-4.jpg',
+  './assets/images/chapter-5.jpg',
+  './assets/images/chapter-6.jpg',
+  './assets/images/chapter-complicated.jpg',
 ];
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 
 export const searchPathBook = (): TextbookSessionInterface => {
   const search = window.location.search.split('&').map((e) => +e.replace(/.*=/, ''));
@@ -36,7 +28,7 @@ export const searchPathBook = (): TextbookSessionInterface => {
   }
 };
 
-export const blockPageLink = (value: number, select: string = 'textbook', lastPage: number = 29) => {
+export const blockPageLink = (value: number, select = 'textbook', lastPage = 29) => {
   const toFirstBtn = document.querySelector(`.${select}__to-first-page`) as HTMLElement;
   const toPrevBtn = document.querySelector(`.${select}__to-prev-page`) as HTMLElement;
   const toLastBtn = document.querySelector(`.${select}__to-last-page`) as HTMLElement;
@@ -125,8 +117,7 @@ const addListeners = () => {
   const chapterBg = document.querySelector('.textbook__img-bg') as HTMLImageElement;
 
   updatePageContent(chapter, page); // инициализация слов при открытии страницы
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  chapterBg.src = chapterBackground[chapter].default; // инициализация картинки раздела
+  chapterBg.src = chapterBackground[chapter]; // инициализация картинки раздела
 
   toFirstBtn?.addEventListener('click', () => {
     page = 0;
@@ -155,8 +146,7 @@ const addListeners = () => {
   chapterSelection?.addEventListener('change', (e) => {
     const target = e.target as HTMLInputElement;
     chapter = target.value === 'Сложные слова' ? 6 : +target.value.slice(-1) - 1;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    chapterBg.src = chapterBackground[chapter].default;
+    chapterBg.src = chapterBackground[chapter];
     page = 0;
     updatePageContent(chapter, page);
   });

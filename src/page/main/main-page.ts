@@ -12,7 +12,7 @@ import { getStore } from '../../storage';
 //                                     allow="accelerometer; autoplay; clipboard-write;
 //                                            encrypted-media; gyroscope; picture-in-picture"
 //                                     allowfullscreen></iframe>`;
-const youtubeIframe = `<img src="./assets/images/tmp-youtube-image.jpg" alt="" class="img img--contain">`
+const youtubeIframe = `<img src="./assets/images/tmp-youtube-image.jpg" alt="" class="img img--contain">`;
 
 function mainResources() {
   const resources = createElement('section', ['main-resources']);

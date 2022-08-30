@@ -11,4 +11,3 @@ export function chartApex<T>(title: string, options: T) {
   container.append(chartElement);
   return container;
 }
-

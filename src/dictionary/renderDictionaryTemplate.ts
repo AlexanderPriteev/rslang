@@ -1,13 +1,14 @@
 import createElement from '../helpers/createElement';
-import * as dictionaryBg from '../assets/images/dictionary-bg.jpg';
 import './dictionary.scss';
-import {setLocation} from "../routing/routing";
-import {searchPathDictionary} from "./filterLogic";
+import { setLocation } from '../routing/routing';
+import { searchPathDictionary } from './filterLogic';
+
+const heroImage = './assets/images/dictionary-bg.jpg';
 
 const renderdictionaryHeading = () => {
   const dictionaryHeadingContainer = createElement('div', ['dictionary__heading-container']);
   const bgImageContainer = createElement('img', ['dictionary__img-bg']) as HTMLImageElement;
-  bgImageContainer.src = dictionaryBg.default as string;
+  bgImageContainer.src = heroImage;
   const dictionaryTextContainer = createElement('div', ['dictionary__text-container']);
   const dictionaryHeading = createElement('span', ['dictionary__heading'], 'СЛОВАРЬ');
   dictionaryTextContainer.appendChild(dictionaryHeading);
@@ -83,13 +84,13 @@ const renderDictionaryTemplate = (root: string) => {
 
   const mainContentWrapper = createElement('div', ['dictionary__content-wrapper']);
   mainContentWrapper.appendChild(renderdictionaryNavPanel());
-  const currentCategory = searchPathDictionary().chapter
-  const navsBtn = mainContentWrapper.querySelectorAll('.dictionary__alphabet-btn') as NodeListOf<HTMLElement>
-  navsBtn.forEach((e) =>{
-    if(e.innerText.toLowerCase() === currentCategory) e.classList.add('alphabet-active')
-  })
-  const sprint = mainContentWrapper.querySelector('#sprint') as HTMLFormElement
-  const audioCall = mainContentWrapper.querySelector('#audioCall') as HTMLFormElement
+  const currentCategory = searchPathDictionary().chapter;
+  const navsBtn: NodeListOf<HTMLElement> = mainContentWrapper.querySelectorAll('.dictionary__alphabet-btn');
+  navsBtn.forEach((e) => {
+    if (e.innerText.toLowerCase() === currentCategory) e.classList.add('alphabet-active');
+  });
+  const sprint = mainContentWrapper.querySelector('#sprint') as HTMLFormElement;
+  const audioCall = mainContentWrapper.querySelector('#audioCall') as HTMLFormElement;
   sprint.onclick = () => setLocation('sprint');
   audioCall.onclick = () => setLocation('audio-call');
 

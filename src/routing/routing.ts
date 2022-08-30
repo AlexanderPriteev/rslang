@@ -7,7 +7,7 @@ import { renderWindowStartGame } from '../games/renderGames/renderStart';
 import { openAuth } from '../page/header/header-auth';
 import { notFoundRender } from '../page/page-not-found/not-found';
 import { getStore } from '../storage';
-import dictionary from "../dictionary/dictionary";
+import dictionary from '../dictionary/dictionary';
 
 export function routing(rout: string) {
   switch (rout) {
