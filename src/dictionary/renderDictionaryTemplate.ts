@@ -2,6 +2,7 @@ import createElement from '../helpers/createElement';
 import * as dictionaryBg from '../assets/images/dictionary-bg.jpg';
 import './dictionary.scss';
 import {setLocation} from "../routing/routing";
+import {searchPathDictionary} from "./filterLogic";
 
 const renderdictionaryHeading = () => {
   const dictionaryHeadingContainer = createElement('div', ['dictionary__heading-container']);
@@ -36,7 +37,7 @@ const renderdictionaryNavPanel = () => {
 </div>
 <div class="dictionary__nav-wrapper">
   <div class="dictionary__alphabet-search">
-    <button class="dictionary__alphabet-btn normal alphabet-active">All</button>
+    <button class="dictionary__alphabet-btn normal">All</button>
     <button class="dictionary__alphabet-btn">A</button>
     <button class="dictionary__alphabet-btn">B</button>
     <button class="dictionary__alphabet-btn">C</button>
@@ -82,6 +83,11 @@ const renderDictionaryTemplate = (root: string) => {
 
   const mainContentWrapper = createElement('div', ['dictionary__content-wrapper']);
   mainContentWrapper.appendChild(renderdictionaryNavPanel());
+  const currentCategory = searchPathDictionary().chapter
+  const navsBtn = mainContentWrapper.querySelectorAll('.dictionary__alphabet-btn') as NodeListOf<HTMLElement>
+  navsBtn.forEach((e) =>{
+    if(e.innerText.toLowerCase() === currentCategory) e.classList.add('alphabet-active')
+  })
   const sprint = mainContentWrapper.querySelector('#sprint') as HTMLFormElement
   const audioCall = mainContentWrapper.querySelector('#audioCall') as HTMLFormElement
   sprint.onclick = () => setLocation('sprint');
@@ -90,8 +96,6 @@ const renderDictionaryTemplate = (root: string) => {
   const wordList = createElement('div', ['dictionary__word-list']);
   mainContentWrapper.appendChild(wordList);
   dictionaryPage.appendChild(mainContentWrapper);
-
-
 
   const thisRoot: HTMLElement | null = document.querySelector(root);
   if (thisRoot) {

@@ -213,10 +213,16 @@
     &__game {
       &-btn {
         color: $dt-primary-light;
+        &:hover{
+          color: $dt-text;
+        }
       }
     }
     &__page{
       color: $dt-primary-light;
+      &:hover{
+        color: $dt-text;
+      }
       &.block{
         color: $dt-primary-dark;
       }

@@ -239,6 +239,9 @@
     &__game {
       &-btn {
         color: $dt-primary-light;
+        &:hover{
+          color: $dt-text;
+        }
       }
     }
     &__search {
@@ -253,7 +256,7 @@
       color: $dt-bg-dark;
       border-color: $dt-primary-light;
       &:hover{
-        background-color: $primary;
+        background-color: $dt-text;
       }
     }
     &__alphabet-btn {
@@ -264,6 +267,7 @@
     }
     .alphabet-active {
       color: $dt-text;
+      pointer-events: none;
     }
   }
 }

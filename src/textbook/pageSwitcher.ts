@@ -36,11 +36,11 @@ export const searchPathBook = (): TextbookSessionInterface => {
   }
 };
 
-const blockPageLink = (value: number) => {
-  const toFirstBtn = document.querySelector('.textbook__to-first-page') as HTMLElement;
-  const toPrevBtn = document.querySelector('.textbook__to-prev-page') as HTMLElement;
-  const toLastBtn = document.querySelector('.textbook__to-last-page') as HTMLElement;
-  const toNextBtn = document.querySelector('.textbook__to-next-page') as HTMLElement;
+export const blockPageLink = (value: number, select: string = 'textbook', lastPage: number = 29) => {
+  const toFirstBtn = document.querySelector(`.${select}__to-first-page`) as HTMLElement;
+  const toPrevBtn = document.querySelector(`.${select}__to-prev-page`) as HTMLElement;
+  const toLastBtn = document.querySelector(`.${select}__to-last-page`) as HTMLElement;
+  const toNextBtn = document.querySelector(`.${select}__to-next-page`) as HTMLElement;
   [toFirstBtn, toPrevBtn, toLastBtn, toNextBtn].forEach((e) => {
     if (e.classList.contains('block')) e.classList.remove('block');
   });
@@ -48,7 +48,7 @@ const blockPageLink = (value: number) => {
     toFirstBtn.classList.add('block');
     toPrevBtn.classList.add('block');
   }
-  if (value === 29) {
+  if (value >= lastPage) {
     toLastBtn.classList.add('block');
     toNextBtn.classList.add('block');
   }

@@ -3,17 +3,32 @@ import renderWordList from '../textbook/renderWordList';
 import requestMethods from '../services/requestMethods';
 import { getStore } from '../storage';
 import { UserWordInterface, WordInterface } from '../types/wordInterface';
+import {blockPageLink} from "../textbook/pageSwitcher";
+import {DictionarySessionInterface} from "../types/sessionStorage";
 
 // const initPage = async (listOfWords: WordInterface[]) => {
 //   const sorted = listOfWords.filter((item) => item.word[0].toLowerCase() === 'a');
 //   renderWordList(sorted, userWord, '.dictionary__word-list');
 // };
 
+const dictionaryCategory = ['all', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+
 let totalCountOfPages: number;
-let currentPage = 0;
 let currentContent: WordInterface[];
 
-const getNewContent = async (content: WordInterface[]) => {
+export const searchPathDictionary = (): DictionarySessionInterface => {
+  const search = window.location.search.split('&').map((e) => e.replace(/.*=/, ''));
+  if (search.length) {
+    if(dictionaryCategory.some((e) => e === search[0])){
+       if(search.length === 1) return { chapter: search[0], page: 0 };
+       return { chapter: search[0], page: +search[1] - 1 };
+    }
+  }
+
+  return { chapter: 'all', page: 0 };
+};
+
+const getNewContent = async (content: WordInterface[], chapter: string, currentPage: number) => {
   const pageNumber = document.querySelector('.dictionary__current-page') as NonNullable<HTMLElement>;
   const user = getStore();
   let userWords: UserWordInterface[];
@@ -22,9 +37,34 @@ const getNewContent = async (content: WordInterface[]) => {
   } else {
     userWords = (await requestMethods().getAllUserWords(user.id, user.token)) as UserWordInterface[];
   }
+  const searchPath = `?chapter=${chapter.toLowerCase()}&page=${currentPage + 1}`;
+  const path = window.location.pathname;
+  window.history.pushState(null, '', `${path}${searchPath}`);
+
   pageNumber.innerHTML = `${currentPage + 1}`;
   renderWordList(content.slice(currentPage * 20, (currentPage + 1) * 20), userWords, '.dictionary__word-list');
 };
+
+const contentFilter = (listOfWords: WordInterface[], chapter: string, currentPage: number) =>{
+  const alphabetBtns = document.querySelectorAll('.dictionary__alphabet-btn');
+  (document.querySelector('.dictionary__word-list') as NonNullable<HTMLElement>).innerHTML = '';
+  let filteredWords = [...listOfWords];
+  const currentChapter = chapter.toUpperCase()
+  if(currentChapter !== 'ALL'){
+    filteredWords = filteredWords.filter((e) => e.word[0].toUpperCase() === currentChapter);
+  }
+  alphabetBtns.forEach((btn) => {
+    if (btn.innerHTML.toUpperCase() === currentChapter) {
+      btn.classList.add('alphabet-active');
+    } else {
+      btn.classList.remove('alphabet-active');
+    }
+  });
+  totalCountOfPages = Math.floor((filteredWords.length - 1) / 20);
+  blockPageLink(currentPage, 'dictionary', totalCountOfPages)
+  currentContent = filteredWords;
+  void getNewContent(currentContent, chapter, currentPage);
+}
 
 const addListeners = (listOfWords: WordInterface[]) => {
   const alphabetBtns = document.querySelectorAll('.dictionary__alphabet-btn');
@@ -34,25 +74,9 @@ const addListeners = (listOfWords: WordInterface[]) => {
   alphabetBtns.forEach((item) => {
     item.addEventListener('click', (e) => {
       searchInput.value = '';
-      (document.querySelector('.dictionary__word-list') as NonNullable<HTMLElement>).innerHTML = '';
       const target = e.target as HTMLButtonElement;
       const targetText = target.innerHTML
-      let filteredWords = listOfWords
-      if(targetText !== 'All'){
-        filteredWords = filteredWords.filter((wordItem) => wordItem.word[0].toUpperCase() === targetText);
-      }
-
-      alphabetBtns.forEach((btn) => {
-        if (btn.innerHTML === target.innerHTML) {
-          btn.classList.add('alphabet-active');
-        } else {
-          btn.classList.remove('alphabet-active');
-        }
-      });
-      totalCountOfPages = Math.floor(filteredWords.length / 20);
-      currentPage = 0;
-      currentContent = filteredWords;
-      void getNewContent(currentContent);
+      contentFilter(listOfWords, targetText, 0, )
     });
   });
 
@@ -63,9 +87,9 @@ const addListeners = (listOfWords: WordInterface[]) => {
     alphabetBtns.forEach((btn) => btn.classList.remove('alphabet-active'));
     searchInput.value = '';
     totalCountOfPages = Math.floor(filteredWords.length / 20);
-    currentPage = 0;
+    blockPageLink(0, 'dictionary', totalCountOfPages)
     currentContent = filteredWords;
-    void getNewContent(currentContent);
+    void getNewContent(currentContent, 'all', 0);
   });
 
   const toFirstBtn = document.querySelector('.dictionary__to-first-page');
@@ -74,23 +98,27 @@ const addListeners = (listOfWords: WordInterface[]) => {
   const toNextBtn = document.querySelector('.dictionary__to-next-page');
 
   toFirstBtn?.addEventListener('click', () => {
-    currentPage = 0;
-    void getNewContent(currentContent);
+    blockPageLink(0, 'dictionary')
+    void getNewContent(currentContent, searchPathDictionary().chapter, 0);
   });
 
   toPrevBtn?.addEventListener('click', () => {
+    let currentPage = searchPathDictionary().page
     currentPage = currentPage > 0 ? currentPage - 1 : 0;
-    void getNewContent(currentContent);
+    blockPageLink(currentPage, 'dictionary')
+    void getNewContent(currentContent, searchPathDictionary().chapter, currentPage);
   });
 
   toNextBtn?.addEventListener('click', () => {
+    let currentPage = searchPathDictionary().page
     currentPage = currentPage !== totalCountOfPages ? currentPage + 1 : totalCountOfPages;
-    void getNewContent(currentContent);
+    blockPageLink(currentPage, 'dictionary', totalCountOfPages)
+    void getNewContent(currentContent, searchPathDictionary().chapter, currentPage);
   });
 
   toLastBtn?.addEventListener('click', () => {
-    currentPage = totalCountOfPages;
-    void getNewContent(currentContent);
+    blockPageLink(totalCountOfPages, 'dictionary', totalCountOfPages)
+    void getNewContent(currentContent, searchPathDictionary().chapter, totalCountOfPages);
   });
 };
 
@@ -99,8 +127,11 @@ const filterLogic = async () => {
           const page = document.querySelector('.dictionary') as HTMLFormElement;
           if(page.classList.contains('preloader')) page.classList.remove('preloader')
       });
+  const category = searchPathDictionary().chapter
+  const page = searchPathDictionary().page
   addListeners(listOfWords);
-  (document.querySelector('.dictionary__alphabet-btn') as NonNullable<HTMLButtonElement>).click();
+  contentFilter(listOfWords, category, page)
+  //(document.querySelector('.alphabet-active') as NonNullable<HTMLButtonElement>).click();
 };
 
 export default filterLogic;
