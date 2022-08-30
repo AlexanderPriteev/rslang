@@ -11,6 +11,9 @@
   place-items: center;
   box-sizing: border-box;
   padding: 9.5rem 1.5rem 1.5rem;
+  @media (max-width: 767px) {
+    min-height: calc(100vh - 13rem);
+  }
 }
 
 .auth {
@@ -107,7 +110,7 @@
       color: $red;
       position: absolute;
       right: 0;
-      top: min(-1rem, -8px);
+      top: -9px;
     }
     &.error{
       .auth-input{
@@ -132,7 +135,7 @@
     width: 100%;
     align-items: center;
     justify-content: center;
-    min-height: max(3.8rem, 26px);
+    min-height: max(3.8rem, 32px);
     margin-bottom: 1.5rem;
     border: .1rem solid $primary;
     border-radius: 1rem;

@@ -45,9 +45,14 @@ body{
   transition: padding-left .3s linear;
 
   &.open{
-    padding-left: $aside-open;
+    @media (min-width: 768px) {
+      padding-left: $aside-open;
+    }
     .sidebar{
       width: $aside-open;
+      @media (max-width: 767px) {
+        width: 32rem;
+      }
     }
   }
 }
@@ -65,5 +70,8 @@ body{
   background-position: top center;
   background-size: cover;
   background-image: $background-main;
+  @media (max-width: 767px) {
+    min-height: calc(100vh - 14rem);
+  }
 }
 

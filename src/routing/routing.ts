@@ -7,6 +7,7 @@ import { renderWindowStartGame } from '../games/renderGames/renderStart';
 import { openAuth } from '../page/header/header-auth';
 import { notFoundRender } from '../page/page-not-found/not-found';
 import { getStore } from '../storage';
+import dictionary from "../dictionary/dictionary";
 
 export function routing(rout: string) {
   switch (rout) {
@@ -20,6 +21,10 @@ export function routing(rout: string) {
     case '/book':
       pageRender(textbook, 'book');
       break;
+    case '/dictionary':
+      pageRender(dictionary, 'dictionary');
+      break;
+
     case '/statistics':
       if (getStore()) pageRender(statisticsRender, 'statistics');
       else pageRender(mainPage, 'index');

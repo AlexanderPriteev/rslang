@@ -14,15 +14,21 @@
   transition: width .3s linear;
   z-index: 8;
   &:hover{
-    width: $aside-open;
+    @media (min-width: 768px) {
+      width: $aside-open;
+    }
   }
 
   &__link{
     margin-top: auto;
+    @media (max-width: 767px) {
+      margin-top: 0;
+    }
   }
 }
 
 .nav-link{
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   color: $primary;
@@ -30,14 +36,19 @@
   padding: 1.5rem 1rem 1.5rem 2rem;
   transition: background-color .25s linear, color .25s linear;
   cursor: pointer;
+  @media (max-width: 767px) {
+    padding: 1.4rem 1rem;
+  }
   &.active{
     color: $text;
     pointer-events: none;
   }
 
   &:hover{
-    color: $primary-dark;
-    background-color: rgba($primary, .15);
+    @media (min-width: 768px) {
+      color: $primary-dark;
+      background-color: rgba($primary, .15);
+    }
   }
 
   &__icon{
@@ -46,6 +57,12 @@
     height: 3.2rem;
     font-size: 3.2rem;
     margin-right: 2.4rem;
+    @media (max-width: 768px) {
+      width: 5rem;
+      min-width: 5rem;
+      height: 5rem;
+      font-size: 5rem;
+    }
   }
 
   &__title{
@@ -53,5 +70,8 @@
     letter-spacing: .05em;
     line-height: 3.2rem;
     white-space: nowrap;
+    @media (max-width: 768px) {
+      font-size: 3rem;
+    }
   }
 }
