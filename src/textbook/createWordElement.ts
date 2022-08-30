@@ -73,6 +73,8 @@ async function asyncListenerWord(element: HTMLButtonElement, wordId: string) {
   const parent = document.querySelector(`[data-id='${wordId}']`) as HTMLElement;
   const user = getStore();
   if (!user) return;
+  const userStatisticResponse = (await requestMethods().getUserStatistic(user.id, user.token)) as DataForStatistic;
+  const userStatistic = userStatisticResponse.optional.statistics;
   if (searchPathBook().chapter === 6) {
     parent.remove();
     const addedWord = await request.getUserWordById(user.id, wordId, user.token);
@@ -84,12 +86,11 @@ async function asyncListenerWord(element: HTMLButtonElement, wordId: string) {
         void request.updateUserWord(user.id, wordId, 'learned', user.token, e.optional);
       })
       .catch(() => {
+        userStatistic.today.added = (userStatistic.today.added || 0) + 1;
         void request.createUserWord(user.id, wordId, 'learned', user.token, newWordEmpty);
       });
   }
 
-  const userStatisticResponse = (await requestMethods().getUserStatistic(user.id, user.token)) as DataForStatistic;
-  const userStatistic = userStatisticResponse.optional.statistics;
   userStatistic.today.studied = (userStatistic.today.studied || 0) + 1;
   await requestMethods().updateUserStatistic(user.id, '1', user.token, { statistics: userStatistic });
 
