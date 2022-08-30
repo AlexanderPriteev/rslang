@@ -22,8 +22,8 @@ let chartDay: HTMLElement;
 
 function updateData(lines: CustomChart[], donut: CustomChart, values: WordStatistic) {
   let count = 0;
-  if (values.longSeries) count = values.longSeries;
-  if (values.added) count = values.added;
+  if (values.longSeries !== undefined) count = values.longSeries;
+  else if (values.added) count = values.added;
 
   const studied = values.studied;
   const addedMax = count > studied;

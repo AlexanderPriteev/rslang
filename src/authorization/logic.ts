@@ -76,7 +76,19 @@ export async function identityUser(mail: HTMLFormElement, pass: HTMLFormElement)
     const user = new User(name, email, password, userId, token, refreshToken);
     setStore(user);
     setLocation('index');
-    await setCurrentDateStatistic(userId, token);
+
+
+
+
+    //НЕЗАБЫТЬ УБРАТЬ
+    //await setCurrentDateStatistic(userId, token);
+    await requestMethods().updateUserStatistic(userId, '1', token, { statistics: defaultStatistics() });
+
+
+
+
+
+
   } catch {
     addError(mail, 'Логин или/и пароль не корректны');
     addError(pass, 'Логин или/и пароль не корректны');

@@ -9,10 +9,10 @@ export function chartLine(data: CustomChart) {
 }
 
 export function chartDonut(data: CustomChart) {
-  const arc = 2 * Math.PI * data.width;
+  const arc = 100 + 502 * data.width / 100;
   const inner = `<svg class="statistics-donut__svg"  viewBox="0 0 200 200">
                      <circle class="statistics-donut__bg"/>
-                     <circle stroke-dasharray="${arc}" class="statistics-donut__value"/>
+                     <circle stroke-dasharray="${arc} 602" class="statistics-donut__value"/>
                      <text x="50%" y="50%" class="statistics-donut__text">${data.value}%</text>
                     </svg>`;
   return createElement('div', ['statistics-donut'], inner);
