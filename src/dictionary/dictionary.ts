@@ -1,10 +1,14 @@
 import renderDictionaryTemplate from './renderDictionaryTemplate';
 import filterLogic from './filterLogic';
-// import pageSwitcher from './pageSwitcher';
+import {clearUserStore, getStore} from "../storage";
+import requestMethods from "../services/requestMethods";
 
 const dictionary = (root?: string) => {
   renderDictionaryTemplate(root || '.content-wrapper');
-  void filterLogic(); // void???
+  const user = getStore();
+  if (user)
+    void requestMethods().getAllUserWords(user.id, user.token).then(filterLogic).catch(clearUserStore);
+  else void filterLogic()
 };
 
 export default dictionary;
