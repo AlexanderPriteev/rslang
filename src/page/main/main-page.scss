@@ -34,6 +34,12 @@
     min-width: 30rem;
     min-height: 18rem;
     margin: auto;
+    @media (min-width: 768px) {
+      overflow: hidden;
+      border-radius: 1.6rem;
+      border: .4rem solid $primary;
+      background-color: $black;
+    }
     @media (max-width: 767px) {
       width: calc(100vw - 7.2rem);
       height: calc(56.25vw - 4rem);
@@ -111,4 +117,24 @@
       }
     }
   }
+}
+
+.dark-theme{
+  .main{
+    &-about{
+      background-color: rgba($primary-dark, .2);
+    }
+    &-card{
+      background-color: $dt-primary;
+      &__image{
+        @media (max-width: 767px) {
+          border-color: $dt-primary;
+        }
+      }
+      &__title, &__about{
+        color: $dt-text;
+      }
+    }
+  }
+
 }

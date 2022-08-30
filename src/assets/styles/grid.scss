@@ -24,15 +24,16 @@ html{
 
 body{
   background-color: $bg-light;
+  &.dark-theme{
+    background-color: $dt-bg-dark;
+    color: $dt-text;
+  }
 }
 
 .page-wrapper{
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-
-  //заглушка до адаптива
- // min-width: 767px;
 }
 
 .main-section{
@@ -75,3 +76,8 @@ body{
   }
 }
 
+.dark-theme{
+  .content-wrapper{
+    background-image: $dt-background-main;
+  }
+}

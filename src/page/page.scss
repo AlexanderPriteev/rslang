@@ -95,3 +95,18 @@
     font-size: 3.6rem;
   }
 }
+
+.dark-theme{
+  .headline {
+    color: $dt-text;
+  }
+  .card-link {
+    border-color: $dt-primary-light;
+    background-color: $dt-primary;
+    color: $dt-primary-light;
+    &:hover {
+      border-color: $dt-text;
+      color: $dt-text
+    }
+  }
+}

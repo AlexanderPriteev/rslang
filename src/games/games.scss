@@ -44,6 +44,16 @@
   align-items: center;
 }
 
+.dark-theme{
+  .games {
+    &-container {
+      background-color: $dt-bg-dark;
+      background-image: $dt-background-image;
+    }
+  }
+}
+
+
 .sprint-start-window {
   background-image: url("../assets/images/sprint-1.jpg");
 }

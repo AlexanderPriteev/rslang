@@ -5,13 +5,14 @@ import { setLocation } from '../../routing/routing';
 import { getStore } from '../../storage';
 
 //пока заглушка
-const youtubeIframe = `<iframe class="img img--contain" 
-                                    src="https://www.youtube.com/embed/3bPL6YNZGOQ" 
-                                    title="YouTube video player" 
-                                    frameborder="0" 
-                                    allow="accelerometer; autoplay; clipboard-write; 
-                                           encrypted-media; gyroscope; picture-in-picture" 
-                                    allowfullscreen></iframe>`;
+// const youtubeIframe = `<iframe class="img img--contain"
+//                                     src="https://www.youtube.com/embed/3bPL6YNZGOQ"
+//                                     title="YouTube video player"
+//                                     frameborder="0"
+//                                     allow="accelerometer; autoplay; clipboard-write;
+//                                            encrypted-media; gyroscope; picture-in-picture"
+//                                     allowfullscreen></iframe>`;
+const youtubeIframe = `<img src="./assets/images/tmp-youtube-image.jpg" alt="" class="img img--contain">`
 
 function mainResources() {
   const resources = createElement('section', ['main-resources']);

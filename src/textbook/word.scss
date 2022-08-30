@@ -8,7 +8,7 @@
   min-height: 29.4rem;
   padding: 4rem;
   gap: 6rem;
-  background: #ffffff;
+  background: $white;
   box-shadow: $shadow-2;
   border-radius: 1.2rem;
   @media (max-width: 767px){
@@ -35,7 +35,7 @@
 
   &__usage-container-en {
     margin-top: 1.8rem;
-    border-bottom: .1rem solid #aca0c5;
+    border-bottom: .1rem solid $primary;
     padding-bottom: 2rem;
   }
 
@@ -126,7 +126,7 @@
   &__example-en span,
   &__example-ru span {
     padding: .8rem 1rem;
-    background: #f9f6ff;
+    background: $bg-dark;
     border-radius: .6rem;
     display: inline-block;
   }
@@ -156,7 +156,7 @@
     font-weight: 400;
     font-size: max(1.6rem, 11px);
     line-height: 2rem;
-    color: #422d6d;
+    color: $text;
     transition: color .2s linear;
     @media (max-width: 767px) {
       font-size: 2.4rem;
@@ -170,7 +170,7 @@
     font-weight: 400;
     font-size: max(1.6rem, 11px);
     line-height: 2rem;
-    color: #4eed5e;
+    color: $green-3;
     transition: color .2s linear;
     @media (max-width: 767px) {
       font-size: 2.4rem;
@@ -265,6 +265,49 @@
     }
     &--error{
       color: $red;
+    }
+  }
+}
+
+.dark-theme{
+  .word {
+    background: $dt-primary;
+    &__image {
+      &-wrapper{
+        @media (max-width: 767px){
+          border-color: $dt-primary;
+        }
+      }
+
+    }
+    &__heading{
+      color: $dt-text;
+    }
+    &__translate{
+      color: $dt-text;
+    }
+    &__volume{
+      color: $dt-primary-light;
+      &:hover{
+        color: $primary;
+      }
+    }
+    &__definition-en,
+    &__definition-ru {
+      color: $dt-text;
+    }
+    &__example-en span,
+    &__example-ru span {
+      background-color: $dt-primary-light-2;
+    }
+    &__add-complicated {
+      color: $dt-primary-light;
+    }
+
+  }
+  .learn{
+    &__item{
+      color: $dt-text;
     }
   }
 }

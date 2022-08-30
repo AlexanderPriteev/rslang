@@ -3,10 +3,11 @@ import { DevsLinks } from '../about/about-interface';
 import { headerAuth } from './header-auth';
 
 export function headerRender(userHead?: boolean) {
+  const darkTheme = document.body.classList.contains('dark-theme')
   const logo: DevsLinks = {
     name: 'RS Lang',
     link: '/index',
-    image: './assets/images/lang-logo.svg',
+    image: `./assets/images/lang-logo${darkTheme ? '-dark' : ''}.svg`,
   };
   const header = createElement('header', ['header']);
 

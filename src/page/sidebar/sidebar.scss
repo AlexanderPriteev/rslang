@@ -75,3 +75,21 @@
     }
   }
 }
+
+.dark-theme{
+  .sidebar{
+    background-color: $dt-primary-dark;
+  }
+  .nav-link{
+    color: $dt-primary-light;
+    &.active {
+      color: $white;
+    }
+    &:hover{
+      @media (min-width: 768px) {
+        color: $dt-text;
+        background-color: rgba($dt-bg-dark, .50);
+      }
+    }
+  }
+}

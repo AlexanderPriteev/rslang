@@ -20,19 +20,18 @@
 
   &__select {
     min-width: 27.2rem;
-    border: .1rem solid #a588e2;
+    border: .1rem solid $primary;
     border-radius: 1rem;
     padding: 0.25em 0.5em;
     cursor: pointer;
-    background-color: #fff;
-    background-image: linear-gradient(to top, #f9f9f9, #fff 33%);
+    background-color: $white;
     outline: none;
     font-family: $font-primary;
     font-weight: 400;
     font-size: 1.8rem;
     line-height: 2.4rem;
     letter-spacing: -.01em;
-    color: #422d6d;
+    color: $text;
     @media (max-width: 767px){
       min-width: 30rem;
       font-size: 2.4rem;
@@ -195,5 +194,32 @@
       font-size: 2.8rem;
       margin-bottom: 0.8rem;
     }
+  }
+}
+.dark-theme{
+  .textbook {
+    &__select {
+      border-color: $primary;
+      background-color: $dt-bg-dark;
+      color:  $dt-primary-light;
+    }
+    &__nav {
+      background-color: $primary-dark;
+      &-wrapper {
+        color: $dt-primary-light;
+      }
+    }
+    &__game {
+      &-btn {
+        color: $dt-primary-light;
+      }
+    }
+    &__page{
+      color: $dt-primary-light;
+      &.block{
+        color: $dt-primary-dark;
+      }
+    }
+
   }
 }

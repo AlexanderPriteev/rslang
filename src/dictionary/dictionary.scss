@@ -226,3 +226,43 @@
 .alphabet-active {
   color: $primary;
 }
+
+.dark-theme{
+  .dictionary {
+    &__nav {
+      background-color: $primary-dark;
+      &-wrapper {
+        color: $dt-primary-light;
+      }
+    }
+    &__game {
+      &-btn {
+        color: $dt-primary-light;
+      }
+    }
+    &__search {
+      border-color: $dt-primary-light;
+      background-color: $dt-bg-dark;
+      color:  $dt-primary-light;
+      &::placeholder{
+        color:  $dt-primary-light;
+      }
+    }
+    &__search-btn {
+      color: $dt-bg-dark;
+      border-color: $dt-primary-light;
+      &:hover{
+        background-color: $primary;
+      }
+    }
+    &__alphabet-btn {
+      color: $dt-primary-light;
+      &:hover{
+        color: $dt-text;
+      }
+    }
+    .alphabet-active {
+      color: $dt-text;
+    }
+  }
+}

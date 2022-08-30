@@ -2,11 +2,11 @@
   *{
     &::-webkit-scrollbar {
       width: 1.2rem;
-      background-color: rgba($primary, .4);
+      background-color: rgba($primary, .7);
     }
     &::-webkit-scrollbar-thumb {
       border-radius: .6rem;
-      background-color: $primary;
+      background-color: rgba($primary-dark, .6);
     }
   }
 }
