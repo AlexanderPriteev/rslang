@@ -611,6 +611,7 @@
     border: .3rem solid $white;
     border-radius: 50%;
     margin-right: .4rem;
+    pointer-events: none;
     @media (max-width: 450px){
       display: none;
     }
@@ -618,6 +619,7 @@
   &__value{
     display: block;
     margin: 0 auto;
+    pointer-events: none;
   }
 
   &__btn {
