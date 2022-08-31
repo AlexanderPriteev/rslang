@@ -5,6 +5,7 @@ import { UserWordInterface, WordInterface } from '../types/wordInterface';
 import renderWordList from './renderWordList';
 import createElement from '../helpers/createElement';
 import { addListenerForStartGame } from './startGame';
+import {currentRout} from "../routing/routing";
 
 const request = requestMethods();
 const chapterBackground = [
@@ -18,7 +19,7 @@ const chapterBackground = [
 ];
 
 export const searchPathBook = (): TextbookSessionInterface => {
-  const search = window.location.search.split('&').map((e) => +e.replace(/.*=/, ''));
+  const search = window.location.href.replace(/^.*\?|$/, '').split('&').map((e) => +e.replace(/.*=/, ''));
   if (!search[0] || (search[0] === 7 && !getStore())) {
     return { chapter: 0, page: 0 };
   } else if (search.length === 1) {
@@ -73,14 +74,14 @@ const getNewContent = async () => {
   if (chapter === 6) {
     document.querySelector('.textbook__page-changer')?.classList.add('hide');
     const complicatedWords = userWords
-      .filter((item) => item.difficulty === 'complicated')
-      .map((item) => {
-        const complicatedWord = request.getWordById(item.wordId);
-        return complicatedWord;
-      });
+        .filter((item) => item.difficulty === 'complicated')
+        .map((item) => {
+          const complicatedWord = request.getWordById(item.wordId);
+          return complicatedWord;
+        });
     const complicatedWordsDataAwait = Promise.all(complicatedWords);
     void complicatedWordsDataAwait.then((data) =>
-      renderWordList(data as WordInterface[], userWords, '.textbook__word-list')
+        renderWordList(data as WordInterface[], userWords, '.textbook__word-list')
     );
     return;
   }
@@ -98,7 +99,7 @@ const updatePageContent = (chapter: number, page: number) => {
   (chapterSelects[chapter] as HTMLOptionElement).selected = true;
 
   const searchPath = `?chapter=${chapter + 1}&page=${page + 1}`;
-  const path = window.location.pathname;
+  const path = currentRout();
   window.history.pushState(null, '', `${path}${searchPath}`);
 
   pageNumber.innerHTML = `${page + 1}`;
@@ -117,9 +118,7 @@ const addListeners = () => {
   const chapterBg = document.querySelector('.textbook__img-bg') as HTMLImageElement;
 
   updatePageContent(chapter, page); // инициализация слов при открытии страницы
-
   chapterBg.src = chapterBackground[chapter]; // инициализация картинки раздела
-
 
   toFirstBtn?.addEventListener('click', () => {
     page = 0;
@@ -148,7 +147,6 @@ const addListeners = () => {
   chapterSelection?.addEventListener('change', (e) => {
     const target = e.target as HTMLInputElement;
     chapter = target.value === 'Сложные слова' ? 6 : +target.value.slice(-1) - 1;
-
     chapterBg.src = chapterBackground[chapter];
     page = 0;
     updatePageContent(chapter, page);

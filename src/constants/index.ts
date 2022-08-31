@@ -4,8 +4,14 @@ export default {
   FORGOT_PASS: 'Сбросить пароль',
   ERROR_INPUT_EMAIL: 'Email не валиден',
   ERROR_INPUT_PASSWORD: 'Пароль не валиден. Колличество символов должно быть не менее 8',
-  SERVER: 'http://localhost:8001/',
+
+  // Локальный сервер.
+  //SERVER: 'http://localhost:8001/'
+  //сервер от Кирилла
   //SERVER: 'https://rs-lang-backk.herokuapp.com/',
+  // сервер от Аллександра
+  SERVER: 'https://rs-lang-team.herokuapp.com/',
+
   COUNT_GAME_SECTIONS: 6,
   BTN_TITLE_FALSE: 'НЕВЕРНО',
   BTN_TITLE_TRUE: 'ВЕРНО',

@@ -9,62 +9,55 @@ import { notFoundRender } from '../page/page-not-found/not-found';
 import { getStore } from '../storage';
 import dictionary from '../dictionary/dictionary';
 
-export function routing(rout: string) {
-  switch (rout) {
-    case '/':
-      pageRender(mainPage, 'index');
-      break;
-    case '/index':
-      pageRender(mainPage, 'index');
-      break;
+export const currentRout = () => window.location.href.replace(/^.*[\/#\/]|$/, '/#/').replace(/\?.*/, '')
 
-    case '/book':
-      // eslint-disable-next-line @typescript-eslint/no-misused-promises
+export function routing(rout: string) {
+  const indexPage = ['', '/', 'index', '/index', '/#/', '/#/index', '/#/index.html']
+  const currentRout = rout.replace('/#/','')
+  switch (currentRout) {
+
+    case 'book':
       pageRender(textbook, 'book');
       break;
-    case '/dictionary':
+    case 'dictionary':
       pageRender(dictionary, 'dictionary');
       break;
 
-    case '/statistics':
+    case 'statistics':
       if (getStore()) pageRender(statisticsRender, 'statistics');
       else pageRender(mainPage, 'index');
       break;
 
-    case '/games':
+    case 'games':
       pageRender(gamesPage, 'games');
       break;
-    case '/sprint':
+    case 'sprint':
       renderWindowStartGame('body', 'sprint-start-window');
       break;
-    case '/audio-call':
+    case 'audio-call':
       renderWindowStartGame('body', 'audio-call-start-window');
       break;
 
-    case '/auth':
+    case 'auth':
       openAuth();
       break;
-    case '/options':
+    case 'options':
       openAuth(true);
       break;
 
     default:
-      notFoundRender();
+      if(indexPage.some((e) => e === rout)) pageRender(mainPage, 'index');
+      else notFoundRender();
   }
 }
 
 export function setLocation(rout = '', options?: string) {
+
   try {
-    window.history.pushState(null, '', `${rout}${options || ''}`);
-    if (options) routing(`/${rout}`);
-    else routing(`/${rout}`);
+    window.history.pushState(null, '', `/#/${rout}${options || ''}`);
+    if (options) routing(`${rout}`);
+    else routing(`${rout}`);
   } catch (e) {
     console.log('Ваш браузер не поддерживает данный функционал');
   }
-}
-
-export function routPath() {
-  const pathname = window.location.pathname;
-  const search = window.location.search;
-  return search ? [pathname, search] : [pathname];
 }
