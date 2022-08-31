@@ -3,7 +3,7 @@ import renderWordList from '../textbook/renderWordList';
 import requestMethods from '../services/requestMethods';
 import { getStore } from '../storage';
 import { UserWordInterface, WordInterface } from '../types/wordInterface';
-import { blockPageLink } from '../textbook/pageSwitcher';
+import {blockPageLink, learnedPage} from '../textbook/pageSwitcher';
 import { DictionarySessionInterface } from '../types/sessionStorage';
 
 // const initPage = async (listOfWords: WordInterface[]) => {
@@ -91,7 +91,7 @@ const contentFilter = (listOfWords: WordInterface[], chapter: string, currentPag
   totalCountOfPages = Math.floor((filteredWords.length - 1) / 20);
   blockPageLink(currentPage, 'dictionary', totalCountOfPages);
   currentContent = filteredWords;
-  void getNewContent(currentContent, chapter, currentPage);
+  void getNewContent(currentContent, chapter, currentPage).finally(learnedPage);
 };
 
 const addListeners = (listOfWords: WordInterface[]) => {

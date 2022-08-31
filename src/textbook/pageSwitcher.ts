@@ -48,10 +48,16 @@ export const blockPageLink = (value: number, select = 'textbook', lastPage = 29)
 
 export const learnedPage = () => {
   const count = document.querySelectorAll('.word__learned, .word__difficult');
-  if (count.length === 20) {
-    const page = searchPathBook().page;
-    const container = document.querySelector('.textbook__text-container') as HTMLElement;
-    const text = `СТРАНИЦА ${page + 1} - Все слова изучены`;
+  const countPages = document.querySelectorAll('.word');
+  const isDictionary = document.querySelector('.dictionary');
+  const heroContent = isDictionary ? '.dictionary__text-container' : '.textbook__text-container';
+
+  if (count.length === countPages.length && countPages.length) {
+    const pageNavContainer = isDictionary ? '.dictionary__current-page'  : '.textbook__page-changer'
+    const page = document.querySelector(pageNavContainer) as HTMLElement;
+    const container = document.querySelector(heroContent) as HTMLElement;
+    const text = `<span class="fs-md">СТРАНИЦА ${page.innerText}</span><br>
+                  Все слова изучены или в сложном`;
     const subtitle = createElement('p', ['textbook__subtitle'], text);
     container.prepend(subtitle);
   } else {
