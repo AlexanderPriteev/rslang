@@ -40,14 +40,14 @@ function updateData(lines: CustomChart[], donut: CustomChart, values: WordStatis
 
 const gamesTabs = (): StatisticsTab[] => [
   {
-    tabTitle: '<i class="statistics__headline-tab-icon icon-run-fast"></i>Аудиовызов',
+    tabTitle: '<i class="statistics__headline-tab-icon  icon-music-box"></i>Аудиовызов',
     tabContent: statisticsBlock([
       statisticsCard([gamesAudioDonut], 'statistics-card--sm'),
       statisticsCard(gamesAudioLines, 'statistics-card--lg'),
     ]),
   },
   {
-    tabTitle: '<i class="statistics__headline-tab-icon icon-music-box"></i>Спринт',
+    tabTitle: '<i class="statistics__headline-tab-icon icon-run-fast"></i>Спринт',
     tabContent: statisticsBlock([
       statisticsCard([gamesSprintDonut], 'statistics-card--sm'),
       statisticsCard(gamesSprintLines, 'statistics-card--lg'),
