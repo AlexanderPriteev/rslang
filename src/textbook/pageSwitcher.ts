@@ -117,7 +117,9 @@ const addListeners = () => {
   const chapterBg = document.querySelector('.textbook__img-bg') as HTMLImageElement;
 
   updatePageContent(chapter, page); // инициализация слов при открытии страницы
+
   chapterBg.src = chapterBackground[chapter]; // инициализация картинки раздела
+
 
   toFirstBtn?.addEventListener('click', () => {
     page = 0;
@@ -146,6 +148,7 @@ const addListeners = () => {
   chapterSelection?.addEventListener('change', (e) => {
     const target = e.target as HTMLInputElement;
     chapter = target.value === 'Сложные слова' ? 6 : +target.value.slice(-1) - 1;
+
     chapterBg.src = chapterBackground[chapter];
     page = 0;
     updatePageContent(chapter, page);

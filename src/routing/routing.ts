@@ -19,6 +19,7 @@ export function routing(rout: string) {
       break;
 
     case '/book':
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
       pageRender(textbook, 'book');
       break;
     case '/dictionary':

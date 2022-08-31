@@ -1,6 +1,7 @@
 import createElement from '../helpers/createElement';
 import './dictionary.scss';
 import { setLocation } from '../routing/routing';
+
 import { searchPathDictionary } from './filterLogic';
 
 const heroImage = './assets/images/dictionary-bg.jpg';
@@ -8,7 +9,9 @@ const heroImage = './assets/images/dictionary-bg.jpg';
 const renderdictionaryHeading = () => {
   const dictionaryHeadingContainer = createElement('div', ['dictionary__heading-container']);
   const bgImageContainer = createElement('img', ['dictionary__img-bg']) as HTMLImageElement;
+
   bgImageContainer.src = heroImage;
+
   const dictionaryTextContainer = createElement('div', ['dictionary__text-container']);
   const dictionaryHeading = createElement('span', ['dictionary__heading'], 'СЛОВАРЬ');
   dictionaryTextContainer.appendChild(dictionaryHeading);
