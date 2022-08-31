@@ -1,13 +1,15 @@
 import createElement from '../helpers/createElement';
-import * as chapter1BG from '../assets/images/chapter-1.jpg';
 import './textbook.scss';
 import { getStore } from '../storage';
+
+const chapter1BG = './assets/images/chapter-1.jpg';
 
 const renderTextbookHeading = () => {
   const textbookHeadingContainer = createElement('div', ['textbook__heading-container']);
   const bgImageContainer = createElement('img', ['textbook__img-bg']) as HTMLImageElement;
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-  bgImageContainer.src = chapter1BG.default as string;
+
+  bgImageContainer.src = chapter1BG;
+
   const textbookTextContainer = createElement('div', ['textbook__text-container']);
   const textbookHeading = createElement('span', ['textbook__heading'], 'УЧЕБНИК');
   const textbookChapter = createElement('span', ['textbook__chapter'], 'Раздел 1');

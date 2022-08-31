@@ -1,0 +1,99 @@
+.theme-switch {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 7.2rem;
+  min-width: 7.2rem;
+  margin-right: 4rem;
+  height: 3.2rem;
+  border-radius: 1.8rem;
+  background-color: $bg-light;
+  cursor: pointer;
+  position: relative;
+  box-sizing: border-box;
+  padding: .5rem .6rem;
+  transition: background-color .3s linear;
+
+  @media (min-width: 768px) {
+    &:hover {
+      background-color: $dt-bg-dark;
+
+      .theme-switch {
+        &__night, &__day {
+          color: $yellow;
+        }
+      }
+    }
+  }
+
+  &:before {
+    content: '';
+    display: inline-block;
+    width: 3.6rem;
+    height: 3.6rem;
+    border-radius: 50%;
+    background-color: $primary-dark;
+    position: absolute;
+    top: -.2rem;
+    right: -.2rem;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  &__night, &__day {
+    width: 2.2rem;
+    min-width: 2.2rem;
+    height: 2.2rem;
+    font-size: 2rem;
+    font-family: icomoon;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    z-index: 1;
+    transition: color .25s linear;
+
+  }
+
+  &__night {
+    color: $primary-dark;
+
+    &:before {
+      content: '\e939';
+    }
+  }
+
+  &__day {
+    color: $bg-light;
+
+    &:before {
+      content: '\e93a';
+    }
+  }
+}
+
+.dark-theme {
+  .theme-switch {
+    background-color: $dt-bg-dark;
+
+    &:before{
+      left: -.2rem;
+      background-color: $dt-primary-light-2;
+    }
+    @media (min-width: 768px) {
+      &:hover {
+        background-color: $bg-light;
+      }
+    }
+
+    &__night {
+      color: $dt-bg-dark;
+    }
+
+    &__day {
+      color: $dt-primary-light-2;
+    }
+  }
+}

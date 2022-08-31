@@ -39,6 +39,8 @@
 
   &__user {
     margin-left: auto;
+    display: flex;
+    align-items: center;
   }
 }
 
@@ -146,3 +148,36 @@
   }
 }
 
+.dark-theme{
+  .header {
+    background-color: $primary-dark;
+    &__collapse {
+      color: $dt-primary-light;
+      transition: color .2s linear;
+      &:hover {
+        opacity: 1;
+        color: $dt-text;
+      }
+    }
+  }
+  .user {
+    color: $dt-primary-light;
+    &:hover {
+      color: $dt-text;
+    }
+
+    &__menu{
+      background-color: $dt-primary-dark;
+      &:before{
+        background-color: $dt-primary-dark;
+      }
+    }
+    &__item{
+      color: $dt-primary-light;
+      &:hover {
+        color: $dt-text;
+      }
+    }
+  }
+
+}

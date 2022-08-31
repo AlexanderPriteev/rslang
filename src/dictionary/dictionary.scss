@@ -226,3 +226,48 @@
 .alphabet-active {
   color: $primary;
 }
+
+.dark-theme{
+  .dictionary {
+    &__nav {
+      background-color: $primary-dark;
+      box-shadow: $shadow-5;
+      &-wrapper {
+        color: $dt-primary-light;
+      }
+    }
+    &__game {
+      &-btn {
+        color: $dt-primary-light;
+        &:hover{
+          color: $dt-text;
+        }
+      }
+    }
+    &__search {
+      border-color: $dt-primary-light;
+      background-color: $dt-bg-dark;
+      color:  $dt-primary-light;
+      &::placeholder{
+        color:  $dt-primary-light;
+      }
+    }
+    &__search-btn {
+      color: $dt-bg-dark;
+      border-color: $dt-primary-light;
+      &:hover{
+        background-color: $dt-text;
+      }
+    }
+    &__alphabet-btn {
+      color: $dt-primary-light;
+      &:hover{
+        color: $dt-text;
+      }
+    }
+    .alphabet-active {
+      color: $dt-text;
+      pointer-events: none;
+    }
+  }
+}

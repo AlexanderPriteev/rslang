@@ -50,9 +50,13 @@ function renderQuest() {
 
   for (let i = 0; i < buttons.length; i++) {
     if (numberTrueAnswer === i) {
-      (buttons[i] as HTMLButtonElement).innerText = `${i + 1}. ${wordsArrayCall[ind].wordTranslate}`;
+      (buttons[i] as HTMLButtonElement).innerHTML = //`${i + 1}. ${wordsArrayCall[ind].wordTranslate}`
+      `<span class="audio-call-quest__number"> ${i + 1}</span>
+       <span class="audio-call-quest__value">${wordsArrayCall[ind].wordTranslate}</span>`;
     } else {
-      (buttons[i] as HTMLButtonElement).innerText = `${i + 1}. ${wordsArrayCall[randomeArray[i]].wordTranslate}`;
+      (buttons[i] as HTMLButtonElement).innerHTML = //`${i + 1}. ${wordsArrayCall[randomeArray[i]].wordTranslate}`
+    `<span class="audio-call-quest__number">${i + 1}</span>
+      <span class="audio-call-quest__value">${wordsArrayCall[randomeArray[i]].wordTranslate}</span>`;
     }
   }
 
@@ -104,10 +108,11 @@ function endGame() {
 }
 
 export function checkAudioCallAnswer(btn: HTMLButtonElement | string) {
-  const button = typeof btn === 'string' ? document.querySelectorAll('.btn-audio-call')[+btn - 1] : btn;
+  const button = typeof btn === 'string'
+      ? document.querySelectorAll('.btn-audio-call')[+btn - 1]
+      : btn.querySelector('.audio-call-quest__value') as HTMLElement;
 
-  const title = (button as HTMLButtonElement).innerText.slice(3).toLowerCase();
-
+  const title = (button as HTMLElement).innerText.toLowerCase();
   const word = wordsArrayCall[ind];
 
   if (wordsArrayCall[ind].wordTranslate === title) {

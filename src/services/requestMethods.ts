@@ -3,7 +3,9 @@ import request from './request';
 import { DataForUserWord } from '../types/UserWordOptions';
 
 const requestMethods = () => {
+
   const base = 'http://localhost:8001/'; // здесь должна быть ссылка на ваш локальный сервер.
+  //const base = 'https://rs-lang-backk.herokuapp.com/'; // сервер.
 
   const getWords = async (group = 0, page = 0) => {
     const res = await request(`${base}words?group=${group}&page=${page}`);

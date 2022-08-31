@@ -192,3 +192,47 @@
     }
   }
 }
+
+.dark-theme{
+  .statistics {
+    &__headline{
+      color: $dt-primary-light;
+      border-color: $dt-primary-light;
+
+      &-tab {
+        color: $dt-primary-light;
+        transition: color .25s linear;
+        &:after{
+          background-color: $dt-primary-light;
+        }
+        &:hover{
+          color: $dt-primary-light-2;
+        }
+        &.active{
+          color: $dt-primary-light-2;
+        }
+      }
+    }
+    &-card{
+      background-color: $dt-primary;
+      &__title {
+        font-size: 2rem;
+        color: $dt-text;
+      }
+    }
+    &-line{
+      background-color: $dt-primary-light-2;
+    }
+    &-donut{
+      &__text{
+        fill: $dt-text;
+      }
+    }
+  }
+  .apexchart{
+    color: $text;
+    .apexcharts-text tspan, .apexcharts-data-labels text{
+      fill: $dt-text;
+    }
+  }
+}

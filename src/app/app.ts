@@ -5,6 +5,7 @@ import { routing } from '../routing/routing';
 import '../assets/styles/atom.scss';
 
 const app = () => {
+  if (localStorage.getItem('isDarkTheme')) document.body.classList.add('dark-theme');
   const pathname = window.location.pathname;
   routing(pathname);
 };
