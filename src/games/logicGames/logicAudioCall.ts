@@ -109,7 +109,7 @@ function endGame() {
 
 export function checkAudioCallAnswer(btn: HTMLButtonElement | string) {
   const button = typeof btn === 'string'
-      ? document.querySelectorAll('.btn-audio-call')[+btn - 1]
+      ? document.querySelectorAll('.audio-call-quest__value')[+btn - 1]
       : btn.querySelector('.audio-call-quest__value') as HTMLElement;
 
   const title = (button as HTMLElement).innerText.toLowerCase();
