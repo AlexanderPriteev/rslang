@@ -12,7 +12,8 @@ import dictionary from '../dictionary/dictionary';
 export const currentRout = () => window.location.href.replace(/^.*[\/#\/]|$/, '/#/').replace(/\?.*/, '')
 
 export function routing(rout: string) {
-  const indexPage = ['', '/', 'index', '/index', '/#/', '/#/index', '/#/index.html']
+  console.log(rout)
+  const indexPage = ['', '/#/about', '/', 'index', '/index', '/#/', '/#/index', '/#/index.html']
   const currentRout = rout.replace('/#/','')
   switch (currentRout) {
 
