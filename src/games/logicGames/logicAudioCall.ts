@@ -4,7 +4,7 @@ import { renderAudioCallGame } from '../renderGames/renderAudioCallGame';
 import constants from '../../constants/index';
 import { SprintResult } from '../../types';
 import { renderWindowGameResult } from '../renderGames/renderGameResult';
-const { SERVER } = constants;
+const { SERVER, STATIC_WORDS } = constants;
 
 let wordsArrayCall: WordInterface[] = [];
 
@@ -27,15 +27,15 @@ function unActiveBtn(statusBtn: boolean) {
 
 function getRandomeArr(numberTrueAnswer: number, lenghtArr = 6) {
   const arr: number[] = [];
+  const randomeLimit = wordsArrayCall.length < 6 ? STATIC_WORDS.length - 1 : wordsArrayCall.length - 1;
 
   while (arr.length < lenghtArr) {
-    const randomeNumber = Math.round(Math.random() * (wordsArrayCall.length - 1));
+    const randomeNumber = Math.round(Math.random() * randomeLimit);
 
     if (randomeNumber !== numberTrueAnswer && arr.indexOf(randomeNumber) === -1) {
       arr.push(randomeNumber);
     }
   }
-  console.log('arr - ', arr, 'true - ', numberTrueAnswer);
 
   return arr;
 }
@@ -45,20 +45,24 @@ function renderQuest() {
 
   const numberTrueAnswer = Math.round(Math.random() * 5);
 
-  const randomeArray = getRandomeArr(numberTrueAnswer);
+  const randomeArray = getRandomeArr(ind);
 
   const buttons = document.querySelectorAll('div.audio-call-quest__btn > button');
 
   for (let i = 0; i < buttons.length; i++) {
     if (numberTrueAnswer === i) {
-      (buttons[i] as HTMLButtonElement).innerHTML =
-        //`${i + 1}. ${wordsArrayCall[ind].wordTranslate}`
-        `<span class="audio-call-quest__number"> ${i + 1}</span>
+      (buttons[i] as HTMLButtonElement).innerHTML = `<span class="audio-call-quest__number"> ${i + 1}</span>
        <span class="audio-call-quest__value">${wordsArrayCall[ind].wordTranslate}</span>`;
+    } else if (wordsArrayCall.length < 6) {
+      const wordRu =
+        wordsArrayCall[randomeArray[i]] === undefined
+          ? STATIC_WORDS[randomeArray[i]]
+          : wordsArrayCall[randomeArray[i]].wordTranslate;
+
+      (buttons[i] as HTMLButtonElement).innerHTML = `<span class="audio-call-quest__number">${i + 1}</span>
+      <span class="audio-call-quest__value">${wordRu}</span>`;
     } else {
-      (buttons[i] as HTMLButtonElement).innerHTML =
-        //`${i + 1}. ${wordsArrayCall[randomeArray[i]].wordTranslate}`
-        `<span class="audio-call-quest__number">${i + 1}</span>
+      (buttons[i] as HTMLButtonElement).innerHTML = `<span class="audio-call-quest__number">${i + 1}</span>
       <span class="audio-call-quest__value">${wordsArrayCall[randomeArray[i]].wordTranslate}</span>`;
     }
   }
@@ -77,6 +81,7 @@ function resetSettings() {
 export async function startAudioCall(levelOrWords: number | WordInterface[]) {
   const container = document.querySelector('.game-container') as HTMLElement;
   if (!container.classList.contains('game-preloader')) container.classList.add('game-preloader');
+
   resetSettings();
 
   wordsArrayCall = typeof levelOrWords === 'number' ? await getWordsByCategory(levelOrWords) : levelOrWords;
@@ -148,8 +153,9 @@ export function checkAudioCallAnswer(btn: HTMLButtonElement | string) {
     ind++;
     if (ind >= wordsArrayCall.length) {
       endGame();
+    } else {
+      renderQuest();
     }
-    renderQuest();
   }, 1000);
 }
 

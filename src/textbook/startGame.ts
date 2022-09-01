@@ -72,7 +72,9 @@ export function addListenerForStartGame() {
 }
 
 export async function startGameFromDictionary(sprintOrAudioCall: boolean) {
-  if (sprintOrAudioCall && currentContent.length > 0) {
+  if (currentContent.length < 1) return;
+
+  if (sprintOrAudioCall) {
     setLocation('sprint');
     await startSprint(currentContent);
   } else {
