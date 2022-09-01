@@ -3,7 +3,7 @@ import renderWordList from '../textbook/renderWordList';
 import requestMethods from '../services/requestMethods';
 import { getStore } from '../storage';
 import { UserWordInterface, WordInterface } from '../types/wordInterface';
-import {blockPageLink, learnedPage} from '../textbook/pageSwitcher';
+import { blockPageLink, learnedPage } from '../textbook/pageSwitcher';
 import { DictionarySessionInterface } from '../types/sessionStorage';
 import {currentRout} from "../routing/routing";
 
@@ -72,6 +72,7 @@ const getNewContent = async (content: WordInterface[], chapter: string, currentP
 
   pageNumber.innerHTML = `${currentPage + 1}`;
   renderWordList(content.slice(currentPage * 20, (currentPage + 1) * 20), userWords, '.dictionary__word-list');
+  learnedPage();
 };
 
 const contentFilter = (listOfWords: WordInterface[], chapter: string, currentPage: number) => {

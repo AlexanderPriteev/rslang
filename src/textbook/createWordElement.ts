@@ -20,7 +20,6 @@ export const newWordEmpty: UserWordOptions = {
   sprintError: 0,
 };
 
-// добавление в список сложных слов
 async function asyncComplicatedWord(element: HTMLButtonElement, wordId: string) {
   const parent = document.querySelector(`[data-id='${wordId}']`) as HTMLElement;
   const user = getStore();
@@ -62,10 +61,11 @@ async function asyncComplicatedWord(element: HTMLButtonElement, wordId: string) 
   }
   learnedPage();
 }
-
 const addComplicatedWordListener = (element: HTMLButtonElement, wordId: string) => {
   element.addEventListener('click', () => {
-    void asyncComplicatedWord(element, wordId);
+    const parent = element.parentElement as HTMLElement;
+    parent.classList.add('blocked');
+    void asyncComplicatedWord(element, wordId).finally(() => parent.classList.remove('blocked'));
   });
 };
 
@@ -104,10 +104,11 @@ async function asyncListenerWord(element: HTMLButtonElement, wordId: string) {
 }
 const addLearnedWordListener = (element: HTMLButtonElement, wordId: string) => {
   element.addEventListener('click', () => {
-    void asyncListenerWord(element, wordId);
+    const parent = element.parentElement as HTMLElement;
+    parent.classList.add('blocked');
+    void asyncListenerWord(element, wordId).finally(() => parent.classList.remove('blocked'));
   });
 };
-//
 
 const wordExistInUserComplicatedList = (id: string, userWords: UserWordInterface[]): boolean => {
   return userWords.some((item: UserWordInterface) => item.wordId === id && item.difficulty === 'complicated');
