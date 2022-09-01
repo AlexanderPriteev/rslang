@@ -115,6 +115,8 @@ export function resetSettings() {
 
 //старт игры
 export async function startSprint(levelOrWords: number | WordInterface[]) {
+  const container = document.querySelector('.game-container') as HTMLElement;
+  if (!container.classList.contains('game-preloader')) container.classList.add('game-preloader');
   resetSettings();
 
   wordsArray = typeof levelOrWords === 'number' ? await getWordsByCategory(levelOrWords) : levelOrWords;
@@ -124,8 +126,8 @@ export async function startSprint(levelOrWords: number | WordInterface[]) {
 
   writeQuest();
 
-  const container = document.querySelector('div.game-container');
-  container?.remove();
+  container.classList.add('hidden');
+  container.classList.remove('game-preloader');
 }
 
 function checkGameStorage(answer: boolean) {

@@ -113,3 +113,12 @@
     }
   }
 }
+
+.blocked{
+  pointer-events: none;
+  user-select: none;
+  opacity: .5;
+}
+.locked{
+  pointer-events: none;
+}

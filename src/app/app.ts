@@ -2,6 +2,7 @@ import '../styles.scss';
 import { routing } from '../routing/routing';
 
 //должны быть последними
+import '../assets/styles/preloader.scss';
 import '../assets/styles/atom.scss';
 
 const app = () => {

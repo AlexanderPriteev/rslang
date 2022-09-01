@@ -156,6 +156,11 @@
       @media (max-width: 767px) {
         order: -1;
       }
+      &.block{
+        pointer-events: none;
+        opacity: .3;
+        user-select: none;
+      }
     }
     &-name{
       @media (max-width: 389px) {

@@ -59,7 +59,7 @@ const renderTextBookNavPanel = () => {
 };
 
 const renderTextbookTemplate = (root: string) => {
-  const textbookPage = createElement('div', ['textbook']);
+  const textbookPage = createElement('div', ['textbook', 'preloader']);
   textbookPage.appendChild(renderTextbookHeading());
   const mainContentWrapper = createElement('div', ['textbook__content-wrapper']);
   mainContentWrapper.appendChild(renderTextBookNavPanel());

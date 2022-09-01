@@ -128,6 +128,11 @@
       font-weight: $f-bold;
       font-size: 2rem;
       line-height: 2.4rem;
+      &.block{
+        pointer-events: none;
+        opacity: .3;
+        user-select: none;
+      }
     }
     &-btn {
       display: flex;
@@ -178,8 +183,8 @@
 
     &.block{
       pointer-events: none;
-      color: $primary;
-      opacity: .5;
+      user-select: none;
+      opacity: .3;
     }
   }
 
@@ -221,9 +226,6 @@
       color: $dt-primary-light;
       &:hover{
         color: $dt-text;
-      }
-      &.block{
-        color: $dt-primary-dark;
       }
     }
 
