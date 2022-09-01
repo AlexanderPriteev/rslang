@@ -27,12 +27,15 @@ function unActiveBtn(statusBtn: boolean) {
 
 function getRandomeArr(numberTrueAnswer: number, lenghtArr = 6) {
   const arr: number[] = [];
+
   const randomeLimit = wordsArrayCall.length < 6 ? STATIC_WORDS.length - 1 : wordsArrayCall.length - 1;
 
   while (arr.length < lenghtArr) {
     const randomeNumber = Math.round(Math.random() * randomeLimit);
 
-    if (randomeNumber !== numberTrueAnswer && arr.indexOf(randomeNumber) === -1) {
+    if (wordsArrayCall.length === 6 && arr.length === 5) {
+      arr.push(0);
+    } else if (randomeNumber !== numberTrueAnswer && arr.indexOf(randomeNumber) === -1) {
       arr.push(randomeNumber);
     }
   }
