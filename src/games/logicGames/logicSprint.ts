@@ -56,7 +56,6 @@ function endGame() {
 }
 
 function createTimer() {
-  //при закрытии окна остановить таймер
   let timer = 60;
   timerId = setTimeout(() => {
     endGame();
@@ -103,7 +102,7 @@ function writeQuest() {
   if (checkSoundOff()) void new Audio(`${SERVER}${wordsArray[index].audio}`).play();
 }
 
-function resetSettings() {
+export function resetSettings() {
   index = 0;
   wordsArray = [];
   resultsGameSprint.length = 0;

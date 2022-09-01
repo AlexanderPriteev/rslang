@@ -35,6 +35,7 @@ function getRandomeArr(numberTrueAnswer: number, lenghtArr = 6) {
       arr.push(randomeNumber);
     }
   }
+  console.log('arr - ', arr, 'true - ', numberTrueAnswer);
 
   return arr;
 }
@@ -143,6 +144,9 @@ export function checkAudioCallAnswer(btn: HTMLButtonElement | string) {
 
   setTimeout(() => {
     ind++;
+    if (ind >= wordsArrayCall.length) {
+      endGame();
+    }
     renderQuest();
   }, 1000);
 }

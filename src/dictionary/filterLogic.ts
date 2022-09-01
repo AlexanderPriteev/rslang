@@ -3,7 +3,7 @@ import renderWordList from '../textbook/renderWordList';
 import requestMethods from '../services/requestMethods';
 import { getStore } from '../storage';
 import { UserWordInterface, WordInterface } from '../types/wordInterface';
-import {blockPageLink, learnedPage} from '../textbook/pageSwitcher';
+import { blockPageLink, learnedPage } from '../textbook/pageSwitcher';
 import { DictionarySessionInterface } from '../types/sessionStorage';
 
 // const initPage = async (listOfWords: WordInterface[]) => {
@@ -42,7 +42,7 @@ const dictionaryCategory = [
 ];
 
 let totalCountOfPages: number;
-let currentContent: WordInterface[];
+export let currentContent: WordInterface[];
 
 export const searchPathDictionary = (): DictionarySessionInterface => {
   const search = window.location.search.split('&').map((e) => e.replace(/.*=/, ''));
