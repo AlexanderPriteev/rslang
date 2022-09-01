@@ -74,6 +74,8 @@ function resetSettings() {
 
 //старт игры
 export async function startAudioCall(levelOrWords: number | WordInterface[]) {
+  const container = document.querySelector('.game-container') as HTMLElement;
+  if(!container.classList.contains('game-preloader')) container.classList.add('game-preloader')
   resetSettings();
 
   wordsArrayCall = typeof levelOrWords === 'number' ? await getWordsByCategory(levelOrWords) : levelOrWords;
@@ -81,8 +83,8 @@ export async function startAudioCall(levelOrWords: number | WordInterface[]) {
   renderAudioCallGame('body');
   renderQuest();
 
-  const container = document.querySelector('div.game-container');
-  container?.classList.add('hidden');
+  container.classList.add('hidden');
+  container.classList.remove('game-preloader')
 }
 
 function redrawNumberLives() {

@@ -36,6 +36,7 @@ export function optionsForm(container: HTMLFormElement) {
 
     btnPrimary.onclick = () => {
       removeErrors(container);
+      btnPrimary.classList.add('btn-preloader')
       if (emptyValidator([nameInput, valueInput, oldPassInput])) {
         const emailVal = emailValidator(valueInput);
         const twoPassVal = () => twoPassValidation(passInput, passRepeat);
@@ -47,7 +48,10 @@ export function optionsForm(container: HTMLFormElement) {
               const passValue = passInput.value as string;
               if (passValue.length) {
                 if (twoPassVal()) thisPass = passValue;
-                else return;
+                else {
+                  btnPrimary.classList.remove('btn-preloader');
+                  return;
+                }
               }
               const valueEmail = valueInput.value as string;
               const valueName = nameInput.value as string;
@@ -58,7 +62,8 @@ export function optionsForm(container: HTMLFormElement) {
 
                   void identityUser(valueInput, passValue ? passInput : oldPassInput);
                 })
-                .catch(() => addError(inputEmail, 'Email занят другим пользователем'));
+                .catch(() => addError(inputEmail, 'Email занят другим пользователем'))
+                .finally(() => btnPrimary.classList.remove('btn-preloader'));
             })
             .catch(() => {
               addError(oldPassInput, 'Пароль не верный');

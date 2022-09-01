@@ -16,7 +16,7 @@ export function signInForm(container: HTMLFormElement) {
   const inputWrapper = createElement('div', ['auth-form__wrapper']);
   inputWrapper.append(inputEmail, inputPass);
 
-  const btnPrimary = createElement('button', ['auth-btn'], SIGN_IN);
+  const btnPrimary = createElement('button', ['auth-btn'], SIGN_IN, 'sign-in-btn');
   const btnSecondary = createElement('button', ['auth-btn', 'auth-btn--outline'], SIGN_UP);
   const btnWrapper = createElement('div', ['auth-form__wrapper']);
   btnWrapper.append(btnPrimary, btnSecondary);

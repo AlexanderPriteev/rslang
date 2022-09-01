@@ -41,9 +41,14 @@ async function getWordsForGame(level: number, page: number) {
 }
 
 async function startGame(sprintOrAudioCall: boolean) {
+
   const levelStr = (document.querySelector('select.textbook__select') as HTMLSelectElement).value;
   const level = levelStr.slice(-1);
   const page = (document.querySelector('span.textbook__current-page') as HTMLElement).innerText;
+
+  setLocation(sprintOrAudioCall ? 'sprint' : 'audio-call') ;
+  const container = document.querySelector('.game-container') as HTMLElement;
+  if(!container.classList.contains('game-preloader')) container.classList.add('game-preloader')
 
   const words = await getWordsForGame(+level, +page);
   const wordsFromEnd = words.reverse();
@@ -60,11 +65,9 @@ export function addListenerForStartGame() {
 
   btnGameBook[0].addEventListener('click', () => {
     void startGame(false);
-    setLocation('audio-call');
   });
 
   btnGameBook[1].addEventListener('click', () => {
     void startGame(true);
-    setLocation('sprint');
   });
 }
