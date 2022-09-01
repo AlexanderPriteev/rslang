@@ -44,7 +44,13 @@ function mainAbout() {
                                 <img src="${e.image}" alt="" class="img img--cover">
                               </div>
                               <div class="main-card__data">
-                                <h3 class="main-card__title">${e.nameRu || e.name}</h3>
+                                <a target="_blank" 
+                                   href="${e.link}"
+                                   class="main-card__title">
+                                  <i class="icon-github  main-card__icon"></i> 
+                                  ${e.nameRu || e.name}
+                                
+                                </a>
                                 <p class="main-card__about">${e.about || 'Что-то сделал...'}</p>
                              </div>`;
     const card = createElement('div', ['main-card'], cardTemplate);
