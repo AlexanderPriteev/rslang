@@ -49,30 +49,29 @@ export const blockPageLink = (value: number, select = 'textbook', lastPage = 29)
 export const learnedPage = () => {
   const countLearned = document.querySelectorAll('.word__learned');
   const countDifficult = document.querySelectorAll('.word__difficult');
-  const count = countLearned.length + countDifficult.length
+  const count = countLearned.length + countDifficult.length;
   const countPages = document.querySelectorAll('.word');
   const isDictionary = document.querySelector('.dictionary');
   const heroContent = isDictionary ? '.dictionary__text-container' : '.textbook__text-container';
   const gameListSelector = isDictionary ? '.dictionary__game-list' : '.textbook__game-list';
   const gameList = document.querySelector(gameListSelector) as HTMLElement;
   const subtitle = document.querySelector('.textbook__subtitle') as HTMLElement;
-  if(countLearned.length === countPages.length){
-    if(!gameList.classList.contains('block')) gameList.classList.add('block')
-  } else{
-    if(gameList.classList.contains('block')) gameList.classList.remove('block')
+  if (countLearned.length === countPages.length) {
+    if (!gameList.classList.contains('block')) gameList.classList.add('block');
+  } else {
+    if (gameList.classList.contains('block')) gameList.classList.remove('block');
   }
 
   if (count === countPages.length && countPages.length) {
-    const pageNavContainer = isDictionary ? '.dictionary__current-page'  : '.textbook__page-changer'
+    const pageNavContainer = isDictionary ? '.dictionary__current-page' : '.textbook__page-changer';
     const page = document.querySelector(pageNavContainer) as HTMLElement;
     const container = document.querySelector(heroContent) as HTMLElement;
     const text = `<span class="fs-md">СТРАНИЦА ${page.innerText}</span><br>
                   Все слова изучены или в сложном`;
-    if (!subtitle){
+    if (!subtitle) {
       const subtitleContainer = createElement('p', ['textbook__subtitle'], text);
       container.prepend(subtitleContainer);
     } else subtitle.innerHTML = text;
-
   } else {
     if (subtitle) subtitle.remove();
   }
@@ -107,8 +106,8 @@ const getNewContent = async () => {
 
   renderWordList(newContent, userWords, '.textbook__word-list');
   learnedPage();
-  const preloader = document.querySelector('.preloader')
-  if(preloader) preloader.classList.remove('preloader')
+  const preloader = document.querySelector('.preloader');
+  if (preloader) preloader.classList.remove('preloader');
 };
 
 const updatePageContent = (chapter: number, page: number, blocked?: boolean) => {
@@ -125,14 +124,11 @@ const updatePageContent = (chapter: number, page: number, blocked?: boolean) => 
 
   chapterNumber.innerHTML = chapter < 6 ? `Раздел ${chapter + 1}` : `Сложные слова`;
 
-
-  if(blocked) {
-    const pagination = document.querySelector('.textbook__page-changer') as HTMLElement
-    pagination.classList.add('locked')
-    void getNewContent().finally(()=> pagination.classList.remove('locked'));
-  }
-  else void getNewContent();
-
+  if (blocked) {
+    const pagination = document.querySelector('.textbook__page-changer') as HTMLElement;
+    pagination.classList.add('locked');
+    void getNewContent().finally(() => pagination.classList.remove('locked'));
+  } else void getNewContent();
 };
 
 const addListeners = () => {
@@ -147,7 +143,6 @@ const addListeners = () => {
   updatePageContent(chapter, page); // инициализация слов при открытии страницы
 
   chapterBg.src = chapterBackground[chapter]; // инициализация картинки раздела
-
 
   toFirstBtn?.addEventListener('click', () => {
     page = 0;

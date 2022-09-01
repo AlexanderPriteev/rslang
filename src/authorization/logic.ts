@@ -44,9 +44,9 @@ function getEmailAndPassFromForm(InOrUp: boolean) {
 
 //создать нового пользователя
 export async function createUser() {
-  const btn = document.getElementById('sign-up-btn') as HTMLElement
+  const btn = document.getElementById('sign-up-btn') as HTMLElement;
   try {
-    btn.classList.add('btn-preloader')
+    btn.classList.add('btn-preloader');
     const { email, password } = getEmailAndPassFromForm(false);
     const inputName = document.querySelector('input[type="text"]') as HTMLInputElement;
     const name = inputName.value;
@@ -73,10 +73,10 @@ export async function createUser() {
 
 //вход для ранее зарегистрированного пользователя
 export async function identityUser(mail: HTMLFormElement, pass: HTMLFormElement) {
-  const btn = document.getElementById('sign-in-btn') as HTMLElement
-  const abc = !!btn || 0
+  const btn = document.getElementById('sign-in-btn') as HTMLElement;
+  const abc = !!btn || 0;
   try {
-    if(abc) btn.classList.add('btn-preloader')
+    if (abc) btn.classList.add('btn-preloader');
     const email = mail.value as string;
     const password = pass.value as string;
     const { token, refreshToken, userId, name } = (await requestMethods().userSignIn(email, password)) as SignIn;
@@ -88,6 +88,6 @@ export async function identityUser(mail: HTMLFormElement, pass: HTMLFormElement)
     addError(mail, 'Логин или/и пароль не корректны');
     addError(pass, 'Логин или/и пароль не корректны');
   } finally {
-    if(abc) btn.classList.remove('btn-preloader');
+    if (abc) btn.classList.remove('btn-preloader');
   }
 }

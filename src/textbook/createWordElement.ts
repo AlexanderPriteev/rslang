@@ -20,7 +20,6 @@ export const newWordEmpty: UserWordOptions = {
   sprintError: 0,
 };
 
-
 async function asyncComplicatedWord(element: HTMLButtonElement, wordId: string) {
   const parent = document.querySelector(`[data-id='${wordId}']`) as HTMLElement;
   const user = getStore();
@@ -64,9 +63,9 @@ async function asyncComplicatedWord(element: HTMLButtonElement, wordId: string) 
 }
 const addComplicatedWordListener = (element: HTMLButtonElement, wordId: string) => {
   element.addEventListener('click', () => {
-    const parent = element.parentElement as HTMLElement
-    parent.classList.add('blocked')
-    void asyncComplicatedWord(element, wordId).finally(() =>parent.classList.remove('blocked') );
+    const parent = element.parentElement as HTMLElement;
+    parent.classList.add('blocked');
+    void asyncComplicatedWord(element, wordId).finally(() => parent.classList.remove('blocked'));
   });
 };
 
@@ -105,9 +104,9 @@ async function asyncListenerWord(element: HTMLButtonElement, wordId: string) {
 }
 const addLearnedWordListener = (element: HTMLButtonElement, wordId: string) => {
   element.addEventListener('click', () => {
-    const parent = element.parentElement as HTMLElement
-    parent.classList.add('blocked')
-    void asyncListenerWord(element, wordId).finally(() =>parent.classList.remove('blocked') );
+    const parent = element.parentElement as HTMLElement;
+    parent.classList.add('blocked');
+    void asyncListenerWord(element, wordId).finally(() => parent.classList.remove('blocked'));
   });
 };
 

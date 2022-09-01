@@ -3,7 +3,7 @@ import renderWordList from '../textbook/renderWordList';
 import requestMethods from '../services/requestMethods';
 import { getStore } from '../storage';
 import { UserWordInterface, WordInterface } from '../types/wordInterface';
-import {blockPageLink, learnedPage} from '../textbook/pageSwitcher';
+import { blockPageLink, learnedPage } from '../textbook/pageSwitcher';
 import { DictionarySessionInterface } from '../types/sessionStorage';
 
 // const initPage = async (listOfWords: WordInterface[]) => {

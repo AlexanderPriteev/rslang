@@ -36,7 +36,7 @@ export function optionsForm(container: HTMLFormElement) {
 
     btnPrimary.onclick = () => {
       removeErrors(container);
-      btnPrimary.classList.add('btn-preloader')
+      btnPrimary.classList.add('btn-preloader');
       if (emptyValidator([nameInput, valueInput, oldPassInput])) {
         const emailVal = emailValidator(valueInput);
         const twoPassVal = () => twoPassValidation(passInput, passRepeat);
