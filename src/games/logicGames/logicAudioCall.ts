@@ -25,13 +25,13 @@ function unActiveBtn(statusBtn: boolean) {
   });
 }
 
-function getRandomeArr(lenghtArr = 6) {
+function getRandomeArr(numberTrueAnswer: number, lenghtArr = 6) {
   const arr: number[] = [];
 
   while (arr.length < lenghtArr) {
     const randomeNumber = Math.round(Math.random() * (wordsArrayCall.length - 1));
 
-    if (arr.indexOf(randomeNumber) === -1) {
+    if (randomeNumber !== numberTrueAnswer && arr.indexOf(randomeNumber) === -1) {
       arr.push(randomeNumber);
     }
   }
@@ -44,18 +44,20 @@ function renderQuest() {
 
   const numberTrueAnswer = Math.round(Math.random() * 5);
 
-  const randomeArray = getRandomeArr();
+  const randomeArray = getRandomeArr(numberTrueAnswer);
 
   const buttons = document.querySelectorAll('div.audio-call-quest__btn > button');
 
   for (let i = 0; i < buttons.length; i++) {
     if (numberTrueAnswer === i) {
-      (buttons[i] as HTMLButtonElement).innerHTML = //`${i + 1}. ${wordsArrayCall[ind].wordTranslate}`
-      `<span class="audio-call-quest__number"> ${i + 1}</span>
+      (buttons[i] as HTMLButtonElement).innerHTML =
+        //`${i + 1}. ${wordsArrayCall[ind].wordTranslate}`
+        `<span class="audio-call-quest__number"> ${i + 1}</span>
        <span class="audio-call-quest__value">${wordsArrayCall[ind].wordTranslate}</span>`;
     } else {
-      (buttons[i] as HTMLButtonElement).innerHTML = //`${i + 1}. ${wordsArrayCall[randomeArray[i]].wordTranslate}`
-    `<span class="audio-call-quest__number">${i + 1}</span>
+      (buttons[i] as HTMLButtonElement).innerHTML =
+        //`${i + 1}. ${wordsArrayCall[randomeArray[i]].wordTranslate}`
+        `<span class="audio-call-quest__number">${i + 1}</span>
       <span class="audio-call-quest__value">${wordsArrayCall[randomeArray[i]].wordTranslate}</span>`;
     }
   }
@@ -108,9 +110,10 @@ function endGame() {
 }
 
 export function checkAudioCallAnswer(btn: HTMLButtonElement | string) {
-  const button = typeof btn === 'string'
+  const button =
+    typeof btn === 'string'
       ? document.querySelectorAll('.audio-call-quest__value')[+btn - 1]
-      : btn.querySelector('.audio-call-quest__value') as HTMLElement;
+      : (btn.querySelector('.audio-call-quest__value') as HTMLElement);
 
   const title = (button as HTMLElement).innerText.toLowerCase();
   const word = wordsArrayCall[ind];

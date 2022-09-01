@@ -9,9 +9,10 @@ import { setLocation } from '../../routing/routing';
 const { COUNT_GAME_SECTIONS, CLASS_CONTAINER_SPRINT } = constants;
 
 export function renderWindowStartGame(target: HTMLElement | string, classes = 'body') {
+  let withoutDuplication = true;
+
   const container = createElement('div', ['game-container', classes]);
   const btnClose = createElement('div', ['btn-close']);
-  //btnClose.addEventListener('click', () => closeWindow(container));
   btnClose.onclick = () => {
     setLocation('games');
     container.remove();
@@ -24,15 +25,24 @@ export function renderWindowStartGame(target: HTMLElement | string, classes = 'b
   for (let i = 0; i < COUNT_GAME_SECTIONS; i++) {
     const sectionText = `<span class="game-category__section-text">Раздел ${i + 1}</span>`;
     const section = createElement('div', ['game-category__section', `section${i + 1}`], sectionText);
-    section.addEventListener('click', (e) => {
-      const level = +(e.target as HTMLElement).innerText.slice(-1);
+    section.addEventListener(
+      'click',
+      // eslint-disable-next-line @typescript-eslint/no-loop-func
+      (e) => {
+        if (!withoutDuplication) return;
 
-      if (classes === CLASS_CONTAINER_SPRINT) {
-        void startSprint(+level);
-      } else {
-        void startAudioCall(+level);
-      }
-    });
+        withoutDuplication = !withoutDuplication;
+
+        const level = +(e.target as HTMLElement).innerText.slice(-1);
+
+        if (classes === CLASS_CONTAINER_SPRINT) {
+          void startSprint(+level);
+        } else {
+          void startAudioCall(+level);
+        }
+      },
+      { once: true }
+    );
     arraySections.push(section);
   }
 
