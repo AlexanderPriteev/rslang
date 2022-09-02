@@ -1,0 +1,83 @@
+html{
+  font-family: $font-primary;
+  font-weight: $f-normal;
+  color: $text;
+  font-size: 10px;
+  scroll-behavior: smooth;
+  @media (max-width: 1600px) {
+    font-size: 9px;
+  }
+  @media (max-width: 1400px) {
+    font-size: 8px;
+  }
+  @media (max-width: 1200px) {
+    font-size: 7px;
+  }
+  @media (max-width: 991px) {
+    font-size: 6px;
+  }
+  @media (max-width: 840px) {
+    font-size: 5px;
+  }
+
+}
+
+body{
+  background-color: $bg-light;
+  &.dark-theme{
+    background-color: $dt-bg-dark;
+    color: $dt-text;
+  }
+}
+
+.page-wrapper{
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-section{
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  position: relative;
+  box-sizing: border-box;
+  padding-left: $aside-close;
+  transition: padding-left .3s linear;
+
+  &.open{
+    @media (min-width: 768px) {
+      padding-left: $aside-open;
+    }
+    .sidebar{
+      width: $aside-open;
+      @media (max-width: 767px) {
+        width: 32rem;
+      }
+    }
+  }
+}
+
+
+.content-wrapper{
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  box-sizing: border-box;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: $header;
+  background-position: top center;
+  background-size: cover;
+  background-image: $background-main;
+  @media (max-width: 767px) {
+    min-height: calc(100vh - 14rem);
+  }
+}
+
+.dark-theme{
+  .content-wrapper{
+    background-image: $dt-background-main;
+  }
+}

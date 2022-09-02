@@ -1,0 +1,233 @@
+@import "../assets/styles/variables.scss";
+
+.textbook {
+
+  &__img-bg {
+    width: 100%;
+    @media (max-width: 767px){
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__text-container {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    bottom: 2rem;
+    left: 3rem;
+  }
+
+  &__select {
+    min-width: 27.2rem;
+    border: .1rem solid $primary;
+    border-radius: 1rem;
+    padding: 0.25em 0.5em;
+    cursor: pointer;
+    background-color: $white;
+    outline: none;
+    font-family: $font-primary;
+    font-weight: 400;
+    font-size: 1.8rem;
+    line-height: 2.4rem;
+    letter-spacing: -.01em;
+    color: $text;
+    @media (max-width: 767px){
+      min-width: 30rem;
+      font-size: 2.4rem;
+    }
+  }
+
+  &__heading {
+    letter-spacing: 1.5rem;
+    font-weight: $f-bold;
+    font-size: 12.8rem;
+    line-height: 1;
+    color: $white10;
+    @media (max-width: 767px){
+      letter-spacing: .05rem;
+      font-size: 11rem;
+    }
+
+    &-container {
+      position: relative;
+      box-sizing: border-box;
+      border-bottom: .5rem solid $primary;
+      line-height: 0;
+      background-color: $primary;
+      @media (max-width: 767px){
+        height: 36rem;
+        border: none;
+      }
+    }
+  }
+
+  &__chapter {
+    font-size: 6.4rem;
+    line-height: 6.4rem;
+    letter-spacing: .07em;
+    color: $white;
+  }
+
+  &__content-wrapper {
+    max-width: 129.8rem;
+    margin: 8.2rem auto 0 auto;
+    @media (max-width: 767px){
+      margin-top: 0;
+      max-width: 100%;
+    }
+  }
+
+  &__nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $bg-dark;
+    padding: 2.8rem 4rem;
+    box-shadow: $shadow-3;
+    border-radius: .6rem;
+    position: sticky;
+    box-sizing: border-box;
+    top: 8rem;
+    z-index: 5;
+    @media (max-width: 767px){
+      width: 100%;
+      flex-wrap: wrap;
+    }
+    &-wrapper {
+      &:first-child {
+        display: flex;
+        gap: 3.9rem;
+        font-weight: $f-bold;
+        font-size: 2rem;
+        line-height: 2.4rem;
+        color: $text;
+        @media (max-width: 767px) {
+          width: 100%;
+          justify-content: space-between;
+          margin-bottom: 3rem;
+        }
+      }
+    }
+  }
+
+  &__page-changer {
+    display: flex;
+    gap: 1.2rem;
+    align-items: center;
+    justify-content: space-between;
+    @media (max-width: 767px) {
+      gap: 2rem;
+    }
+  }
+
+  &__game {
+    &-list {
+      display: flex;
+      gap: 3.6rem;
+      font-weight: $f-bold;
+      font-size: 2rem;
+      line-height: 2.4rem;
+      &.block{
+        pointer-events: none;
+        opacity: .3;
+        user-select: none;
+      }
+    }
+    &-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1.2rem;
+      color: $text;
+      transition: color .2s linear;
+      &:hover{
+        color: $primary;
+      }
+      @media (max-width: 767px) {
+        font-size: 3rem;
+      }
+    }
+    &-icon {
+      font-size: 3.4rem;
+      @media (max-width: 767px) {
+        font-size: 4.8rem;
+      }
+    }
+  }
+
+  &__word-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    margin-top: 4rem;
+    margin-bottom: 15rem;
+    box-sizing: border-box;
+    align-items: center;
+    @media (max-width: 767px) {
+      overflow: hidden;
+      width: 100%;
+      padding: 0 2rem;
+    }
+  }
+
+  &__current-page{
+    font-size: 2.4rem;
+  }
+  &__page{
+    color: $text;
+    transition: color .2s linear;
+    &:hover{
+      color: $primary;
+    }
+
+    &.block{
+      pointer-events: none;
+      user-select: none;
+      opacity: .3;
+    }
+  }
+
+  &__subtitle{
+    font-size: 3.4rem;
+    letter-spacing: -0.01em;
+    font-weight: $f-bold;
+    color: $green-2;
+    line-height: 1;
+    @media (max-width: 767px) {
+      font-size: 2.6rem;
+      letter-spacing: -0.03em;
+    }
+  }
+}
+.dark-theme{
+  .textbook {
+    &__select {
+      border-color: $primary;
+      background-color: $dt-bg-dark;
+      color:  $dt-primary-light;
+    }
+    &__nav {
+      background-color: $primary-dark;
+      box-shadow: $shadow-5;
+      &-wrapper {
+        color: $dt-primary-light;
+      }
+    }
+    &__game {
+      &-btn {
+        color: $dt-primary-light;
+        &:hover{
+          color: $dt-text;
+        }
+      }
+    }
+    &__page{
+      color: $dt-primary-light;
+      &:hover{
+        color: $dt-text;
+      }
+    }
+
+  }
+}

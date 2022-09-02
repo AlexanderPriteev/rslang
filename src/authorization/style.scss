@@ -1,0 +1,231 @@
+@import "../assets/styles/variables.scss";
+
+.section-authorization {
+  background-image: $background-image;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: grid;
+  flex-grow: 1;
+  place-items: center;
+  box-sizing: border-box;
+  padding: 9.5rem 1.5rem 1.5rem;
+  @media (max-width: 767px) {
+    min-height: calc(100vh - 13rem);
+  }
+}
+
+.auth {
+  &-form {
+    width: 100%;
+    max-width: max(34rem, 280px);
+    box-sizing: border-box;
+    border-radius: 1rem;
+    background-color: $bg-dark;
+    padding: 4rem 2.2rem 5rem;
+    border: .4rem solid $primary;
+
+    &__title {
+      text-align: center;
+      font-size: max(2.8rem, 16px);
+      font-weight: $f-normal;
+      margin-bottom: 3rem;
+      color: $primary;
+      letter-spacing: -.02em;
+    }
+
+    &__wrapper {
+      margin-bottom: 3rem;
+      &:last-child{
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &-input {
+    position: relative;
+    margin-bottom: max(1.5rem, 11px);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &__field {
+      width: 100%;
+      outline: none;
+      box-shadow: none;
+      box-sizing: border-box;
+      border-radius: 1rem;
+      background-color: $white;
+      border: .1rem solid $primary;
+      color: $text;
+      font-size: max(1.4rem, 12px);
+      line-height: 1.15;
+      padding: max(2.2rem, 18px) max(4rem, 28px) max(.8rem, 6px) max(1.4rem, 12px);
+      &[placeholder=" "]:not(:focus):placeholder-shown ~ .auth-input__label{
+        top: max(1.8rem, 15px);
+        font-size: max(1.4rem, 12px);
+      }
+    }
+
+    &__label {
+      pointer-events: none;
+      position: absolute;
+      left: max(1.4rem, 12px);
+      top: 1rem;
+      font-size: max(1.1rem, 9px);
+      line-height: 1;
+      transition: top .15s linear, font-size .15s linear;
+    }
+
+    &__icon {
+      width: max(2.4rem, 16px);
+      height: max(2.4rem, 16px);
+      font-size: max(2.4rem, 16px);
+      color: $primary-light-2;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      right: 1.2rem;
+      top: calc(50% - 1.2rem);
+      cursor: pointer;
+      transition: color .2s linear;
+      pointer-events: none;
+
+      &:hover {
+        color: $primary;
+      }
+
+      &.active {
+        pointer-events: auto;
+      }
+    }
+
+    &__error{
+      display: inline-block;
+      font-size: max(1rem, 8px);
+      line-height: 1;
+      color: $red;
+      position: absolute;
+      right: 0;
+      top: -9px;
+    }
+    &.error{
+      .auth-input{
+        &__field{
+          border-color: $red;
+        }
+        &__label{
+          color: $red;
+        }
+        &__icon{
+          color: $red-light;
+          &:hover{
+            color: $red;
+          }
+        }
+      }
+    }
+  }
+
+  &-btn{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    min-height: max(3.8rem, 32px);
+    margin-bottom: 1.5rem;
+    border: .1rem solid $primary;
+    border-radius: 1rem;
+    background-color: $primary;
+    color: $white;
+    cursor: pointer;
+    outline: none;
+    font-size: max(1.5rem, 11px);
+    text-transform: uppercase;
+    letter-spacing: .02em;
+    transition: border-color .25s linear, background-color .25s linear, color .25s linear;
+    &:hover{
+      border-color: $primary-dark;
+      background-color: $primary-dark;
+    }
+    &:last-child{
+      margin-bottom: 0;
+    }
+    &--outline{
+      background-color: transparent;
+      color: $primary;
+      &:hover{
+        border-color: $primary-dark;
+        background-color: rgba($primary, .3);
+        color: $primary-dark;
+      }
+    }
+  }
+  &-link{
+    font-size: max(1.3rem, 10px);
+    display: inline-block;
+    cursor: pointer;
+    transition: color .25s linear;
+    &:hover{
+      color: $primary;
+    }
+
+    &-wrapper{
+      text-align: center;
+    }
+  }
+}
+
+.dark-theme{
+  .section-authorization {
+    background-image: $dt-background-image;
+  }
+  .auth {
+    &-form {
+      background-color: $dt-primary;
+      border-color: $dt-primary-light;
+      &__title {
+        color: $dt-primary-light;
+      }
+    }
+    &-input {
+      &__field {
+        background-color: $dt-bg-dark;
+        border-color:$dt-bg-dark;
+        color: $dt-text;
+      }
+      &__icon {
+        color: $dt-primary;
+        &:hover {
+          color:$primary;
+        }
+      }
+    }
+    &-btn{
+      border-color: $dt-primary-light;
+      background-color: $dt-primary-light;
+      color: $dt-bg-dark;
+      &:hover{
+        border-color: $primary;
+        background-color: $primary;
+      }
+      &--outline{
+        color: $dt-primary-light;
+        background-color: transparent;
+        &:hover{
+          border-color: $primary;
+          background-color: rgba($primary-light, .05);
+          color: $primary;
+        }
+      }
+    }
+    &-link{
+      &:hover{
+        color: $primary;
+      }
+    }
+  }
+}

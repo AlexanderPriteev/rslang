@@ -1,0 +1,14 @@
+@import "assets/styles/normalize";
+@import "assets/styles/variables";
+@import "assets/styles/fonts";
+@import "assets/styles/font-icons";
+@import "assets/styles/scroll";
+@import "assets/styles/grid";
+
+@import "page/header/header";
+@import "page/header/theme-switch";
+@import "page/footer/footer";
+@import "page/sidebar/sidebar";
+@import "page/page";
+
+@import "page/main/main-page";

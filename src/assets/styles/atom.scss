@@ -1,0 +1,24 @@
+@import "./variables.scss";
+
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+.center{
+  text-align: center;
+}
+
+b{
+  font-weight: 500;
+}
+
+.mb-5{
+  margin-bottom: 5rem;
+}
+
+.normal{
+  font-weight: 400;
+}
