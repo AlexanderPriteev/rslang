@@ -56,7 +56,6 @@ function endGame() {
 }
 
 function createTimer() {
-  //при закрытии окна остановить таймер
   let timer = 60;
   timerId = setTimeout(() => {
     endGame();
@@ -75,15 +74,14 @@ function createTimer() {
 
 function unActiveBtn(statusBtn: boolean) {
   const btnArray = document.querySelectorAll('div.sprint-quest__btn > *');
-  (btnArray[0] as HTMLButtonElement).disabled = statusBtn ? false : true;
-  (btnArray[1] as HTMLButtonElement).disabled = statusBtn ? false : true;
+
+  if (btnArray[0] && btnArray[1]) {
+    (btnArray[0] as HTMLButtonElement).disabled = statusBtn ? false : true;
+    (btnArray[1] as HTMLButtonElement).disabled = statusBtn ? false : true;
+  }
 }
 
 function writeQuest() {
-  if (index >= wordsArray.length) {
-    endGame();
-  }
-
   const wordEn: HTMLElement | null = document.querySelector('div.sprint-quest__en');
   const wordRu: HTMLElement | null = document.querySelector('div.sprint-quest__rus');
 
@@ -103,7 +101,7 @@ function writeQuest() {
   if (checkSoundOff()) void new Audio(`${SERVER}${wordsArray[index].audio}`).play();
 }
 
-function resetSettings() {
+export function resetSettings() {
   index = 0;
   wordsArray = [];
   resultsGameSprint.length = 0;
@@ -212,7 +210,12 @@ function checkAnswer(answer: boolean) {
   }
 
   index++;
-  setTimeout(() => writeQuest(), 1000);
+
+  if (index < wordsArray.length) {
+    setTimeout(() => writeQuest(), 1000);
+  } else {
+    endGame();
+  }
 }
 
 export function completeTableWinners(target: HTMLElement, resultsSprint: SprintResult[]) {

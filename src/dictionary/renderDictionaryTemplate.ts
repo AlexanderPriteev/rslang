@@ -3,6 +3,7 @@ import './dictionary.scss';
 import { setLocation } from '../routing/routing';
 
 import { searchPathDictionary } from './filterLogic';
+import { startGameFromDictionary } from '../textbook/startGame';
 
 const heroImage = './assets/images/dictionary-bg.jpg';
 
@@ -94,8 +95,8 @@ const renderDictionaryTemplate = (root: string) => {
   });
   const sprint = mainContentWrapper.querySelector('#sprint') as HTMLFormElement;
   const audioCall = mainContentWrapper.querySelector('#audioCall') as HTMLFormElement;
-  sprint.onclick = () => setLocation('sprint');
-  audioCall.onclick = () => setLocation('audio-call');
+  sprint.onclick = () => startGameFromDictionary(true);
+  audioCall.onclick = () => startGameFromDictionary(false);
 
   const wordList = createElement('div', ['dictionary__word-list']);
   mainContentWrapper.appendChild(wordList);

@@ -43,7 +43,7 @@ const dictionaryCategory = [
 ];
 
 let totalCountOfPages: number;
-let currentContent: WordInterface[];
+export let currentContent: WordInterface[];
 
 export const searchPathDictionary = (): DictionarySessionInterface => {
   const search = window.location.href.replace(/^.*\?|$/, '').split('&').map((e) => e.replace(/.*=/, ''));
