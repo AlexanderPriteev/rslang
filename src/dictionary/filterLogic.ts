@@ -6,11 +6,6 @@ import { UserWordInterface, WordInterface } from '../types/wordInterface';
 import { blockPageLink, learnedPage } from '../textbook/pageSwitcher';
 import { DictionarySessionInterface } from '../types/sessionStorage';
 
-// const initPage = async (listOfWords: WordInterface[]) => {
-//   const sorted = listOfWords.filter((item) => item.word[0].toLowerCase() === 'a');
-//   renderWordList(sorted, userWord, '.dictionary__word-list');
-// };
-
 const dictionaryCategory = [
   'all',
   'a',
@@ -160,7 +155,6 @@ const filterLogic = async () => {
   const page = searchPathDictionary().page;
   addListeners(listOfWords);
   contentFilter(listOfWords, category, page);
-  //(document.querySelector('.alphabet-active') as NonNullable<HTMLButtonElement>).click();
 };
 
 export default filterLogic;
