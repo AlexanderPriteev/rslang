@@ -74,5 +74,8 @@ export function optionsForm(container: HTMLFormElement) {
     btnSecondary.onclick = () => setLocation();
     container.append(h2, inputName, inputWrapper, inputWrapper2, btnWrapper);
   }
-  else setLocation('index');
+  else {
+    setLocation('index');
+    window.location.reload();
+  }
 }
