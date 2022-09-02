@@ -4,4 +4,3 @@
 ## Kirill Kolupaev
 ## Yury Lapitski
 ## Alexander Priteev
-
