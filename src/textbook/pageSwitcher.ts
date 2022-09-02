@@ -57,7 +57,7 @@ export const learnedPage = () => {
   const gameListSelector = isDictionary ? '.dictionary__game-list' : '.textbook__game-list';
   const gameList = document.querySelector(gameListSelector) as HTMLElement;
   const subtitle = document.querySelector('.textbook__subtitle') as HTMLElement;
-  if (countLearned.length === countPages.length) {
+  if (countLearned.length === countPages.length && !isDictionary) {
     if (!gameList.classList.contains('block')) gameList.classList.add('block');
   } else {
     if (gameList.classList.contains('block')) gameList.classList.remove('block');

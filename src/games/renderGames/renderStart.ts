@@ -10,8 +10,8 @@ const { COUNT_GAME_SECTIONS, CLASS_CONTAINER_SPRINT } = constants;
 
 const tooltipGame = () => {
   const text = `<ul class="tooltip__list">
-      <li class="tooltip__item">В игре участвую все слова.</li>
-      <li class="tooltip__item">В случае запустите игры со страниц "Учебник" и "Словарь" будут убраны выученные слова.</li>
+      <li class="tooltip__item">В игре участвуют все слова.</li>
+      <li class="tooltip__item">В случае запуска игры со страниц учебника будут убраны изученные слова.</li>
       <li class="tooltip__item">Слово будет отправлено в изученное при серии из 3 (для сложных 5) правильных ответов.</li>
       <li class="tooltip__item">При ошибке серия правильных ответов обнуляется, а изученные слова переходят в обычные.</li>
     </ul>`;
