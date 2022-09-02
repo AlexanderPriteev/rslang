@@ -7,18 +7,13 @@ import { clearUserStore, getStore } from '../storage';
 
 const textbook = () => {
   const user = getStore();
+    renderTextbookTemplate('.content-wrapper');
   if (user)
     void requestMethods()
       .getAllUserWords(user.id, user.token)
-      .then(() => {
-        renderTextbookTemplate('.content-wrapper');
-        pageSwitcher();
-      })
+      .then(pageSwitcher)
       .catch(clearUserStore);
-  else {
-    renderTextbookTemplate('.content-wrapper');
-    pageSwitcher();
-  }
+  else pageSwitcher();
 };
 
 export default textbook;

@@ -8,10 +8,24 @@ import { startAudioCall } from '../logicGames/logicAudioCall';
 import { setLocation } from '../../routing/routing';
 const { COUNT_GAME_SECTIONS, CLASS_CONTAINER_SPRINT } = constants;
 
+const tooltipGame = () => {
+  const text = `<ul class="tooltip__list">
+      <li class="tooltip__item">В игре участвуют все слова.</li>
+      <li class="tooltip__item">В случае запуска игры со страниц учебника будут убраны изученные слова.</li>
+      <li class="tooltip__item">Слово будет отправлено в изученное при серии из 3 (для сложных 5) правильных ответов.</li>
+      <li class="tooltip__item">При ошибке серия правильных ответов обнуляется, а изученные слова переходят в обычные.</li>
+    </ul>`;
+  const icon = createElement('i', ['tooltip__icon', 'icon-info']);
+  const tooltip = createElement('div', ['tooltip'], text);
+  tooltip.prepend(icon);
+  return tooltip;
+};
+
 export function renderWindowStartGame(target: HTMLElement | string, classes = 'body') {
+  let withoutDuplication = true;
+
   const container = createElement('div', ['game-container', classes]);
   const btnClose = createElement('div', ['btn-close']);
-  //btnClose.addEventListener('click', () => closeWindow(container));
   btnClose.onclick = () => {
     setLocation('games');
     container.remove();
@@ -19,20 +33,29 @@ export function renderWindowStartGame(target: HTMLElement | string, classes = 'b
 
   const categoryContainer = createElement('div', ['game-category']);
   const text = createElement('span', ['game-category__text'], 'Выберите категорию:');
-
+  categoryContainer.append(tooltipGame());
   const arraySections: HTMLElement[] = [];
   for (let i = 0; i < COUNT_GAME_SECTIONS; i++) {
     const sectionText = `<span class="game-category__section-text">Раздел ${i + 1}</span>`;
     const section = createElement('div', ['game-category__section', `section${i + 1}`], sectionText);
-    section.addEventListener('click', (e) => {
-      const level = +(e.target as HTMLElement).innerText.slice(-1);
+    section.addEventListener(
+      'click',
+      // eslint-disable-next-line @typescript-eslint/no-loop-func
+      (e) => {
+        if (!withoutDuplication) return;
 
-      if (classes === CLASS_CONTAINER_SPRINT) {
-        void startSprint(+level);
-      } else {
-        void startAudioCall(+level);
-      }
-    });
+        withoutDuplication = !withoutDuplication;
+
+        const level = +(e.target as HTMLElement).innerText.slice(-1);
+
+        if (classes === CLASS_CONTAINER_SPRINT) {
+          void startSprint(+level);
+        } else {
+          void startAudioCall(+level);
+        }
+      },
+      { once: true }
+    );
     arraySections.push(section);
   }
 

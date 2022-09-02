@@ -91,6 +91,9 @@
       font-size: 9.2rem;
     }
   }
+  &-md{
+    font-size: 4.4rem;
+  }
   &-chart{
     font-size: 3.6rem;
   }
@@ -109,4 +112,13 @@
       color: $dt-text
     }
   }
+}
+
+.blocked{
+  pointer-events: none;
+  user-select: none;
+  opacity: .5;
+}
+.locked{
+  pointer-events: none;
 }

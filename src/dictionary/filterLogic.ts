@@ -3,13 +3,9 @@ import renderWordList from '../textbook/renderWordList';
 import requestMethods from '../services/requestMethods';
 import { getStore } from '../storage';
 import { UserWordInterface, WordInterface } from '../types/wordInterface';
-import { blockPageLink } from '../textbook/pageSwitcher';
+import { blockPageLink, learnedPage } from '../textbook/pageSwitcher';
 import { DictionarySessionInterface } from '../types/sessionStorage';
-
-// const initPage = async (listOfWords: WordInterface[]) => {
-//   const sorted = listOfWords.filter((item) => item.word[0].toLowerCase() === 'a');
-//   renderWordList(sorted, userWord, '.dictionary__word-list');
-// };
+import {currentRout} from "../routing/routing";
 
 const dictionaryCategory = [
   'all',
@@ -42,10 +38,10 @@ const dictionaryCategory = [
 ];
 
 let totalCountOfPages: number;
-let currentContent: WordInterface[];
+export let currentContent: WordInterface[];
 
 export const searchPathDictionary = (): DictionarySessionInterface => {
-  const search = window.location.search.split('&').map((e) => e.replace(/.*=/, ''));
+  const search = window.location.href.replace(/^.*\?|$/, '').split('&').map((e) => e.replace(/.*=/, ''));
   if (search.length) {
     if (dictionaryCategory.some((e) => e === search[0])) {
       if (search.length === 1) return { chapter: search[0], page: 0 };
@@ -66,11 +62,12 @@ const getNewContent = async (content: WordInterface[], chapter: string, currentP
     userWords = (await requestMethods().getAllUserWords(user.id, user.token)) as UserWordInterface[];
   }
   const searchPath = `?chapter=${chapter.toLowerCase()}&page=${currentPage + 1}`;
-  const path = window.location.pathname;
+  const path = currentRout();
   window.history.pushState(null, '', `${path}${searchPath}`);
 
   pageNumber.innerHTML = `${currentPage + 1}`;
   renderWordList(content.slice(currentPage * 20, (currentPage + 1) * 20), userWords, '.dictionary__word-list');
+  learnedPage();
 };
 
 const contentFilter = (listOfWords: WordInterface[], chapter: string, currentPage: number) => {
@@ -91,7 +88,7 @@ const contentFilter = (listOfWords: WordInterface[], chapter: string, currentPag
   totalCountOfPages = Math.floor((filteredWords.length - 1) / 20);
   blockPageLink(currentPage, 'dictionary', totalCountOfPages);
   currentContent = filteredWords;
-  void getNewContent(currentContent, chapter, currentPage);
+  void getNewContent(currentContent, chapter, currentPage).finally(learnedPage);
 };
 
 const addListeners = (listOfWords: WordInterface[]) => {
@@ -110,7 +107,7 @@ const addListeners = (listOfWords: WordInterface[]) => {
 
   searchBtn.addEventListener('click', () => {
     const filteredWords = listOfWords.filter(
-      (item) => item.word.toLowerCase().indexOf(searchInput.value.toLowerCase()) !== -1
+        (item) => item.word.toLowerCase().indexOf(searchInput.value.toLowerCase()) !== -1
     );
     alphabetBtns.forEach((btn) => btn.classList.remove('alphabet-active'));
     searchInput.value = '';
@@ -159,7 +156,6 @@ const filterLogic = async () => {
   const page = searchPathDictionary().page;
   addListeners(listOfWords);
   contentFilter(listOfWords, category, page);
-  //(document.querySelector('.alphabet-active') as NonNullable<HTMLButtonElement>).click();
 };
 
 export default filterLogic;

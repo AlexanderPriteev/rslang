@@ -128,6 +128,11 @@
       font-weight: $f-bold;
       font-size: 2rem;
       line-height: 2.4rem;
+      &.block{
+        pointer-events: none;
+        opacity: .3;
+        user-select: none;
+      }
     }
     &-btn {
       display: flex;
@@ -178,21 +183,20 @@
 
     &.block{
       pointer-events: none;
-      color: $primary;
-      opacity: .5;
+      user-select: none;
+      opacity: .3;
     }
   }
 
   &__subtitle{
-    font-size: 3.6rem;
-    letter-spacing: -.03em;
+    font-size: 3.4rem;
+    letter-spacing: -0.01em;
     font-weight: $f-bold;
     color: $green-2;
-    margin-bottom: 0.8rem;
     line-height: 1;
     @media (max-width: 767px) {
-      font-size: 2.8rem;
-      margin-bottom: 0.8rem;
+      font-size: 2.6rem;
+      letter-spacing: -0.03em;
     }
   }
 }
@@ -222,9 +226,6 @@
       color: $dt-primary-light;
       &:hover{
         color: $dt-text;
-      }
-      &.block{
-        color: $dt-primary-dark;
       }
     }
 

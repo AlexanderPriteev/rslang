@@ -4,15 +4,14 @@ import { devs } from '../about/about-const';
 import { setLocation } from '../../routing/routing';
 import { getStore } from '../../storage';
 
-//пока заглушка
-// const youtubeIframe = `<iframe class="img img--contain"
-//                                     src="https://www.youtube.com/embed/3bPL6YNZGOQ"
-//                                     title="YouTube video player"
-//                                     frameborder="0"
-//                                     allow="accelerometer; autoplay; clipboard-write;
-//                                            encrypted-media; gyroscope; picture-in-picture"
-//                                     allowfullscreen></iframe>`;
-const youtubeIframe = `<img src="./assets/images/tmp-youtube-image.jpg" alt="" class="img img--contain">`;
+const youtubeIframe = `<iframe class="img img--contain"
+                                    src="https://www.youtube.com/embed/WTrjZSrn2Gs"
+                                    title="YouTube video player"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write;
+                                           encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen></iframe>`;
+
 
 function mainResources() {
   const resources = createElement('section', ['main-resources']);
@@ -44,7 +43,13 @@ function mainAbout() {
                                 <img src="${e.image}" alt="" class="img img--cover">
                               </div>
                               <div class="main-card__data">
-                                <h3 class="main-card__title">${e.nameRu || e.name}</h3>
+                                <a target="_blank" 
+                                   href="${e.link}"
+                                   class="main-card__title">
+                                  <i class="icon-github  main-card__icon"></i> 
+                                  ${e.nameRu || e.name}
+                                
+                                </a>
                                 <p class="main-card__about">${e.about || 'Что-то сделал...'}</p>
                              </div>`;
     const card = createElement('div', ['main-card'], cardTemplate);

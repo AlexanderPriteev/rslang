@@ -1,3 +1,4 @@
+import { currentContent } from '../dictionary/filterLogic';
 import { startAudioCall } from '../games/logicGames/logicAudioCall';
 import { getWordsByCategory, startSprint } from '../games/logicGames/logicSprint';
 import { setLocation } from '../routing/routing';
@@ -12,7 +13,6 @@ async function getIdLearnedWords() {
 
   if (user) {
     const userWord = (await requestMethods().getAllUserWords(user.id, user.token)) as UserWordInterface[];
-    //TODO: сделать логику при протухшем токене
 
     const arr: string[] = [];
     for (let i = 0; i < userWord.length; i++) {
@@ -45,6 +45,10 @@ async function startGame(sprintOrAudioCall: boolean) {
   const level = levelStr.slice(-1);
   const page = (document.querySelector('span.textbook__current-page') as HTMLElement).innerText;
 
+  setLocation(sprintOrAudioCall ? 'sprint' : 'audio-call');
+  const container = document.querySelector('.game-container') as HTMLElement;
+  if (!container.classList.contains('game-preloader')) container.classList.add('game-preloader');
+
   const words = await getWordsForGame(+level, +page);
   const wordsFromEnd = words.reverse();
 
@@ -60,11 +64,21 @@ export function addListenerForStartGame() {
 
   btnGameBook[0].addEventListener('click', () => {
     void startGame(false);
-    setLocation('audio-call');
   });
 
   btnGameBook[1].addEventListener('click', () => {
     void startGame(true);
-    setLocation('sprint');
   });
+}
+
+export async function startGameFromDictionary(sprintOrAudioCall: boolean) {
+  if (currentContent.length < 1) return;
+
+  if (sprintOrAudioCall) {
+    setLocation('sprint');
+    await startSprint(currentContent);
+  } else {
+    setLocation('audio-call');
+    await startAudioCall(currentContent);
+  }
 }

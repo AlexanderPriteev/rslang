@@ -64,6 +64,12 @@ const baseConfig = {
             patterns: [
                 {
                     from: path.resolve(__dirname, 'src', 'assets'),
+                    globOptions: {
+                        ignore: [
+                            '**/styles/**/*',
+                            '**/fonts/**/*',
+                        ]
+                    },
                     to: path.resolve(__dirname, 'dist', 'assets'),
                     noErrorOnMissing: true
                 },

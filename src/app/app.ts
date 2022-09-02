@@ -1,13 +1,14 @@
 import '../styles.scss';
-import { routing } from '../routing/routing';
+import {currentRout, routing} from '../routing/routing';
 
 //должны быть последними
+import '../assets/styles/preloader.scss';
 import '../assets/styles/atom.scss';
 
 const app = () => {
+  window.onhashchange = () => window.location.reload();
   if (localStorage.getItem('isDarkTheme')) document.body.classList.add('dark-theme');
-  const pathname = window.location.pathname;
-  routing(pathname);
+  routing(currentRout());
 };
 
 export default app;

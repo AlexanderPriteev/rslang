@@ -56,7 +56,6 @@ function endGame() {
 }
 
 function createTimer() {
-  //при закрытии окна остановить таймер
   let timer = 60;
   timerId = setTimeout(() => {
     endGame();
@@ -75,15 +74,14 @@ function createTimer() {
 
 function unActiveBtn(statusBtn: boolean) {
   const btnArray = document.querySelectorAll('div.sprint-quest__btn > *');
-  (btnArray[0] as HTMLButtonElement).disabled = statusBtn ? false : true;
-  (btnArray[1] as HTMLButtonElement).disabled = statusBtn ? false : true;
+
+  if (btnArray[0] && btnArray[1]) {
+    (btnArray[0] as HTMLButtonElement).disabled = statusBtn ? false : true;
+    (btnArray[1] as HTMLButtonElement).disabled = statusBtn ? false : true;
+  }
 }
 
 function writeQuest() {
-  if (index >= wordsArray.length) {
-    endGame();
-  }
-
   const wordEn: HTMLElement | null = document.querySelector('div.sprint-quest__en');
   const wordRu: HTMLElement | null = document.querySelector('div.sprint-quest__rus');
 
@@ -103,7 +101,7 @@ function writeQuest() {
   if (checkSoundOff()) void new Audio(`${SERVER}${wordsArray[index].audio}`).play();
 }
 
-function resetSettings() {
+export function resetSettings() {
   index = 0;
   wordsArray = [];
   resultsGameSprint.length = 0;
@@ -116,6 +114,8 @@ function resetSettings() {
 
 //старт игры
 export async function startSprint(levelOrWords: number | WordInterface[]) {
+  const container = document.querySelector('.game-container') as HTMLElement;
+  if (!container.classList.contains('game-preloader')) container.classList.add('game-preloader');
   resetSettings();
 
   wordsArray = typeof levelOrWords === 'number' ? await getWordsByCategory(levelOrWords) : levelOrWords;
@@ -125,8 +125,8 @@ export async function startSprint(levelOrWords: number | WordInterface[]) {
 
   writeQuest();
 
-  const container = document.querySelector('div.game-container');
-  container?.remove();
+  container.classList.add('hidden');
+  container.classList.remove('game-preloader');
 }
 
 function checkGameStorage(answer: boolean) {
@@ -210,7 +210,12 @@ function checkAnswer(answer: boolean) {
   }
 
   index++;
-  setTimeout(() => writeQuest(), 1000);
+
+  if (index < wordsArray.length) {
+    setTimeout(() => writeQuest(), 1000);
+  } else {
+    endGame();
+  }
 }
 
 export function completeTableWinners(target: HTMLElement, resultsSprint: SprintResult[]) {
