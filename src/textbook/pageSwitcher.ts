@@ -5,7 +5,7 @@ import { UserWordInterface, WordInterface } from '../types/wordInterface';
 import renderWordList from './renderWordList';
 import createElement from '../helpers/createElement';
 import { addListenerForStartGame } from './startGame';
-import {currentRout} from "../routing/routing";
+import { currentRout } from '../routing/routing';
 
 const request = requestMethods();
 const chapterBackground = [
@@ -19,7 +19,10 @@ const chapterBackground = [
 ];
 
 export const searchPathBook = (): TextbookSessionInterface => {
-  const search = window.location.href.replace(/^.*\?|$/, '').split('&').map((e) => +e.replace(/.*=/, ''));
+  const search = window.location.href
+    .replace(/^.*\?|$/, '')
+    .split('&')
+    .map((e) => +e.replace(/.*=/, ''));
   if (!search[0] || (search[0] === 7 && !getStore())) {
     return { chapter: 0, page: 0 };
   } else if (search.length === 1) {
@@ -37,6 +40,7 @@ export const blockPageLink = (value: number, select = 'textbook', lastPage = 29)
   [toFirstBtn, toPrevBtn, toLastBtn, toNextBtn].forEach((e) => {
     if (e.classList.contains('block')) e.classList.remove('block');
   });
+
   if (!value) {
     toFirstBtn.classList.add('block');
     toPrevBtn.classList.add('block');
@@ -57,6 +61,7 @@ export const learnedPage = () => {
   const gameListSelector = isDictionary ? '.dictionary__game-list' : '.textbook__game-list';
   const gameList = document.querySelector(gameListSelector) as HTMLElement;
   const subtitle = document.querySelector('.textbook__subtitle') as HTMLElement;
+
   if (countLearned.length === countPages.length && !isDictionary) {
     if (!gameList.classList.contains('block')) gameList.classList.add('block');
   } else {
@@ -91,14 +96,14 @@ const getNewContent = async () => {
   if (chapter === 6) {
     document.querySelector('.textbook__page-changer')?.classList.add('hide');
     const complicatedWords = userWords
-        .filter((item) => item.difficulty === 'complicated')
-        .map((item) => {
-          const complicatedWord = request.getWordById(item.wordId);
-          return complicatedWord;
-        });
+      .filter((item) => item.difficulty === 'complicated')
+      .map((item) => {
+        const complicatedWord = request.getWordById(item.wordId);
+        return complicatedWord;
+      });
     const complicatedWordsDataAwait = Promise.all(complicatedWords);
     void complicatedWordsDataAwait.then((data) =>
-        renderWordList(data as WordInterface[], userWords, '.textbook__word-list')
+      renderWordList(data as WordInterface[], userWords, '.textbook__word-list')
     );
     return;
   }

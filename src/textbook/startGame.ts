@@ -8,18 +8,20 @@ import { User } from '../types/User';
 import { UserWordInterface, WordInterface } from '../types/wordInterface';
 
 //получение ID слов 'learned'
-async function getIdLearnedWords() {
+async function getIdLearnedWords(learnedOrHard: boolean) {
   const user: User | undefined = getStore();
 
   if (user) {
     const userWord = (await requestMethods().getAllUserWords(user.id, user.token)) as UserWordInterface[];
 
     const arr: string[] = [];
+    const arrHard = [];
     for (let i = 0; i < userWord.length; i++) {
       if (userWord[i].difficulty === 'learned') arr.push(userWord[i].wordId);
+      if (userWord[i].difficulty === 'complicated') arrHard.push(userWord[i].wordId);
     }
 
-    return arr;
+    return learnedOrHard ? arr : arrHard;
   }
 
   return;
@@ -28,7 +30,7 @@ async function getIdLearnedWords() {
 async function getWordsForGame(level: number, page: number) {
   const words = await getWordsByCategory(level, page);
 
-  const wordsUserId = await getIdLearnedWords();
+  const wordsUserId = await getIdLearnedWords(true);
 
   if (wordsUserId && wordsUserId.length > 0) {
     return words.filter((word: WordInterface) => {
@@ -40,17 +42,35 @@ async function getWordsForGame(level: number, page: number) {
   }
 }
 
+async function getHardWords() {
+  const userWords = await getIdLearnedWords(false);
+
+  const complicatedWords = userWords?.map((id) => {
+    const complicatedWord = requestMethods().getWordById(id);
+    return complicatedWord;
+  });
+
+  return complicatedWords ? Promise.all(complicatedWords) : undefined;
+}
+
 async function startGame(sprintOrAudioCall: boolean) {
   const levelStr = (document.querySelector('select.textbook__select') as HTMLSelectElement).value;
-  const level = levelStr.slice(-1);
-  const page = (document.querySelector('span.textbook__current-page') as HTMLElement).innerText;
+  let wordsFromEnd: WordInterface[];
+
+  if (levelStr === 'Сложные слова') {
+    const hardWords = await getHardWords();
+    wordsFromEnd = hardWords as WordInterface[];
+  } else {
+    const level = levelStr.slice(-1);
+    const page = (document.querySelector('span.textbook__current-page') as HTMLElement).innerText;
+
+    const words = await getWordsForGame(+level, +page);
+    wordsFromEnd = words.reverse();
+  }
 
   setLocation(sprintOrAudioCall ? 'sprint' : 'audio-call');
   const container = document.querySelector('.game-container') as HTMLElement;
   if (!container.classList.contains('game-preloader')) container.classList.add('game-preloader');
-
-  const words = await getWordsForGame(+level, +page);
-  const wordsFromEnd = words.reverse();
 
   if (sprintOrAudioCall) {
     await startSprint(wordsFromEnd);
