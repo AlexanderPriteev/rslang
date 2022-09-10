@@ -80,13 +80,15 @@ async function startGame(sprintOrAudioCall: boolean) {
 }
 
 export function addListenerForStartGame() {
-  const btnGameBook = document.querySelectorAll('div.textbook__game-list > *');
+  const btnGameBook:NodeListOf<HTMLElement> = document.querySelectorAll('div.textbook__game-list > *');
 
   btnGameBook[0].addEventListener('click', () => {
+    btnGameBook[0].parentElement?.classList.add('block')
     void startGame(false);
   });
 
   btnGameBook[1].addEventListener('click', () => {
+    btnGameBook[1].parentElement?.classList.add('block')
     void startGame(true);
   });
 
