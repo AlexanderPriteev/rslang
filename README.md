@@ -32,7 +32,7 @@ https://github.com/rolling-scopes-school/react-rslang-be
 - Webpack
 - Typescript
 
-####Additional:
+#### Additional:
 - [Apexcharts.js](https://apexcharts.com/) - construction  diagrams
  - [ESlint](https://eslint.org/)
  - [Prettier](https://prettier.io/)
