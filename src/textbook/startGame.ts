@@ -89,6 +89,13 @@ export function addListenerForStartGame() {
   btnGameBook[1].addEventListener('click', () => {
     void startGame(true);
   });
+
+  const selectTextbook = document.querySelector('select.textbook__select') as HTMLSelectElement;
+  selectTextbook?.addEventListener('change', (event) => {
+    if (selectTextbook.value === 'Сложные слова') {
+      document.querySelector('div.textbook__game-list')?.classList.remove('block');
+    }
+  });
 }
 
 export async function startGameFromDictionary(sprintOrAudioCall: boolean) {
