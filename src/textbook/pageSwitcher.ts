@@ -6,6 +6,7 @@ import renderWordList from './renderWordList';
 import createElement from '../helpers/createElement';
 import { addListenerForStartGame } from './startGame';
 import { currentRout } from '../routing/routing';
+import {audio} from "./createWordElement";
 
 const request = requestMethods();
 const chapterBackground = [
@@ -120,6 +121,8 @@ const updatePageContent = (chapter: number, page: number, blocked?: boolean) => 
   const pageNumber = document.querySelector('.textbook__current-page') as NonNullable<HTMLElement>;
   const chapterNumber = document.querySelector('.textbook__chapter') as NonNullable<HTMLElement>;
   const chapterSelects = document.querySelectorAll('.textbook__select-option');
+
+  audio?.pause();
   (chapterSelects[chapter] as HTMLOptionElement).selected = true;
 
   const searchPath = `?chapter=${chapter + 1}&page=${page + 1}`;
