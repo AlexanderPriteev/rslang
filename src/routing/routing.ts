@@ -8,14 +8,14 @@ import { openAuth } from '../page/header/header-auth';
 import { notFoundRender } from '../page/page-not-found/not-found';
 import { getStore } from '../storage';
 import dictionary from '../dictionary/dictionary';
+import { audio } from '../textbook/createWordElement';
 
-export const currentRout = () => window.location.href.replace(/^.*[\/#\/]|$/, '/#/').replace(/\?.*/, '')
+export const currentRout = () => window.location.href.replace(/^.*[\/#\/]|$/, '/#/').replace(/\?.*/, '');
 
 export function routing(rout: string) {
-  const indexPage = ['', '/#/about', '/', 'index', '/index', '/#/', '/#/index', '/#/index.html']
-  const currentRout = rout.replace('/#/','')
+  const indexPage = ['', '/#/about', '/', 'index', '/index', '/#/', '/#/index', '/#/index.html'];
+  const currentRout = rout.replace('/#/', '');
   switch (currentRout) {
-
     case 'book':
       pageRender(textbook, 'book');
       break;
@@ -46,17 +46,17 @@ export function routing(rout: string) {
       break;
 
     default:
-      if(indexPage.some((e) => e === rout)) pageRender(mainPage, 'index');
+      if (indexPage.some((e) => e === rout)) pageRender(mainPage, 'index');
       else notFoundRender();
   }
 }
 
 export function setLocation(rout = '', options?: string) {
-
   try {
     window.history.pushState(null, '', `/#/${rout}${options || ''}`);
-    if (options) routing(`${rout}`);
-    else routing(`${rout}`);
+    audio?.pause();
+
+    routing(`${rout}`);
   } catch (e) {
     console.log('Ваш браузер не поддерживает данный функционал');
   }
