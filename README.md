@@ -38,5 +38,8 @@ https://github.com/rolling-scopes-school/react-rslang-be
  - [Prettier](https://prettier.io/)
  - [Sass](https://sass-lang.com)
  
+-------------------------
+ #### RACI
+ ![RACI](https://user-images.githubusercontent.com/101504196/189897430-80fcfb10-d4e4-4049-9290-962bde91108d.jpg)
 
 
