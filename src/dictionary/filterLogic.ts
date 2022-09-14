@@ -6,6 +6,7 @@ import { UserWordInterface, WordInterface } from '../types/wordInterface';
 import { blockPageLink, learnedPage } from '../textbook/pageSwitcher';
 import { DictionarySessionInterface } from '../types/sessionStorage';
 import {currentRout} from "../routing/routing";
+import {audio} from "../textbook/createWordElement";
 
 const dictionaryCategory = [
   'all',
@@ -55,6 +56,8 @@ export const searchPathDictionary = (): DictionarySessionInterface => {
 const getNewContent = async (content: WordInterface[], chapter: string, currentPage: number) => {
   const pageNumber = document.querySelector('.dictionary__current-page') as NonNullable<HTMLElement>;
   const user = getStore();
+
+  audio?.pause();
   let userWords: UserWordInterface[];
   if (!user) {
     userWords = [];

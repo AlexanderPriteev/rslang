@@ -9,7 +9,7 @@ import { UserWordOptions } from '../types/UserWordOptions';
 
 const request = requestMethods();
 const { SERVER } = constants;
-let audio: HTMLAudioElement = new Audio();
+export let audio: HTMLAudioElement = new Audio();
 
 export const newWordEmpty: UserWordOptions = {
   count: 0,
